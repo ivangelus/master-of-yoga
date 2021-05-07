@@ -1,0 +1,36 @@
+{
+  "name": "thesis-project",
+  "version": "1.0.0",
+  "description": "Welcome to Master of Yoga!",
+  "main": "index.js",
+  "scripts": {
+    "cm": "cz",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pre-commit": "npm run --prefix client/ lint && npm run --prefix client/ prettier-format"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvanGelo1/thesis-project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IvanGelo1/thesis-project/issues"
+  },
+  "homepage": "https://github.com/IvanGelo1/thesis-project#readme",
+  "devDependencies": {
+    "commitizen": "^4.2.3",
+    "husky": "^6.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
+      "pre-commit": "npm run lint && npm run prettier-format"
+    }
+  }
+}
