@@ -1,16 +1,20 @@
 import './LandingPage.css';
 import React, { ReactElement } from 'react';
-import { useHistory } from 'react-router-dom';
 import LandingViewImage from '../assets/landing_view_image.svg';
 
-import NavBar from '../components/NavBar';
+import { openModal } from '../redux/modalSlice';
+import { useAppDispatch } from '../redux/hooks';
+
+import NavBar from '../containers/NavBar';
 import Button from '../components/Button';
+import Modal from '../containers/Modal';
+import UserLogin from './UserLogin';
 
 const LandingPage: React.FC = (): ReactElement => {
-  const history = useHistory();
+  const dispatch = useAppDispatch();
 
   const handleClick = (): void => {
-    history.push('/enter');
+    dispatch(openModal());
   };
 
   return (
@@ -24,13 +28,16 @@ const LandingPage: React.FC = (): ReactElement => {
           <Button
             onClick={handleClick}
             label="Start you shall!"
-            styles={{ fontSize: '1.5rem' }}
+            styles={{ fontSize: '1.5rem', padding: '.75rem 1rem' }}
           />
         </div>
         <div className="landing-page-image-container">
           <img src={LandingViewImage} alt="Womam sitting in front of temple." />
         </div>
       </div>
+      <Modal>
+        <UserLogin />
+      </Modal>
     </div>
   );
 };

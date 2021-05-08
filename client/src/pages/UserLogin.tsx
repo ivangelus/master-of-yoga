@@ -1,10 +1,10 @@
-import './UserAuth.css';
+import './UserLogin.css';
 import React from 'react';
 
 const UserAuth: React.FC = () => {
   return (
     <div>
-      <h1>This will be login/.registration</h1>
+      <h1>This will be login/registration</h1>
     </div>
   );
 };
