@@ -1,0 +1,12 @@
+.btn-main {
+  cursor: pointer;
+  margin: 1rem .5rem;
+  padding: .75rem 1rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 5px black;
+  border: 0;
+  color: white;
+  text-shadow: 0 0 2px black;
+  background: radial-gradient(circle, rgba(255,127,80,1) 0%, rgba(255,127,80,1) 60%, rgba(233,73,14,1) 100%);
+}

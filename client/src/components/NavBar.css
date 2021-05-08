@@ -1,0 +1,15 @@
+.navbar-container {
+  display: flex;
+  position: sticky;
+  height: 6vh;
+  padding: .25rem 1rem;
+  align-items: center;
+  column-gap: 1rem;
+  justify-content: flex-end;
+  background-color: rgba(255, 127, 80, .5);
+}
+
+.navbar-container a {
+  color: black;
+  text-decoration: none;
+}
