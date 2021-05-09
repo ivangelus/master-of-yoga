@@ -27,7 +27,7 @@
     "test": "react-dotenv && react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint src/* --fix --no-error-on-unmatched-pattern",
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts*' --write"
+    "prettier-format": "prettier --config .prettierrc  \"src/**/*.ts*\" --write"
   },
   "eslintConfig": {
     "extends": "react-app"
