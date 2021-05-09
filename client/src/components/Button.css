@@ -11,3 +11,7 @@
   text-shadow: 0 0 2px black;
   background: linear-gradient(270deg, rgb(241, 139, 21), rgb(233,73,14));
 }
+
+.btn-main:hover {
+  box-shadow: 0 0 20px black;
+}
