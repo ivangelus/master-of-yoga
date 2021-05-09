@@ -18,7 +18,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,

@@ -22,7 +22,7 @@ const LandingPage: React.FC = (): ReactElement => {
       <NavBar />
       <div className="landing-page-content">
         <div className="landing-page-text-container">
-          <h1>Master Yoga</h1>
+          <h1>Master of Yoga</h1>
           <h3>Learn Yoga you will.</h3>
           <h3>Pay the premium you must.</h3>
           <Button

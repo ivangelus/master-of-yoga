@@ -5,8 +5,6 @@ import ReactDom from 'react-dom';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { closeModal } from '../redux/modalSlice';
 
-import Button from '../components/Button';
-
 interface Props {
   children?: ReactNode;
 }
@@ -27,9 +25,10 @@ const Modal: React.FC<Props> = ({ children }: Props) => {
     <>
       <div className="modal-overlay" onClick={handleClick} />
       <div className="modal-style">
+        <button className="modal-close" onClick={handleClick}>
+          X
+        </button>
         {children}
-        <Button label="Close" onClick={handleClick} />
-        {/* <button onClick={handleClick}>Close</button> */}
       </div>
     </>,
     portalDiv
