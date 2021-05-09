@@ -1,5 +1,6 @@
 import './UserLogin.css';
 import React, { useState } from 'react';
+import firebase, { auth, provider } from '../services/firebase';
 
 import { updateUser } from '../redux/usersSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -44,15 +45,29 @@ const UserAuth: React.FC = () => {
   };
 
   const handleSubmit = (event: React.FormEvent) => {
+    const errorSpan = document.getElementById('form-error');
     event.preventDefault();
     console.log(user); // Just so eslint allows me to push an unused variable...
 
     if (isLogin && form.email !== '' && form.password !== '')
       console.log('valid');
-    // else console.log(document.getElementById('form-error')?.innerText)//?.innerText('An e-mail and a password are required!')
+    else if (!isLogin && Object.values(form).indexOf('') === -1)
+      console.log('registered');
+    else {
+      if (errorSpan)
+        errorSpan.textContent = 'An e-mail and a password are required!';
+      else alert('An e-mail and a password are required!');
+    }
 
     dispatch(updateUser({ ...form }));
-    // handleReset();
+    handleReset();
+  };
+
+  const googleSignIn = async () => {
+    const googleUser = (await auth.signInWithPopup(provider))
+      .credential as firebase.auth.OAuthCredential;
+    if (googleUser) console.log(googleUser.idToken);
+    else alert('User not found');
   };
 
   return (
@@ -80,10 +95,14 @@ const UserAuth: React.FC = () => {
           <a onClick={handleLoginOrRegister}>
             Not registered? Create an account!
           </a>
+          <p id="form-error"></p>
           <div className="user-form-btn">
             <input type="reset" value="Clear" onClick={handleReset}></input>
             <input type="submit" value="Log In"></input>
           </div>
+          <button className="google-sign-in" onClick={googleSignIn}>
+            Sign In with Google
+          </button>
         </form>
       ) : (
         <form className="registration-form" onSubmit={handleSubmit}>
@@ -127,13 +146,13 @@ const UserAuth: React.FC = () => {
           <a onClick={handleLoginOrRegister}>
             Already have an account? Sign in!
           </a>
+          <p id="form-error"></p>
           <div className="user-form-btn">
             <input type="reset" value="Clear" onClick={handleReset}></input>
             <input type="submit" value="Register"></input>
           </div>
         </form>
       )}
-      <span id="form-error"></span>
     </div>
   );
 };
