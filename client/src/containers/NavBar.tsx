@@ -5,9 +5,6 @@ import { Link } from 'react-router-dom';
 import { openModal } from '../redux/modalSlice';
 import { useAppDispatch } from '../redux/hooks';
 
-import UserLogin from '../pages/UserLogin';
-import Modal from '../containers/Modal';
-
 const NavBar: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -21,9 +18,6 @@ const NavBar: React.FC = () => {
       <a style={{ cursor: 'pointer' }} onClick={handleClick}>
         Sign In
       </a>
-      <Modal>
-        <UserLogin />
-      </Modal>
     </nav>
   );
 };
