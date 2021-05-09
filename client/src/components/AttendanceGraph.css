@@ -1,0 +1,8 @@
+.attendance-graph-container {
+  background-color: blue;
+  height: 95%;
+  width: 60%;
+  margin-left: 2%;
+  border-radius: 5px;
+  margin-right: 2%;
+}
