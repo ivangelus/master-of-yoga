@@ -3,7 +3,7 @@ import { RootState } from './store';
 
 import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
 
-const initialState: BaseRoutinesDTO = {}
+const initialState: BaseRoutinesDTO = {};
 
 export const routinesSlice = createSlice({
   name: 'routines',

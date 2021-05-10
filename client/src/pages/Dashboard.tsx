@@ -15,29 +15,23 @@ import { getRoutines } from '../services/server';
 import DashboardViewImage from '../assets/dashboard_view_image.svg';
 
 const Dashboard: React.FC = () => {
-
   const dispatch = useAppDispatch();
-  const routine = useAppSelector((state: RootState) => state.routines)
-  console.log('routine', routine)
+  const routine = useAppSelector((state: RootState) => state.routines);
+  console.log('routine', routine);
   useEffect(() => {
-    console.log(Object.keys(routine).length === 0)
+    console.log(Object.keys(routine).length === 0);
     if (Object.keys(routine).length === 0) {
       const fetchRoutines = async (): Promise<void> => {
-         const data = await getRoutines();
-         dispatch(updateRoutines(data));
-      }
+        const data = await getRoutines();
+        dispatch(updateRoutines(data));
+      };
       fetchRoutines();
     } else {
-      console.log('already fetched')
+      console.log('already fetched');
     }
-  }, [])
+  }, []);
 
-
-
-  console.log('routineafter ', routine)
-
-
-
+  console.log('routineafter ', routine);
 
   return (
     <div className="dashboard-container">
