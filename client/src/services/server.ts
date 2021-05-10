@@ -1,9 +1,9 @@
-import {BaseRoutines} from '../interfaces/RoutineDTO';
+import {BaseRoutinesDTO} from '../interfaces/RoutineDTO';
 import {AuthResponseDTO} from '../interfaces/AuthResponseDTO'
 
 const baseUrl = 'http://127.0.0.1:8000';
 
-export const getRoutines = async (): Promise <BaseRoutines> => {
+export const getRoutines = async (): Promise <BaseRoutinesDTO> => {
   try {
     const routines = await fetch(`${baseUrl}/api/routines/getAll`)
     return await routines.json();

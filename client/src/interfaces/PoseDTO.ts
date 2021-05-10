@@ -1,4 +1,4 @@
-export interface Pose {
+export interface PoseDTO {
   description?: string;
   imageAddress?: string;
   imageResolution: string;

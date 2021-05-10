@@ -1,11 +1,11 @@
-import { Pose } from './PoseDTO'
+import { PoseDTO } from './PoseDTO'
 
-export interface Routine {
-  posesArr?: Pose[];
+export interface RoutineDTO {
+  posesArr?: PoseDTO[];
 }
 
-export interface BaseRoutines {
-  begginer?: Pose[];
-  intermediate?: Pose[];
-  advanced?: Pose[];
+export interface BaseRoutinesDTO {
+  begginer?: PoseDTO[];
+  intermediate?: PoseDTO[];
+  advanced?: PoseDTO[];
 }
