@@ -12,9 +12,9 @@ const Dashboard: React.FC = () => {
       <div className="dashboard-content">
         <div className="dashboard-content-up">
           <UserCard />
-          <Tracks />
-          <Tracks />
-          <Tracks />
+          <Tracks title="Beginner" />
+          <Tracks title="Intermediate" />
+          <Tracks title="Advanced" />
         </div>
         <div className="dashboard-content-down">
           <AttendanceGraph />

@@ -1,5 +1,5 @@
 .user-card-container {
-  background-color: white;
+  background-color: rgb(250, 250, 250);
   height: 84%;
   width: 37%;
   margin-left: 2%;
@@ -8,6 +8,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  box-shadow: 0 0 3px gray;
 }
 
 .user-card-left {
@@ -22,7 +23,7 @@
   border-radius: 50%;
   height: 20vh;
   width: 20vh;
-  background-color: blueviolet;
+  background-color: gray;
 }
 
 .user-name {
@@ -36,7 +37,8 @@
   height: 2rem;
   width: 5rem;
   border: 0;
-  background-color: cornflowerblue;
+  color: white;
+  background: linear-gradient(270deg, rgb(241, 139, 21), rgb(233,73,14));
 }
 
 .user-card-right {
