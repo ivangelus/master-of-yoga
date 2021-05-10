@@ -90,6 +90,16 @@ def newUser(data):
     print('Failed to create new user in database')
     raise
 
+def getPoses():
+  try:
+    posesCollection = db.collection('poses').get()
+    posesList = []
+    for pose in posesCollection:
+      posesList.append(pose.to_dict())
+    return posesList
+  except:
+    print('Failed to retrieve poses from database')
+
 def getRoutines():
   try:
     routinesCollection = db.collection('routines')
@@ -97,8 +107,8 @@ def getRoutines():
     for routineSnapshot in routinesCollection.get():
       name = routineSnapshot.id
       formattedRoutines = []
-      for pose in routineSnapshot.to_dict()['routine']:
-        formattedRoutines.append(pose.get().to_dict())
+      for pose in routineSnapshot.to_dict()['routineList']:
+        formattedRoutines.append(pose)
       result[name] = formattedRoutines
     return result
   except:

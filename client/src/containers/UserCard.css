@@ -1,5 +1,5 @@
 .user-card-container {
-  background-color: rgb(250, 250, 250);
+  background-color: #f0f0f0;
   height: 84%;
   width: 37%;
   margin-left: 2%;
@@ -9,6 +9,7 @@
   flex-direction: row;
   justify-content: space-between;
   box-shadow: 0 0 3px gray;
+  margin-left: 4.5%;
 }
 
 .user-card-left {
