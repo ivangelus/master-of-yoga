@@ -15,12 +15,12 @@ async function getRoutines(): Promise<BaseRoutinesDTO> {
   } catch (error) {
     throw new Error(error);
   }
-};
+}
 
 async function authUser(token: string): Promise<AuthResponseDTO> {
   try {
     const user = await axios.post(`${baseUrl}/api/users/verify`, { token });
-    return user.data();
+    return user.data;
   } catch (error) {
     throw new Error(error);
   }

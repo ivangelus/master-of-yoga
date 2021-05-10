@@ -1,5 +1,6 @@
 import './UserLogin&Registration.css';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import firebase, { auth, provider } from '../services/firebase';
 
 import { authUser, createUser } from '../services/server';
@@ -22,6 +23,7 @@ const initialForm = {
 };
 
 const UserAuth: React.FC = () => {
+  const history = useHistory();
   const dispatch = useAppDispatch();
 
   const [isLogin, setIsLogin] = useState(true);
@@ -54,13 +56,16 @@ const UserAuth: React.FC = () => {
     event.preventDefault();
 
     if (isLogin && form.email !== '' && form.password !== '') {
-      // User Login
+      // User login
+      console.log('User Login with E-mail & Password');
       try {
         await auth.signInWithEmailAndPassword(form.email, form.password);
         const token = await firebase.auth().currentUser?.getIdToken();
         if (token) {
           const user = await authUser(token);
+          console.log('server response', user.result);
           dispatch(updateUser({ ...user.result }));
+          history.push('/dashboard');
         }
       } catch (error) {
         errorHandler(error.message);
