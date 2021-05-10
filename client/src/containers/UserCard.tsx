@@ -22,21 +22,21 @@ const UserCard: React.FC = () => {
       <div className="user-card-right">
         <div className="title-user-name">
           <div className="user-name">
-            {mockUser.firstName} {mockUser.lastName}
+            {user.firstName} {user.lastName}
           </div>
         </div>
         <div className="card-content">
           <div className="email-container">
             <div className="content-description">Email</div>
-            <div className="content-text">{mockUser.email}</div>
+            <div className="content-text">{user.email}</div>
           </div>
           <div className="last-entry-container">
             <div className="content-description">Last Entry</div>
-            <div className="content-text">{mockUser.lastEntry}</div>
+            <div className="content-text">{user.lastEntry}</div>
           </div>
           <div className="days-container">
             <div className="content-description">Streak</div>
-            <div className="content-text">{mockUser.consecutiveDays} days!</div>
+            <div className="content-text">{user.consecutiveDays} days!</div>
           </div>
         </div>
       </div>
