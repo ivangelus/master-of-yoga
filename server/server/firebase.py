@@ -38,12 +38,14 @@ def logIn(email, password):
   try:
     loginResult = pyrebaseAuth.sign_in_with_email_and_password(email, password)
     return {
+      'success': True,
       'msg': 'User has been logged in',
       'result': loginResult
     }
   except Exception as e:
     print(e)
     return {
+      'success':False,
       'msg': str(e)
     }
 

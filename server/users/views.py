@@ -8,13 +8,9 @@ import json
 class LoginView(APIView):
   def post(self, request):
     parsedRequestBody = json.loads(request.body)
-    user = {
-      'email': parsedRequestBody['email'],
-      'password': parsedRequestBody['password']
-    }
-    firebase.logIn(user)
-    result = firebase.logIn(user)
-    return Response(result) 
+    loginResponse = firebase.logIn(parsedRequestBody['email'], parsedRequestBody['password'])
+    print(loginResponse)
+    return Response(loginResponse) 
 
 class VerifyView(APIView):
   def post(self, request):
