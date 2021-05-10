@@ -10,12 +10,11 @@ interface Props {
 }
 
 const Modal: React.FC<Props> = ({ children }: Props) => {
-  const portalDiv = document.getElementById('portal');
-  if (!portalDiv) return null;
-
-  const dispatch = useAppDispatch();
   const modal = useAppSelector((state) => state.modal.value);
-  if (!modal) return null;
+  const dispatch = useAppDispatch();
+
+  const portalDiv = document.getElementById('portal');
+  if (!portalDiv || !modal) return null;
 
   const handleClick = () => {
     dispatch(closeModal());
