@@ -6,16 +6,11 @@ from server import firebase
 import json
 
 class LoginView(APIView):
-  # this is a testing view for development purposes
   def post(self, request):
-    parsed = json.loads(request.body)
-    user = {
-      'email': parsed['email'],
-      'password': parsed['password']
-    }
-    firebase.logIn(user)
-    result = firebase.logIn(user)
-    return Response(result) 
+    parsedRequestBody = json.loads(request.body)
+    loginResponse = firebase.logIn(parsedRequestBody['email'], parsedRequestBody['password'])
+    print(loginResponse)
+    return Response(loginResponse) 
 
 class VerifyView(APIView):
   def post(self, request):
@@ -33,3 +28,22 @@ class VerifyView(APIView):
       return Response(authResult)
     else:
       return Response(authResult) 
+
+class RegisterView(APIView):
+  def post(self, request):
+    parsedRequestBody = json.loads(request.body)
+    registerResponse = firebase.registerUser(parsedRequestBody)
+    if registerResponse['success']:
+      password = registerResponse['password']
+      email = registerResponse['userData']['email']
+      loginResponse = firebase.logIn(email, password)
+      token = loginResponse['result']['idToken']
+      return Response({
+        'msg': 'User registered and logged in successfully',
+        'token': token,
+        'user': registerResponse['userData']
+      })
+    else:
+      return Response({
+        'msg': str(registerResponse['msg'])
+      })
