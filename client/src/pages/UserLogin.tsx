@@ -1,9 +1,10 @@
-import './UserLogin.css';
+import './UserLogin&Registration.css';
 import React, { useState } from 'react';
 import firebase, { auth, provider } from '../services/firebase';
 
+import { authUser, createUser } from '../services/server';
 import { updateUser } from '../redux/usersSlice';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppDispatch } from '../redux/hooks';
 
 interface Form {
   [key: string]: string;
@@ -21,11 +22,16 @@ const initialForm = {
 };
 
 const UserAuth: React.FC = () => {
-  const user = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
 
   const [isLogin, setIsLogin] = useState(true);
   const [form, setForm] = useState<Form>(initialForm);
+
+  const errorHandler = (errorMessage: string) => {
+    const errorField = document.getElementById('form-error');
+    if (errorField) errorField.textContent = errorMessage;
+    else alert(errorMessage);
+  };
 
   const handleLoginOrRegister = () => {
     setIsLogin(!isLogin);
@@ -44,30 +50,44 @@ const UserAuth: React.FC = () => {
     setForm(initialForm);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    const errorSpan = document.getElementById('form-error');
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(user); // Just so eslint allows me to push an unused variable...
 
-    if (isLogin && form.email !== '' && form.password !== '')
-      console.log('valid');
-    else if (!isLogin && Object.values(form).indexOf('') === -1)
-      console.log('registered');
-    else {
-      if (errorSpan)
-        errorSpan.textContent = 'An e-mail and a password are required!';
-      else alert('An e-mail and a password are required!');
+    if (isLogin && form.email !== '' && form.password !== '') {
+      // User Login
+      try {
+        await auth.signInWithEmailAndPassword(form.email, form.password);
+        const token = await firebase.auth().currentUser?.getIdToken();
+        if (token) {
+          const user = await authUser(token);
+          dispatch(updateUser({ ...user.result }));
+        }
+      } catch (error) {
+        errorHandler(error.message);
+      }
+    } else if (!isLogin && Object.values(form).indexOf('') === -1) {
+      // User Registration
+      const user = await createUser(form);
+      console.log(user);
+      // dispatch(updateUser({ ...user.result }));
+    } else {
+      errorHandler('All fields are required!');
     }
-
-    dispatch(updateUser({ ...form }));
-    handleReset();
   };
 
   const googleSignIn = async () => {
-    const googleUser = (await auth.signInWithPopup(provider))
-      .credential as firebase.auth.OAuthCredential;
-    if (googleUser) console.log(googleUser.idToken);
-    else alert('User not found');
+    let user;
+
+    try {
+      const googleUser = (await auth.signInWithPopup(provider))
+        .credential as firebase.auth.OAuthCredential;
+      if (googleUser.idToken) {
+        user = await authUser(googleUser.idToken);
+        dispatch(updateUser({ ...user.result }));
+      } else throw new Error();
+    } catch (error) {
+      errorHandler(error.message);
+    }
   };
 
   return (
@@ -90,6 +110,9 @@ const UserAuth: React.FC = () => {
               type="password"
               value={form.password}
               onChange={(event) => handleUpdate(event)}
+              pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
+              title="Min. 8 characters, with letters & numbers"
+              placeholder="Min. 8 characters, with letters & numbers"
             ></input>
           </label>
           <a onClick={handleLoginOrRegister}>
@@ -140,7 +163,9 @@ const UserAuth: React.FC = () => {
               type="password"
               value={form.password}
               onChange={(event) => handleUpdate(event)}
-              placeholder="Min. 8 characters, letters & numbers"
+              pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
+              title="Min. 8 characters, with letters & numbers"
+              placeholder="Min. 8 characters, with letters & numbers"
             ></input>
           </label>
           <a onClick={handleLoginOrRegister}>
