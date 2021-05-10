@@ -4,7 +4,7 @@ import React from 'react';
 const Tips: React.FC = () => {
   return (
     <div className="tips-container">
-      <h3>Quote of the day</h3>
+      <h4>Food for tought</h4>
       <div className="content-container">
         <p className="quote-content">
           Exercises are like prose, whereas yoga is the poetry of movements.
