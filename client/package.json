@@ -60,7 +60,8 @@
   },
   "react-dotenv": {
     "whitelist": [
-      "FIREBASE_APIKEY"
+      "FIREBASE_APIKEY",
+      "SERVER_ADDRESS"
     ]
   }
 }

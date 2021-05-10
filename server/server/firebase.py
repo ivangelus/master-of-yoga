@@ -3,7 +3,7 @@ import pathlib
 import pyrebase
 import firebase_admin
 from dotenv import load_dotenv, dotenv_values
-from firebase_admin import auth, credentials, firestore  
+from firebase_admin import auth, credentials, firestore
 
 
 BASE_DIR = pathlib.Path(__file__).parent.absolute()
