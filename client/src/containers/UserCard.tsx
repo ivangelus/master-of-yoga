@@ -3,7 +3,7 @@ import React from 'react';
 import { UserDTO } from '../interfaces/UserDTO';
 
 const UserCard: React.FC = () => {
-  const mockUser: UserDTO = {
+  const user: UserDTO = {
     firstName: 'Luke',
     lastName: 'SkyWalker',
     email: 'luke@email.com',
