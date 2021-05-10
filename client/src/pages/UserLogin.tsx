@@ -2,7 +2,7 @@ import './UserLogin.css';
 import React, { useState } from 'react';
 import firebase, { auth, provider } from '../services/firebase';
 
-import { createUser } from '../services/server';
+import { authUser, createUser } from '../services/server';
 import { updateUser } from '../redux/usersSlice';
 import { useAppDispatch } from '../redux/hooks';
 
@@ -56,28 +56,37 @@ const UserAuth: React.FC = () => {
     if (isLogin && form.email !== '' && form.password !== '') {
       // User Login
       try {
-        console.log(form.email, form.password);
-        const userId = await auth.signInWithEmailAndPassword(
+        const login = await auth.signInWithEmailAndPassword(
           form.email,
           form.password
         );
-        // dispatch(updateUser({ ...form }));
+        const token = await firebase.auth().currentUser?.getIdToken();
+        if (token) {
+          const user = await authUser(token);
+          dispatch(updateUser({ ...user.result }));
+        }
       } catch (error) {
-        console.log(error);
         errorHandler(error.message);
       }
     } else if (!isLogin && Object.values(form).indexOf('') === -1) {
       // User Registration
       const user = await createUser(form);
+      // dispatch(updateUser({ ...user.result }));
     } else {
       errorHandler('All fields are required!');
     }
   };
 
   const googleSignIn = async () => {
+    let user;
+
     try {
       const googleUser = (await auth.signInWithPopup(provider))
         .credential as firebase.auth.OAuthCredential;
+      if (googleUser.idToken) {
+        user = await authUser(googleUser.idToken);
+        dispatch(updateUser({ ...user.result }));
+      } else throw new Error();
     } catch (error) {
       errorHandler(error.message);
     }
