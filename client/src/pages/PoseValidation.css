@@ -1,0 +1,39 @@
+.pose__validation__container {
+text-align: center;
+}
+
+
+/* .webcam__container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+} */
+
+.header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+
+
+/* .webcam__screen {
+  margin-top: 12vh;
+  margin-right: 25vh;
+  box-shadow: 60px;
+   border: solid black;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left:0 ;
+  right:0;
+  text-align: center;
+  z-index:9;
+  width: 640;
+  height: 480;
+} */
