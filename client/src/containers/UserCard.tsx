@@ -11,7 +11,6 @@ const UserCard: React.FC = () => {
     lastEntry: 'Today',
     consecutiveDays: 5,
   };
-  console.log(mockUser); // only so that linter doesn't throw an error
 
   return (
     <div className="user-card-container">
