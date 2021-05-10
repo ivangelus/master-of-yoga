@@ -26,20 +26,25 @@ cred = credentials.Certificate(CRED_DIR)
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
-# TESTING LOGIN WITH PYREBASE FOR DEVELOPMENT PURPOSES
-# firebase = pyrebase.initialize_app(config)
-# auth = firebase.auth()
 
-def logIn(user):
+# ************************************************
+# *******************   AUTH   *******************
+# ************************************************
+
+pyrebase = pyrebase.initialize_app(config)
+pyrebaseAuth = pyrebase.auth()
+
+def logIn(email, password):
   try:
-    result = auth.sign_in_with_email_and_password(user['email'], user['password'])
+    loginResult = pyrebaseAuth.sign_in_with_email_and_password(email, password)
     return {
-      "msg": "User has been logged in",
-      "result":result
+      'msg': 'User has been logged in',
+      'result': loginResult
     }
-  except:
+  except Exception as e:
+    print(e)
     return {
-      "msg": 'Invalid user or password'
+      'msg': str(e)
     }
 
 def authToken(token):
@@ -47,15 +52,15 @@ def authToken(token):
     decoded_token = auth.verify_id_token(token)
     uid = decoded_token['uid']
     return {
-      "valid": True,
-      "msg":"Token verified",
-      "result": decoded_token
+      'valid': True,
+      'msg':'Token verified',
+      'result': decoded_token
     }
   except:
     return {
-      "valid": False,
-      "msg":"Token is invalid",
-      "result":"null"
+      'valid': False,
+      'msg':'Token is invalid',
+      'result':'null'
     }
 
 def getUser(uid):
@@ -66,29 +71,74 @@ def getUser(uid):
   else:
     return False
 
+def registerUser(userData):
+  try:
+    user = auth.create_user(
+      email=userData['email'],
+      email_verified=False,
+      password=userData['password'],
+      display_name='{userData[firstName]} {userData[lastName]}',
+      disabled=False
+    )
+    uid = user.uid
+    registerUserData = {
+      'firstName': userData['firstName'],
+      'lastName': userData['lastName'],
+      'consecutiveDays': 0,
+      'customTracks': ['0'],
+      'email': userData['email'],
+      'image':'url',
+      'lastEntry': '',
+      'posesCompletion': {
+        'begginer':'0%',
+        'advanced': '0%',
+        'intermediate':'0%'
+      }
+    }
+    db.collection('users').document(uid).set(registerUserData)
+    newUser = db.collection('users').document(uid).get()
+    return {
+      'success': True,
+      'password': userData['password'],
+      'userData': newUser.to_dict()
+    }
+  except Exception as e:
+    print(e)
+    return {
+      'success': False,
+      'msg': e
+    }
+
+# ************************************************
+# ******************* DATABASE *******************
+# ************************************************
+
 def newUser(data):
   uid = data['user_id']
   userData = {
-    "consecutiveDays": 0,
-    "customTracks": ["0"],
-    "email": data['firebase']['identities']['email'][0],
+    'firstName': '',
+    'lastName': '',
+    'email': data['firebase']['identities']['email'][0],
+    'consecutiveDays': 0,
+    'customTracks': ["0"],
     'firstName': 'First',
     'lastname': 'Last',
     'image':'url',
-    "lastEntry": data['auth_time'],
+    'lastEntry': data['auth_time'],
     'posesCompletion': {
-      "begginer":"0%",
-      "advanced": "0%",
-      "intermediate":"0%"
+      'begginer':"0%",
+      'advanced': '0%',
+      'intermediate':'0%'
     }
   }
   try:
-    db.collection('users').document('test').set(userData)
+    db.collection('users').document(uid).set(userData)
     newUser = db.collection('users').document(uid).get()
-    return newUser.to_dict
+    return newUser.to_dict()
   except:
     print('Failed to create new user in database')
     raise
+
 
 def getPoses():
   try:
@@ -99,6 +149,7 @@ def getPoses():
     return posesList
   except:
     print('Failed to retrieve poses from database')
+    raise
 
 def getRoutines():
   try:

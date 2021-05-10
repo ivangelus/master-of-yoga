@@ -15,12 +15,9 @@ class RoutinesView(APIView):
   def get(self, request):
     poses = firebase.getPoses()
     routines = firebase.getRoutines()
-    print(routines)
-    print(poses)
     resultDict = {}
     for routine in routines:
       name = routine
       resultList = generateRoutinesListWithPosesData(poses, routines[routine])
       resultDict[name] = resultList
-      print(resultDict)
     return Response(resultDict)
