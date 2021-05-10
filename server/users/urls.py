@@ -4,5 +4,6 @@ from .views import LoginView, VerifyView
 
 urlpatterns = [
   path('api/auth/login', LoginView.as_view()),
-  path('api/auth/verify', VerifyView.as_view()),
+  path('api/users/verify', VerifyView.as_view()),
+  path('api/users', VerifyView.as_view()),
 ]
