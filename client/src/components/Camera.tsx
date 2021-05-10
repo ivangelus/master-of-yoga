@@ -86,7 +86,7 @@ const Camera = () => {
         videoConstraints={videoConstraints}
         ref={webcamRef}
       />
-      <canvas ref={canvasRef} className="webcam__screen" />
+      <canvas ref={canvasRef} className="webcam__screen"/>
     </div>
   );
 };

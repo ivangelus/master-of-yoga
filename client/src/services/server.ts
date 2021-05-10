@@ -11,7 +11,7 @@ async function getRoutines(): Promise<BaseRoutinesDTO> {
     const routines: AxiosResponse = await axios.get(
       `${baseUrl}/api/routines/getAll`
     );
-    return routines.data();
+    return routines.data;
   } catch (error) {
     throw new Error(error);
   }
