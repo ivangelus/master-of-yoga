@@ -1,5 +1,6 @@
 import './UserLogin&Registration.css';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import firebase, { auth, provider } from '../services/firebase';
 
 import { authUser, createUser } from '../services/server';
@@ -22,6 +23,7 @@ const initialForm = {
 };
 
 const UserAuth: React.FC = () => {
+  const history = useHistory();
   const dispatch = useAppDispatch();
 
   const [isLogin, setIsLogin] = useState(true);
@@ -31,6 +33,14 @@ const UserAuth: React.FC = () => {
     const errorField = document.getElementById('form-error');
     if (errorField) errorField.textContent = errorMessage;
     else alert(errorMessage);
+  };
+
+  const checkAuth = async (token: string) => {
+    const user = await authUser(token);
+    if (user.valid) {
+      dispatch(updateUser({ ...user.result }));
+      history.push('/dashboard');
+    } else throw new Error('Invalid user');
   };
 
   const handleLoginOrRegister = () => {
@@ -54,14 +64,10 @@ const UserAuth: React.FC = () => {
     event.preventDefault();
 
     if (isLogin && form.email !== '' && form.password !== '') {
-      // User Login
       try {
         await auth.signInWithEmailAndPassword(form.email, form.password);
         const token = await firebase.auth().currentUser?.getIdToken();
-        if (token) {
-          const user = await authUser(token);
-          dispatch(updateUser({ ...user.result }));
-        }
+        if (token) await checkAuth(token);
       } catch (error) {
         errorHandler(error.message);
       }
@@ -76,15 +82,10 @@ const UserAuth: React.FC = () => {
   };
 
   const googleSignIn = async () => {
-    let user;
-
     try {
       const googleUser = (await auth.signInWithPopup(provider))
         .credential as firebase.auth.OAuthCredential;
-      if (googleUser.idToken) {
-        user = await authUser(googleUser.idToken);
-        dispatch(updateUser({ ...user.result }));
-      } else throw new Error();
+      if (googleUser.idToken) await authUser(googleUser.idToken);
     } catch (error) {
       errorHandler(error.message);
     }
