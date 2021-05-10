@@ -1,28 +1,41 @@
-import {BaseRoutinesDTO} from '../interfaces/RoutineDTO';
-import {AuthResponseDTO} from '../interfaces/AuthResponseDTO'
+import env from 'react-dotenv';
+import axios, { AxiosResponse } from 'axios';
+import { UserDTO } from '../interfaces/UserDTO';
+import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
+import { AuthResponseDTO } from '../interfaces/AuthResponseDTO';
 
-const baseUrl = 'http://127.0.0.1:8000';
+const baseUrl: string = env.SERVER_ADDRESS;
 
-export const getRoutines = async (): Promise <BaseRoutinesDTO> => {
+async function getRoutines(): Promise<BaseRoutinesDTO> {
   try {
-    const routines = await fetch(`${baseUrl}/api/routines/getAll`)
-    return await routines.json();
+    const routines: AxiosResponse = await axios.get(
+      `${baseUrl}/api/routines/getAll`
+    );
+    return routines.data();
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 }
 
-export const authUser = async (token: string): Promise <AuthResponseDTO> => {
+async function authUser(token: string): Promise<AuthResponseDTO> {
   try {
-    const user = await fetch(`${baseUrl}/api/auth/verify`, {
-      method: 'POST',
-      body: JSON.stringify(token),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    return user.json()
+    const user = await axios.post(`${baseUrl}/api/users/verify`, { token });
+    return user.data();
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 }
+
+async function createUser(newUser: UserDTO): Promise<UserDTO> {
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${baseUrl}/api/users`,
+      newUser
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export { createUser, authUser, getRoutines };

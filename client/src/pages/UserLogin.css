@@ -34,6 +34,16 @@
   color: orangered;
 }
 
+.login-form p,
+.registration-form p {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  color: darkred;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 1.5rem;
+}
+
 .user-form-btn {
   display: flex;
   column-gap: 1rem;
