@@ -46,3 +46,22 @@
   background-color: rgb(43, 199, 43);
   height: 2.75rem;
 }
+
+.readyMessage {
+  font-size: 20rem;
+  font-weight: 300;
+  text-align: center;
+}
+
+.readyCounter {
+  font-size: 20rem;
+  font-weight: 300;
+  text-align: center;
+  margin-top:  -22rem;
+}
+
+.messageContainer {
+  margin-top: -5rem;
+  display: flex;
+  flex-direction: column;
+}

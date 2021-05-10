@@ -4,14 +4,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from server import firebase
 import json
-
-class LoginView(APIView):
-  def post(self, request):
-    parsedRequestBody = json.loads(request.body)
-    loginResponse = firebase.logIn(parsedRequestBody['email'], parsedRequestBody['password'])
-    print(loginResponse)
-    return Response(loginResponse) 
-
 class VerifyView(APIView):
   def post(self, request):
     parsedRequestBody = json.loads(request.body)
@@ -27,7 +19,7 @@ class VerifyView(APIView):
         authResult['result'] = newUser
       return Response(authResult)
     else:
-      return Response(authResult) 
+      return Response(authResult)
 
 class RegisterView(APIView):
   def post(self, request):
