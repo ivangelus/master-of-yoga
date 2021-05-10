@@ -1,12 +1,11 @@
-import React,{useRef, useEffect} from 'react'
+import React, { useRef, useEffect } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import * as posenet from '@tensorflow-models/posenet';
 import Webcam from 'react-webcam';
 import { drawKeypoints, drawSkeleton } from '../utilities/drawingUtilities';
-import './Camera.css'
+import './Camera.css';
 
 const Camera = () => {
-
   const webcamRef: any = useRef(null);
   const canvasRef = useRef(null);
 
@@ -22,10 +21,10 @@ const Camera = () => {
       interval = setInterval(() => {
         detect(net);
       }, 250);
-    })()
+    })();
 
-    return (() => clearInterval(interval))
-  },[])
+    return () => clearInterval(interval);
+  }, []);
 
   // const runPosnet = async () => {
   //   const net = await posenet.load({
@@ -60,7 +59,13 @@ const Camera = () => {
     }
   };
 
-  const drawCanvas = (pose: any, video: any, videoWidth: any, videoHeight: any, canvas: any) => {
+  const drawCanvas = (
+    pose: any,
+    video: any,
+    videoWidth: any,
+    videoHeight: any,
+    canvas: any
+  ) => {
     const ctx = canvas.current.getContext('2d');
     canvas.current.width = videoWidth;
     canvas.current.height = videoHeight;
@@ -72,23 +77,18 @@ const Camera = () => {
   const videoConstraints = {
     width: 750,
     height: 900,
-    facingMode: "user",
-  }
+    facingMode: 'user',
+  };
   return (
     <div>
-      <div className="pose__validation__container">
-        <Webcam
-          className="webcam__screen"
-          videoConstraints={videoConstraints}
-          ref={webcamRef}
-        />
-         <canvas
-        ref={canvasRef}
+      <Webcam
         className="webcam__screen"
+        videoConstraints={videoConstraints}
+        ref={webcamRef}
       />
-      </div>
+      <canvas ref={canvasRef} className="webcam__screen" />
     </div>
-  )
-}
+  );
+};
 
 export default Camera;
