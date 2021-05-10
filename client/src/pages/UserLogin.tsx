@@ -75,10 +75,9 @@ const UserAuth: React.FC = () => {
         errorHandler(error.message);
       }
     } else if (!isLogin && Object.values(form).indexOf('') === -1) {
-      // User Registration
       const user = await createUser(form);
-      console.log(user);
-      // dispatch(updateUser({ ...user.result }));
+      dispatch(updateUser({ ...user }));
+      history.push('/dashboard');
     } else {
       errorHandler('All fields are required!');
     }
