@@ -35,6 +35,14 @@ const UserAuth: React.FC = () => {
     else alert(errorMessage);
   };
 
+  const checkAuth = async (token: string) => {
+    const user = await authUser(token);
+    if (user.valid) {
+      dispatch(updateUser({ ...user.result }));
+      history.push('/dashboard');
+    } else throw new Error('Invalid user');
+  };
+
   const handleLoginOrRegister = () => {
     setIsLogin(!isLogin);
   };
@@ -56,17 +64,10 @@ const UserAuth: React.FC = () => {
     event.preventDefault();
 
     if (isLogin && form.email !== '' && form.password !== '') {
-      // User login
-      console.log('User Login with E-mail & Password');
       try {
         await auth.signInWithEmailAndPassword(form.email, form.password);
         const token = await firebase.auth().currentUser?.getIdToken();
-        if (token) {
-          const user = await authUser(token);
-          console.log('server response', user.result);
-          dispatch(updateUser({ ...user.result }));
-          history.push('/dashboard');
-        }
+        if (token) await checkAuth(token);
       } catch (error) {
         errorHandler(error.message);
       }
@@ -81,15 +82,10 @@ const UserAuth: React.FC = () => {
   };
 
   const googleSignIn = async () => {
-    let user;
-
     try {
       const googleUser = (await auth.signInWithPopup(provider))
         .credential as firebase.auth.OAuthCredential;
-      if (googleUser.idToken) {
-        user = await authUser(googleUser.idToken);
-        dispatch(updateUser({ ...user.result }));
-      } else throw new Error();
+      if (googleUser.idToken) await authUser(googleUser.idToken);
     } catch (error) {
       errorHandler(error.message);
     }
