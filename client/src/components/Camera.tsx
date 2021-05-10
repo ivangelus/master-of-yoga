@@ -9,6 +9,42 @@ const Camera = () => {
   const webcamRef: any = useRef(null);
   const canvasRef = useRef(null);
 
+  const drawCanvas = (
+    pose: any,
+    video: any,
+    videoWidth: any,
+    videoHeight: any,
+    canvas: any
+  ) => {
+    const ctx = canvas.current.getContext('2d');
+    canvas.current.width = videoWidth;
+    canvas.current.height = videoHeight;
+
+    drawKeypoints(pose['keypoints'], 0.5, ctx);
+    drawSkeleton(pose['keypoints'], 0.5, ctx);
+  };
+
+  const detect = async (net: any) => {
+    if (
+      typeof webcamRef.current !== 'undefined' &&
+      webcamRef.current !== null &&
+      webcamRef.current.video.readyState === 4
+    ) {
+      //Get video properties
+      const video = webcamRef.current.video;
+      const videoWidth = webcamRef.current.video.videoWidth;
+      const videoHeight = webcamRef.current.video.videoHeight;
+
+      //Set video width
+      webcamRef.current.video.width = videoWidth;
+      webcamRef.current.video.height = videoHeight;
+
+      //Make Detections
+      const pose: any = await net.estimateSinglePose(video);
+      drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
+    }
+  };
+
   useEffect(() => {
     let interval: NodeJS.Timeout;
     (async () => {
@@ -37,42 +73,6 @@ const Camera = () => {
   //     detect(net);
   //   }, 250);
   // };
-
-  const detect = async (net: any) => {
-    if (
-      typeof webcamRef.current !== 'undefined' &&
-      webcamRef.current !== null &&
-      webcamRef.current.video.readyState === 4
-    ) {
-      //Get video properties
-      const video = webcamRef.current.video;
-      const videoWidth = webcamRef.current.video.videoWidth;
-      const videoHeight = webcamRef.current.video.videoHeight;
-
-      //Set video width
-      webcamRef.current.video.width = videoWidth;
-      webcamRef.current.video.height = videoHeight;
-
-      //Make Detections
-      const pose: any = await net.estimateSinglePose(video);
-      drawCanvas(pose, video, videoWidth, videoHeight, canvasRef);
-    }
-  };
-
-  const drawCanvas = (
-    pose: any,
-    video: any,
-    videoWidth: any,
-    videoHeight: any,
-    canvas: any
-  ) => {
-    const ctx = canvas.current.getContext('2d');
-    canvas.current.width = videoWidth;
-    canvas.current.height = videoHeight;
-
-    drawKeypoints(pose['keypoints'], 0.5, ctx);
-    drawSkeleton(pose['keypoints'], 0.5, ctx);
-  };
 
   const videoConstraints = {
     width: 750,

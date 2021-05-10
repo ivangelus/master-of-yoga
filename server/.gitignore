@@ -71,6 +71,10 @@ instance/
 # Sphinx documentation
 docs/_build/
 
+# Firebase keys
+server/firebase-sdk.json
+server/.env
+
 # PyBuilder
 .pybuilder/
 target/

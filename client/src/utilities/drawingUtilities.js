@@ -192,6 +192,23 @@
   * Read our blog post for a description of PoseNet's heatmap outputs
   * https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5
   */
+
+  function drawPoints(ctx, points, radius, color) {
+    const data = points.buffer().values;
+
+    for (let i = 0; i < data.length; i += 2) {
+      const pointY = data[i];
+      const pointX = data[i + 1];
+
+      if (pointX !== 0 && pointY !== 0) {
+        ctx.beginPath();
+        ctx.arc(pointX, pointY, radius, 0, 2 * Math.PI);
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+    }
+  }
+
  export function drawHeatMapValues(heatMapValues, outputStride, canvas) {
    const ctx = canvas.getContext("2d");
    const radius = 5;
@@ -204,21 +221,7 @@
   * Used by the drawHeatMapValues method to draw heatmap points on to
   * the canvas
   */
- function drawPoints(ctx, points, radius, color) {
-   const data = points.buffer().values;
 
-   for (let i = 0; i < data.length; i += 2) {
-     const pointY = data[i];
-     const pointX = data[i + 1];
-
-     if (pointX !== 0 && pointY !== 0) {
-       ctx.beginPath();
-       ctx.arc(pointX, pointY, radius, 0, 2 * Math.PI);
-       ctx.fillStyle = color;
-       ctx.fill();
-     }
-   }
- }
 
  /**
   * Draw offset vector values, one of the model outputs, on to the canvas

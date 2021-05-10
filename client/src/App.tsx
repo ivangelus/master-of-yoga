@@ -6,6 +6,7 @@ import About from './pages/About';
 import LandingPage from './pages/LandingPage';
 import PageNotFound from './pages/PageNotFound';
 import PoseValidation from './pages/PoseValidation';
+import Dashboard from './pages/Dashboard';
 
 function App(): ReactElement {
   return (
@@ -14,6 +15,7 @@ function App(): ReactElement {
         <Route path="/" component={LandingPage} exact />
         <Route path="/about" component={About} />
         <Route path="/pose" component={PoseValidation} />
+        <Route path="/dashboard" component={Dashboard} />
         <Route component={PageNotFound} />
       </Switch>
     </div>
