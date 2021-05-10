@@ -52,7 +52,6 @@ def logIn(email, password):
 def authToken(token):
   try:
     decoded_token = auth.verify_id_token(token)
-    uid = decoded_token['uid']
     return {
       'valid': True,
       'msg':'Token verified',
@@ -118,15 +117,14 @@ def registerUser(userData):
 
 def newUser(data):
   uid = data['user_id']
+  name = data['name'].split()
   userData = {
-    'firstName': '',
-    'lastName': '',
+    'firstName': name[0],
+    'lastName': name[1],
     'email': data['firebase']['identities']['email'][0],
     'consecutiveDays': 0,
     'customTracks': ["0"],
-    'firstName': 'First',
-    'lastname': 'Last',
-    'image':'url',
+    'image':data['picture'],
     'lastEntry': data['auth_time'],
     'posesCompletion': {
       'begginer':"0%",
