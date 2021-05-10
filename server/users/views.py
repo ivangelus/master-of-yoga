@@ -10,7 +10,7 @@ class LoginView(APIView):
     parsedRequestBody = json.loads(request.body)
     loginResponse = firebase.logIn(parsedRequestBody['email'], parsedRequestBody['password'])
     print(loginResponse)
-    return Response(loginResponse) 
+    return Response(loginResponse)
 
 class VerifyView(APIView):
   def post(self, request):
@@ -27,7 +27,7 @@ class VerifyView(APIView):
         authResult['result'] = newUser
       return Response(authResult)
     else:
-      return Response(authResult) 
+      return Response(authResult)
 
 class RegisterView(APIView):
   def post(self, request):
