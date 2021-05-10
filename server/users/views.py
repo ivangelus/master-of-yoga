@@ -15,7 +15,7 @@ class LoginView(APIView):
     }
     firebase.logIn(user)
     result = firebase.logIn(user)
-    return Response(result) 
+    return Response(result)
 
 class VerifyView(APIView):
   def post(self, request):
@@ -32,4 +32,4 @@ class VerifyView(APIView):
         authResult['result'] = newUser
       return Response(authResult)
     else:
-      return Response(authResult) 
+      return Response(authResult)

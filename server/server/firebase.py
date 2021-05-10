@@ -3,7 +3,7 @@ import pathlib
 import pyrebase
 import firebase_admin
 from dotenv import load_dotenv, dotenv_values
-from firebase_admin import auth, credentials, firestore  
+from firebase_admin import auth, credentials, firestore
 
 
 BASE_DIR = pathlib.Path(__file__).parent.absolute()
@@ -83,9 +83,9 @@ def newUser(data):
     }
   }
   try:
-    db.collection('users').document('test').set(userData)
+    db.collection('users').document(uid).set(userData)
     newUser = db.collection('users').document(uid).get()
-    return newUser.to_dict
+    return newUser.to_dict()
   except:
     print('Failed to create new user in database')
     raise
