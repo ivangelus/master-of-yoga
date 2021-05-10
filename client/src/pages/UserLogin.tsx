@@ -56,7 +56,7 @@ const UserAuth: React.FC = () => {
     if (isLogin && form.email !== '' && form.password !== '') {
       // User Login
       try {
-        const login = await auth.signInWithEmailAndPassword(
+        await auth.signInWithEmailAndPassword(
           form.email,
           form.password
         );
