@@ -58,7 +58,8 @@ def authToken(token):
       'msg':'Token verified',
       'result': decoded_token
     }
-  except:
+  except Exception as e:
+    print(e)
     return {
       'valid': False,
       'msg':'Token is invalid',
