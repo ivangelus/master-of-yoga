@@ -19,7 +19,7 @@
 
  const color = "aqua";
  const boundingBoxColor = "red";
- const lineWidth = 2;
+ const lineWidth = 3;
 
  export const tryResNetButtonName = "tryResNetButton";
  export const tryResNetButtonText = "[New] Try ResNet50";
