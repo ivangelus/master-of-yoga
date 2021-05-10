@@ -15,7 +15,7 @@ async function getRoutines(): Promise<BaseRoutinesDTO> {
   } catch (error) {
     throw new Error(error);
   }
-}
+};
 
 async function authUser(token: string): Promise<AuthResponseDTO> {
   try {
