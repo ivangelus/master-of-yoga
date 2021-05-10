@@ -17,7 +17,7 @@ const Dashboard: React.FC = () => {
           <Tracks title="Advanced" />
         </div>
         <div className="dashboard-content-down">
-          <AttendanceGraph />
+          {/* <AttendanceGraph /> */}
           <Tips />
         </div>
       </div>
