@@ -1,4 +1,4 @@
-import './UserLogin.css';
+import './UserLogin&Registration.css';
 import React, { useState } from 'react';
 import firebase, { auth, provider } from '../services/firebase';
 
@@ -56,10 +56,7 @@ const UserAuth: React.FC = () => {
     if (isLogin && form.email !== '' && form.password !== '') {
       // User Login
       try {
-        await auth.signInWithEmailAndPassword(
-          form.email,
-          form.password
-        );
+        await auth.signInWithEmailAndPassword(form.email, form.password);
         const token = await firebase.auth().currentUser?.getIdToken();
         if (token) {
           const user = await authUser(token);
@@ -71,6 +68,7 @@ const UserAuth: React.FC = () => {
     } else if (!isLogin && Object.values(form).indexOf('') === -1) {
       // User Registration
       const user = await createUser(form);
+      console.log(user);
       // dispatch(updateUser({ ...user.result }));
     } else {
       errorHandler('All fields are required!');
