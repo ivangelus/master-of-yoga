@@ -1,4 +1,4 @@
-import { PoseDTO } from './PoseDTO'
+import { PoseDTO } from './PoseDTO';
 
 export interface RoutineDTO {
   posesArr?: PoseDTO[];
