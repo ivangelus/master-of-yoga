@@ -11,7 +11,7 @@ interface Props {
 const Tracks: React.FC<Props> = ({ title }: Props) => {
   const history = useHistory();
   const handleClick = (): void => {
-    history.push(`trackPage/${title}`);
+    history.push(`trackPage/${title.toLowerCase()}`);
   };
 
   return (
