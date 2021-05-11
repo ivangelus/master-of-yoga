@@ -13,12 +13,21 @@ const TrackPage: React.FC = () => {
   const { level } = useParams<{ level: keyof BaseRoutinesDTO }>();
   const routines = useAppSelector((state: RootState) => state.routines[level]);
 
-  console.log('routines', routines);
+  const title = level[0].toUpperCase() + level.slice(1);
 
   return (
-    <div>
-      {routines.map((routine: PoseDTO) => (
-        <TrackPose key={routine.id} routine={routine} />
+    <div className="track-page-container">
+      <div className="title">{title}</div>
+      <div className="level-description-paragraph">
+        Designed for those who have had no previous exposure to yoga, but are
+        eager to learn and start experiencing the amazing benefits of a yoga
+        practice. The beginner student needs slow-paced direction and a great
+        level of detail so they can become familiar with basic yoga poses and
+        use of the breath.
+      </div>
+      <button className="btn-start-routine">START</button>
+      {routines.map((routine: PoseDTO, index: number) => (
+        <TrackPose key={routine.id} routine={routine} index={index} />
       ))}
     </div>
   );
