@@ -43,7 +43,6 @@ const UserAuth: React.FC = () => {
   };
 
   const checkAuth = async (): Promise<void> => {
-    console.log('here');
     const token = await firebase.auth().currentUser?.getIdToken();
     if (token) {
       const user = await authUser(token);
