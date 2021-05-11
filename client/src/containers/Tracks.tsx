@@ -1,5 +1,6 @@
 import './Tracks.css';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
@@ -8,8 +9,9 @@ interface Props {
 }
 
 const Tracks: React.FC<Props> = ({ title }: Props) => {
+  const history = useHistory();
   const handleClick = (): void => {
-    console.log('clicked');
+    history.push(`trackPage/${title.toLowerCase()}`);
   };
 
   return (
