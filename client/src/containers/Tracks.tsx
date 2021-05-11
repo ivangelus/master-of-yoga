@@ -10,7 +10,7 @@ import { useAppSelector } from '../redux/hooks';
 import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
 
 interface Props {
-  title: keyof BaseRoutinesDTO;
+  title: 'beginner' | 'intermediate' | 'advanced';
 }
 
 const buttonAdditionalStyles = {

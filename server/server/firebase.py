@@ -162,6 +162,7 @@ def getRoutines():
       for pose in routineSnapshot.to_dict()['routineList']:
         formattedRoutines.append(pose)
       result[name] = formattedRoutines
+      result[name + '_description'] = routineSnapshot.to_dict()['level_description']
     return result
   except:
     print('Failed to retrieve routines from database')
