@@ -7,6 +7,7 @@ import LandingPage from './pages/LandingPage';
 import PageNotFound from './pages/PageNotFound';
 import PoseValidation from './pages/PoseValidation';
 import Dashboard from './pages/Dashboard';
+import TrackPage from './pages/TrackPage';
 
 function App(): ReactElement {
   return (
@@ -16,6 +17,7 @@ function App(): ReactElement {
         <Route path="/about" component={About} />
         <Route path="/pose" component={PoseValidation} />
         <Route path="/dashboard" component={Dashboard} />
+        <Route path="/trackPage/:level" component={TrackPage} />
         <Route component={PageNotFound} />
       </Switch>
     </div>
