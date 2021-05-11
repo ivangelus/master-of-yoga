@@ -20,8 +20,9 @@
 .dashboard-content-down {
   height: 50%;
   display: flex;
+  column-gap: 4rem;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .dashboard-page-image-container {

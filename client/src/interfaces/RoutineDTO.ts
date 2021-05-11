@@ -1,4 +1,4 @@
-import { PoseDTO, mockPoseDTO } from './PoseDTO';
+import { PoseDTO } from './PoseDTO';
 
 export interface RoutineDTO {
   posesArr?: PoseDTO[];

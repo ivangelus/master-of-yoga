@@ -13,6 +13,7 @@
 }
 
 .tips-container h4 {
+  width: max-content;
   font-family: 'Handlee', cursive;
   font-size: 2rem;
   margin: 1rem 0;
