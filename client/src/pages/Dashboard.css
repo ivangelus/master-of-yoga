@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   /* background: linear-gradient(180deg, rgba(255,127,80,.8), rgba(255,127,80,0)); */
-  background-color: rgba(255,127,80,.8);
+  background-color: coral;
 }
 
 .dashboard-content-up {
