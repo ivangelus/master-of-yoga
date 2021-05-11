@@ -3,4 +3,16 @@
   flex-direction: row;
   padding-bottom: 4%;
   padding-left: 4%;
+  /* display: flex;
+  align-items: center; */
+}
+
+.routine-name {
+  font-size: 2rem;
+  margin-bottom: 4%;
+  padding-top: 7%;
+}
+
+.routine-description {
+  font-size: 1.1rem;
 }
