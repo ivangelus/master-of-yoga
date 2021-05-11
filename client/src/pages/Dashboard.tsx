@@ -29,19 +29,17 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard-container">
-      <div className="dashboard-content">
-        <div className="dashboard-content-up">
-          <UserCard />
-          <Tips />
-        </div>
-        <div className="dashboard-content-down">
-          <Tracks title="Beginner" />
-          <Tracks title="Intermediate" />
-          <Tracks title="Advanced" />
-          <div className="dashboard-page-image-container">
-            <img src={DashboardViewImage} alt="Woman standing yoga pose" />
-          </div>
-        </div>
+      <div className="dashboard-content-up">
+        <UserCard />
+        <Tips />
+      </div>
+      <div className="dashboard-content-down">
+        <Tracks title="Beginner" />
+        <Tracks title="Intermediate" />
+        <Tracks title="Advanced" />
+        {/* <div className="dashboard-page-image-container">
+          <img src={DashboardViewImage} alt="Woman standing yoga pose" />
+        </div> */}
       </div>
     </div>
   );
