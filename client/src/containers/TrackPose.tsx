@@ -17,7 +17,7 @@ const TrackPose: React.FC<Props> = ({ routine }: Props) => {
             width: '400px',
             objectFit: 'cover',
             borderRadius: '5%',
-            boxShadow: '0 0 3px gray',
+            boxShadow: '0 0 10px gray',
           }}
           src={routine.imageAddress}
           alt="Yoga Pose"

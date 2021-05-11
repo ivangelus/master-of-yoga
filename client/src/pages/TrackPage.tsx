@@ -18,6 +18,13 @@ const TrackPage: React.FC = () => {
   return (
     <div className="track-page-container">
       <div className="title">{title}</div>
+      <div className="level-description-paragraph">
+        Designed for those who have had no previous exposure to yoga, but are
+        eager to learn and start experiencing the amazing benefits of a yoga
+        practice. The beginner student needs slow-paced direction and a great
+        level of detail so they can become familiar with basic yoga poses and
+        use of the breath.
+      </div>
       {routines.map((routine: PoseDTO) => (
         <TrackPose key={routine.id} routine={routine} />
       ))}

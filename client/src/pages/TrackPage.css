@@ -1,9 +1,36 @@
 .track-page-container {
-  padding-top: 1%;
+  /* padding-top: 1%; */
   background-color: rgba(255, 127, 80, 0.9);
 }
 
 .title {
-  font-size: 5rem;
-  margin-bottom: 8%;
+  font-size: 4rem;
+  margin-bottom: 3%;
+  padding-top: 2%;
+  font-family: 'Handlee', cursive;
+}
+
+.level-description-paragraph {
+  font-family: 'Roboto Slab', serif;
+  font-size: 1.3rem;
+  text-align: center;
+  padding-left: 10%;
+  padding-right: 10%;
+  margin-bottom: 7%;
+}
+
+::-webkit-scrollbar {
+  width: 1em;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #23609F;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #214875;
 }
