@@ -16,7 +16,29 @@
   text-align: center;
   padding-left: 10%;
   padding-right: 10%;
+  margin-bottom: 4%;
+}
+
+.btn-start-routine {
+  background-color: #23609F;
+  color: white;
+  height: 50px;
+  width: 150px;
+  border-radius: 2rem;
+  border: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
   margin-bottom: 7%;
+  cursor: pointer;
+  box-shadow: 0 0 5px black;
+  transition-duration: 0.4s;
+  font-family: 'Handlee', cursive;
+  text-shadow: 0 0 1px white;
+}
+
+.btn-start-routine:hover {
+  box-shadow: 0 0 10px black;
+  background-color: #214875;
 }
 
 ::-webkit-scrollbar {

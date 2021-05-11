@@ -25,8 +25,9 @@ const TrackPage: React.FC = () => {
         level of detail so they can become familiar with basic yoga poses and
         use of the breath.
       </div>
-      {routines.map((routine: PoseDTO) => (
-        <TrackPose key={routine.id} routine={routine} />
+      <button className="btn-start-routine">START</button>
+      {routines.map((routine: PoseDTO, index: number) => (
+        <TrackPose key={routine.id} routine={routine} index={index} />
       ))}
     </div>
   );

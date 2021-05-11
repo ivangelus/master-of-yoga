@@ -4,9 +4,10 @@ import { PoseDTO } from '../interfaces/PoseDTO';
 
 interface Props {
   routine: PoseDTO;
+  index: number;
 }
 
-const TrackPose: React.FC<Props> = ({ routine }: Props) => {
+const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   console.log('routine', routine);
   return (
     <div className="track-pose-container">
@@ -23,9 +24,16 @@ const TrackPose: React.FC<Props> = ({ routine }: Props) => {
           alt="Yoga Pose"
         />
       </div>
-      <div className="content-container">
-        <div className="routine-name">{routine.name}</div>
-        <div className="routine-description">{routine.description}</div>
+      <div>
+        <div className="content-container">
+          <div className="routine-name">
+            {index + 1}. {routine.name}
+          </div>
+          <div className="routine-description">{routine.description}</div>
+        </div>
+        <div className="progress-container">
+          <button className="btn-progress-practice">PRACTICE</button>
+        </div>
       </div>
     </div>
   );
