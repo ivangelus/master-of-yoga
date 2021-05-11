@@ -7,12 +7,12 @@ export interface UserDTO {
   image?: string;
   lastEntry?: string;
   consecutiveDays?: number;
+  customTracks?: [];
   posesCompletion?: {
     beginner: string;
     intermediate: string;
     advanced: string;
   };
-  customTracks?: [];
 }
 
 export const initialStateUserDTO = {
