@@ -1,16 +1,19 @@
 import './UserCard.css';
 import React from 'react';
+import { useAppSelector } from '../redux/hooks';
+import { RootState } from '../redux/store';
 import { UserDTO } from '../interfaces/UserDTO';
 
 const UserCard: React.FC = () => {
-  const user: UserDTO = {
-    firstName: 'Luke',
-    lastName: 'SkyWalker',
-    email: 'luke@email.com',
-    password: '1234',
-    lastEntry: 'Today',
-    consecutiveDays: 5,
-  };
+  const user = useAppSelector((state: RootState) => state.users)
+  // const user: UserDTO = {
+  //   firstName: 'Luke',
+  //   lastName: 'SkyWalker',
+  //   email: 'luke@email.com',
+  //   password: '1234',
+  //   lastEntry: 'Today',
+  //   consecutiveDays: 5,
+  // };
 
   return (
     <div className="user-card-container">
