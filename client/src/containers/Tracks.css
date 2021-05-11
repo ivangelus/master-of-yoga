@@ -3,8 +3,9 @@
   height: 85%;
   width: 30%;
   min-width: 250px;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
+  margin-top: .5rem;
   border-radius: .5rem;
   box-shadow: 0 0 10px gray;
   backdrop-filter: blur( 5px );
@@ -12,26 +13,24 @@
   background-color: rgba( 245, 245, 245, 0.85 );
 }
 
-.progressbar-container {
-  height: 60%;
-  width: 60%;
+.tracks-container:hover {
+  box-shadow: 0 0 30px black;
+  transform: scale(1.1);
+  transition: .2s;
 }
 
-.btn-start {
-  border-radius: 1rem;
-  height: 1.5rem;
-  width: 4.5rem;
-  border: 0;
-  color: white;
-  margin-bottom: 5%;
-  background: linear-gradient(270deg, rgb(241, 139, 21), rgb(233,73,14));
-  cursor: pointer;
-  text-shadow: 0 0 2px black;
+.tracks-container h2 {
+  font-family: 'Handlee', cursive;
+  font-size: 1.25em;
+}
+
+.tracks-container p {
   font-family: 'Roboto Slab', serif;
-  font-size: .8rem;
-  box-shadow: 0 0 5px black;
+  white-space: pre-line;
+  margin: 0;
 }
 
-.btn-start:hover {
-  box-shadow: 0 0 10px black;
+.progressbar-container {
+  height: 40%;
+  width: 60%;
 }
