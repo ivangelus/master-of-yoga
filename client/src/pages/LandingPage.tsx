@@ -8,7 +8,7 @@ import { useAppDispatch } from '../redux/hooks';
 import NavBar from '../containers/NavBar';
 import Button from '../components/Button';
 import Modal from '../containers/Modal';
-import UserLogin from './UserLogin';
+import UserAuth from './UserAuth';
 
 const LandingPage: React.FC = (): ReactElement => {
   const dispatch = useAppDispatch();
@@ -36,7 +36,7 @@ const LandingPage: React.FC = (): ReactElement => {
         </div>
       </div>
       <Modal>
-        <UserLogin />
+        <UserAuth />
       </Modal>
     </div>
   );

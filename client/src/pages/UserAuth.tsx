@@ -1,4 +1,4 @@
-import './UserLogin&Registration.css';
+import './UserAuth.css';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import firebase, { auth, provider } from '../services/firebase';
@@ -95,40 +95,47 @@ const UserAuth: React.FC = () => {
   return (
     <div>
       {isLogin ? (
-        <form className="login-form" onSubmit={(event) => handleSubmit(event)}>
-          <label htmlFor="email">
-            E-mail:
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={(event) => handleUpdate(event)}
-            ></input>
-          </label>
-          <label htmlFor="password">
-            Password:
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={(event) => handleUpdate(event)}
-              pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
-              title="Min. 8 characters, with letters & numbers"
-              placeholder="Min. 8 characters, with letters & numbers"
-            ></input>
-          </label>
-          <a onClick={handleLoginOrRegister}>
-            Not registered? Create an account!
-          </a>
-          <p id="form-error"></p>
-          <div className="user-form-btn">
-            <input type="reset" value="Clear" onClick={handleReset}></input>
-            <input type="submit" value="Log In"></input>
+        <>
+          <form
+            className="login-form"
+            onSubmit={(event) => handleSubmit(event)}
+          >
+            <label htmlFor="email">
+              E-mail:
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={(event) => handleUpdate(event)}
+              ></input>
+            </label>
+            <label htmlFor="password">
+              Password:
+              <input
+                name="password"
+                type="password"
+                value={form.password}
+                onChange={(event) => handleUpdate(event)}
+                pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
+                title="Min. 8 characters, with letters & numbers"
+                placeholder="Min. 8 characters, with letters & numbers"
+              ></input>
+            </label>
+            <a onClick={handleLoginOrRegister}>
+              Not registered? Create an account!
+            </a>
+            <p id="form-error"></p>
+            <div className="user-form-btn">
+              <input type="reset" value="Clear" onClick={handleReset}></input>
+              <input type="submit" value="Log In"></input>
+            </div>
+          </form>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button className="google-sign-in" onClick={googleSignIn}>
+              Sign In with Google
+            </button>
           </div>
-          <button className="google-sign-in" onClick={googleSignIn}>
-            Sign In with Google
-          </button>
-        </form>
+        </>
       ) : (
         <form className="registration-form" onSubmit={handleSubmit}>
           <label htmlFor="firstName">
