@@ -13,10 +13,11 @@ const TrackPage: React.FC = () => {
   const { level } = useParams<{ level: keyof BaseRoutinesDTO }>();
   const routines = useAppSelector((state: RootState) => state.routines[level]);
 
-  console.log('routines', routines);
+  const title = level[0].toUpperCase() + level.slice(1);
 
   return (
-    <div>
+    <div className="track-page-container">
+      <div className="title">{title}</div>
       {routines.map((routine: PoseDTO) => (
         <TrackPose key={routine.id} routine={routine} />
       ))}
