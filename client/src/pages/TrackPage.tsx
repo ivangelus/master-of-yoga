@@ -7,7 +7,6 @@ import { RootState } from '../redux/store';
 import { PoseDTO } from '../interfaces/PoseDTO';
 
 import TrackPose from '../containers/TrackPose';
-import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
 
 const TrackPage: React.FC = () => {
   const { level } = useParams<{
@@ -17,10 +16,15 @@ const TrackPage: React.FC = () => {
   const description = routines.descriptions[level];
   const routine = routines[level];
 
+  const title = level[0].toUpperCase() + level.slice(1);
+
   return (
-    <div>
-      {routine.map((routine: PoseDTO) => (
-        <TrackPose key={routine.id} routine={routine} />
+    <div className="track-page-container">
+      <div className="title">{title}</div>
+      <div className="level-description-paragraph">{description}</div>
+      <button className="btn-start-routine">START</button>
+      {routine.map((routine: PoseDTO, index: number) => (
+        <TrackPose key={routine.id} routine={routine} index={index} />
       ))}
     </div>
   );
