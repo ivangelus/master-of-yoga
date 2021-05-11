@@ -5,8 +5,8 @@ import Timer from '../components/Timer';
 
 const PoseValidation: React.FC = (): ReactElement => {
   const [loader, setLoader] = useState(-50);
-  const [loading, setLoading] = useState(true)
-  const [ready, setReady] = useState(5)
+  const [loading, setLoading] = useState(true);
+  const [ready, setReady] = useState(5);
 
   let counter = -50;
   let readyCounter = 5;
@@ -18,47 +18,46 @@ const PoseValidation: React.FC = (): ReactElement => {
       } else {
         clearInterval(interval);
       }
-    }, 1000)},[]);
+    }, 1000);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
-      setLoading(loading => !loading)
-        },5000)
-      },[])
+      setLoading((loading) => !loading);
+    }, 5000);
+  }, []);
   useEffect(() => {
     const interval = setInterval(() => {
-      readyCounter--
-      if(readyCounter > 0){
-        setReady(ready => ready -1)
+      readyCounter--;
+      if (readyCounter > 0) {
+        setReady((ready) => ready - 1);
       } else {
-        clearInterval(interval)
+        clearInterval(interval);
       }
-    },1000)
-  },[])
+    }, 1000);
+  }, []);
 
   return (
     <div className="pose__validation__container">
-      {
-        loading
-        ?
+      {loading ? (
         <div className="messageContainer">
-        <p className="readyMessage">Get Ready!</p>
-        <p className="readyCounter" >{ready}</p>
+          <p className="readyMessage">Get Ready!</p>
+          <p className="readyCounter">{ready}</p>
         </div>
-        :
+      ) : (
         <div>
-        <Camera />
-        <Timer />
-        <div className="btn__container">
-          <button className="pose__validation__btn">Back</button>
-          <button className="pose__validation__btn">Next</button>
+          <Camera />
+          <Timer />
+          <div className="btn__container">
+            <button className="pose__validation__btn">Back</button>
+            <button className="pose__validation__btn">Next</button>
+          </div>
+          <div className="progress__bar__container">
+            <div className="loader" style={{ width: loader + '%' }}></div>
+          </div>
         </div>
-        <div className="progress__bar__container">
-          <div className="loader" style={{ width: loader + '%' }}></div>
-        </div>
-      </div>
-      }
-      </div>
+      )}
+    </div>
   );
 };
 
