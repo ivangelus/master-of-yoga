@@ -10,7 +10,13 @@ const TrackPose: React.FC<Props> = ({ routine }: Props) => {
   console.log('routine', routine);
   return (
     <div className="track-pose-container">
-      <h1>This is the track pose component</h1>
+      <div className="image-container">
+        <img src={routine.imageAddress} alt="Yoga Pose" />
+      </div>
+      <div className="content-container">
+        <div>{routine.name}</div>
+        <div>{routine.description}</div>
+      </div>
     </div>
   );
 };
