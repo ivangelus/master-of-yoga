@@ -37,9 +37,9 @@ const Dashboard: React.FC = () => {
         <Tracks title="Beginner" />
         <Tracks title="Intermediate" />
         <Tracks title="Advanced" />
-        <div className="dashboard-page-image-container">
+        {/* <div className="dashboard-page-image-container">
           <img src={DashboardViewImage} alt="Woman standing yoga pose" />
-        </div>
+        </div> */}
       </div>
     </div>
   );
