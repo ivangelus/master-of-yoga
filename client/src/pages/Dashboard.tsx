@@ -19,8 +19,7 @@ const Dashboard: React.FC = () => {
   const routine = useAppSelector((state: RootState) => state.routines);
 
   useEffect(() => {
-    console.log(Object.keys(routine).length === 0);
-    if (Object.keys(routine).length === 0) {
+    if (routine.intermediate.length === 0) {
       const fetchRoutines = async (): Promise<void> => {
         const data = await getRoutines();
         dispatch(updateRoutines(data));

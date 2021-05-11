@@ -1,11 +1,17 @@
-import { PoseDTO } from './PoseDTO';
+import { PoseDTO, mockPoseDTO } from './PoseDTO';
 
 export interface RoutineDTO {
   posesArr?: PoseDTO[];
 }
 
 export interface BaseRoutinesDTO {
-  begginer?: PoseDTO[];
-  intermediate?: PoseDTO[];
-  advanced?: PoseDTO[];
+  beginner: PoseDTO[];
+  intermediate: PoseDTO[];
+  advanced: PoseDTO[];
 }
+
+export const initialBaseRoutinesDTO: BaseRoutinesDTO = {
+  beginner: [],
+  intermediate: [],
+  advanced: [],
+};

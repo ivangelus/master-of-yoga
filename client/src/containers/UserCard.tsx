@@ -5,7 +5,7 @@ import { RootState } from '../redux/store';
 import { UserDTO } from '../interfaces/UserDTO';
 
 const UserCard: React.FC = () => {
-  const user = useAppSelector((state: RootState) => state.users)
+  const user = useAppSelector((state: RootState) => state.users);
   // const user: UserDTO = {
   //   firstName: 'Luke',
   //   lastName: 'SkyWalker',
