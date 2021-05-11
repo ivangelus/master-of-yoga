@@ -1,7 +1,9 @@
 import './LandingPage.css';
 import React, { ReactElement } from 'react';
+import { useHistory } from 'react-router-dom';
 import LandingViewImage from '../assets/landing_view_image.svg';
 
+import { updateUser } from '../redux/usersSlice';
 import { openModal } from '../redux/modalSlice';
 import { useAppDispatch } from '../redux/hooks';
 
@@ -11,10 +13,16 @@ import Modal from '../containers/Modal';
 import UserAuth from './UserAuth';
 
 const LandingPage: React.FC = (): ReactElement => {
+  const history = useHistory();
   const dispatch = useAppDispatch();
 
   const handleClick = (): void => {
-    dispatch(openModal());
+    const sessionUser = sessionStorage.getItem('yogaMasterUser');
+    if (sessionUser) {
+      const user = JSON.parse(sessionUser);
+      dispatch(updateUser({ ...user }));
+      history.push('/dashboard');
+    } else dispatch(openModal());
   };
 
   return (
