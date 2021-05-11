@@ -5,12 +5,22 @@ export interface RoutineDTO {
 }
 
 export interface BaseRoutinesDTO {
+  descriptions: {
+    beginner: string;
+    intermediate: string;
+    advanced: string;
+  };
   beginner: PoseDTO[];
   intermediate: PoseDTO[];
   advanced: PoseDTO[];
 }
 
 export const initialBaseRoutinesDTO: BaseRoutinesDTO = {
+  descriptions: {
+    beginner: '',
+    intermediate: '',
+    advanced: '',
+  },
   beginner: [],
   intermediate: [],
   advanced: [],

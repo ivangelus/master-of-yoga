@@ -10,14 +10,16 @@ import TrackPose from '../containers/TrackPose';
 import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
 
 const TrackPage: React.FC = () => {
-  const { level } = useParams<{ level: keyof BaseRoutinesDTO }>();
-  const routines = useAppSelector((state: RootState) => state.routines[level]);
-
-  console.log('routines', routines);
+  const { level } = useParams<{
+    level: 'beginner' | 'intermediate' | 'advanced';
+  }>();
+  const routines = useAppSelector((state: RootState) => state.routines);
+  const description = routines.descriptions[level];
+  const routine = routines[level];
 
   return (
     <div>
-      {routines.map((routine: PoseDTO) => (
+      {routine.map((routine: PoseDTO) => (
         <TrackPose key={routine.id} routine={routine} />
       ))}
     </div>

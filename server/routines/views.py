@@ -10,14 +10,17 @@ def generateRoutinesListWithPosesData(posesList, routineList):
     if pose['id'] in routineSet:
       completeList.append(pose)
   return completeList
-  
+
 class RoutinesView(APIView):
   def get(self, request):
     poses = firebase.getPoses()
     routines = firebase.getRoutines()
-    resultDict = {}
+    resultDict = { 'descriptions': {} }
     for routine in routines:
       name = routine
-      resultList = generateRoutinesListWithPosesData(poses, routines[routine])
-      resultDict[name] = resultList
+      if 'description' in name:
+        resultDict['descriptions'][name.split('_')[0]] = routines[name]
+      else:
+        resultList = generateRoutinesListWithPosesData(poses, routines[routine])
+        resultDict[name] = resultList
     return Response(resultDict)
