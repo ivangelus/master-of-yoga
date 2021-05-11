@@ -20,11 +20,10 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     if (routine.intermediate.length === 0) {
-      const fetchRoutines = async (): Promise<void> => {
+      (async (): Promise<void> => {
         const data = await getRoutines();
         dispatch(updateRoutines(data));
-      };
-      fetchRoutines();
+      })();
     }
   }, []);
 
