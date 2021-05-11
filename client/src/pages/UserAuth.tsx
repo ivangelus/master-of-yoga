@@ -1,4 +1,4 @@
-import './UserLogin&Registration.css';
+import './UserAuth.css';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import firebase, { auth, provider } from '../services/firebase';
@@ -6,6 +6,7 @@ import firebase, { auth, provider } from '../services/firebase';
 import { authUser, createUser } from '../services/server';
 import { updateUser } from '../redux/usersSlice';
 import { useAppDispatch } from '../redux/hooks';
+import { UserDTO } from '../interfaces/UserDTO';
 
 interface Form {
   [key: string]: string;
@@ -35,23 +36,27 @@ const UserAuth: React.FC = () => {
     else alert(errorMessage);
   };
 
-  const checkAuth = async () => {
-    console.log('here');
+  const updateUserAndNavigate = (user: UserDTO): void => {
+    dispatch(updateUser({ ...user }));
+    sessionStorage.setItem('yogaMasterUser', JSON.stringify(user));
+    history.push('/dashboard');
+  };
+
+  const checkAuth = async (): Promise<void> => {
     const token = await firebase.auth().currentUser?.getIdToken();
     if (token) {
       const user = await authUser(token);
       if (user.valid) {
-        dispatch(updateUser({ ...user.result }));
-        history.push('/dashboard');
+        updateUserAndNavigate(user.result);
       } else throw new Error('Invalid user');
     }
   };
 
-  const handleLoginOrRegister = () => {
+  const handleLoginOrRegister = (): void => {
     setIsLogin(!isLogin);
   };
 
-  const handleUpdate = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUpdate = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const target: keyof Form = event.target.name;
     const value: string = event.target.value;
     const newForm: Form = { ...form };
@@ -60,11 +65,11 @@ const UserAuth: React.FC = () => {
     setForm({ ...newForm });
   };
 
-  const handleReset = () => {
+  const handleReset = (): void => {
     setForm(initialForm);
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent): Promise<void> => {
     event.preventDefault();
 
     if (isLogin && form.email !== '' && form.password !== '') {
@@ -76,14 +81,13 @@ const UserAuth: React.FC = () => {
       }
     } else if (!isLogin && Object.values(form).indexOf('') === -1) {
       const user = await createUser(form);
-      dispatch(updateUser({ ...user }));
-      history.push('/dashboard');
+      updateUserAndNavigate(user);
     } else {
       errorHandler('All fields are required!');
     }
   };
 
-  const googleSignIn = async () => {
+  const googleSignIn = async (): Promise<void> => {
     try {
       await auth.signInWithPopup(provider);
       await checkAuth();
@@ -95,40 +99,47 @@ const UserAuth: React.FC = () => {
   return (
     <div>
       {isLogin ? (
-        <form className="login-form" onSubmit={(event) => handleSubmit(event)}>
-          <label htmlFor="email">
-            E-mail:
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={(event) => handleUpdate(event)}
-            ></input>
-          </label>
-          <label htmlFor="password">
-            Password:
-            <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={(event) => handleUpdate(event)}
-              pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
-              title="Min. 8 characters, with letters & numbers"
-              placeholder="Min. 8 characters, with letters & numbers"
-            ></input>
-          </label>
-          <a onClick={handleLoginOrRegister}>
-            Not registered? Create an account!
-          </a>
-          <p id="form-error"></p>
-          <div className="user-form-btn">
-            <input type="reset" value="Clear" onClick={handleReset}></input>
-            <input type="submit" value="Log In"></input>
+        <>
+          <form
+            className="login-form"
+            onSubmit={(event) => handleSubmit(event)}
+          >
+            <label htmlFor="email">
+              E-mail:
+              <input
+                name="email"
+                type="email"
+                value={form.email}
+                onChange={(event) => handleUpdate(event)}
+              ></input>
+            </label>
+            <label htmlFor="password">
+              Password:
+              <input
+                name="password"
+                type="password"
+                value={form.password}
+                onChange={(event) => handleUpdate(event)}
+                pattern="(?=.*\d)(?=.*[a-zA-Z]).{8,}"
+                title="Min. 8 characters, with letters & numbers"
+                placeholder="Min. 8 characters, with letters & numbers"
+              ></input>
+            </label>
+            <a onClick={handleLoginOrRegister}>
+              Not registered? Create an account!
+            </a>
+            <p id="form-error"></p>
+            <div className="user-form-btn">
+              <input type="reset" value="Clear" onClick={handleReset}></input>
+              <input type="submit" value="Log In"></input>
+            </div>
+          </form>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <button className="google-sign-in" onClick={googleSignIn}>
+              Sign In with Google
+            </button>
           </div>
-          <button className="google-sign-in" onClick={googleSignIn}>
-            Sign In with Google
-          </button>
-        </form>
+        </>
       ) : (
         <form className="registration-form" onSubmit={handleSubmit}>
           <label htmlFor="firstName">

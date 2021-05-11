@@ -1,20 +1,35 @@
-import './Tracks.css';
-import React from 'react';
-import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import './Tracks.css';
+
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import { CircularProgressbar } from 'react-circular-progressbar';
+
+import Button from '../components/Button';
+import { useAppSelector } from '../redux/hooks';
+import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
 
 interface Props {
-  title: string;
+  title: 'beginner' | 'intermediate' | 'advanced';
 }
 
+const buttonAdditionalStyles = {
+  marginBottom: '2rem',
+  fontSize: '1.5rem',
+  width: '5rem',
+};
+
 const Tracks: React.FC<Props> = ({ title }: Props) => {
+  const history = useHistory();
+  const routine = useAppSelector((state) => state.routines[title]);
+
   const handleClick = (): void => {
-    console.log('clicked');
+    history.push(`trackPage/${title.toLowerCase()}`);
   };
 
   return (
     <div className="tracks-container">
-      <h2>{title}</h2>
+      <h2>{title.toUpperCase()}</h2>
       <div className="progressbar-container">
         <CircularProgressbar
           value={70}
@@ -39,9 +54,12 @@ const Tracks: React.FC<Props> = ({ title }: Props) => {
           strokeWidth={10}
         />
       </div>
-      <button onClick={handleClick} className="btn-start">
-        START
-      </button>
+      <p>{`0 out of ${routine.length}\npositions mastered!`}</p>
+      <Button
+        label="Start"
+        onClick={handleClick}
+        styles={buttonAdditionalStyles}
+      />
     </div>
   );
 };

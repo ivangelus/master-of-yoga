@@ -1,20 +1,24 @@
 import './LandingPage.css';
 import React, { ReactElement } from 'react';
+import { useHistory } from 'react-router-dom';
 import LandingViewImage from '../assets/landing_view_image.svg';
 
 import { openModal } from '../redux/modalSlice';
-import { useAppDispatch } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 import NavBar from '../containers/NavBar';
 import Button from '../components/Button';
 import Modal from '../containers/Modal';
-import UserLogin from './UserLogin';
+import UserAuth from './UserAuth';
 
 const LandingPage: React.FC = (): ReactElement => {
+  const history = useHistory();
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.users);
 
   const handleClick = (): void => {
-    dispatch(openModal());
+    if (user.email) history.push('/dashboard');
+    else dispatch(openModal());
   };
 
   return (
@@ -36,7 +40,7 @@ const LandingPage: React.FC = (): ReactElement => {
         </div>
       </div>
       <Modal>
-        <UserLogin />
+        <UserAuth />
       </Modal>
     </div>
   );

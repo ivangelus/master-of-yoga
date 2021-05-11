@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
-import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
-
-const initialState: BaseRoutinesDTO = {};
+import {
+  BaseRoutinesDTO,
+  initialBaseRoutinesDTO,
+} from '../interfaces/RoutineDTO';
 
 export const routinesSlice = createSlice({
   name: 'routines',
-  initialState,
+  initialState: initialBaseRoutinesDTO,
   reducers: {
     updateRoutines: (state, action: PayloadAction<BaseRoutinesDTO>) => {
       return { ...state, ...action.payload };
