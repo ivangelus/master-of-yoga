@@ -9,7 +9,7 @@ const PoseValidation: React.FC = (): ReactElement => {
   const [loader, setLoader] = useState(0);
   const [loading, setLoading] = useState(true);
   const [poseCounter, setPoseCounter] = useState(0);
-  const [startPauseText, setStartPausetext] = useState('Start')
+  const [startPauseText, setStartPausetext] = useState('Start');
   const [readyCounter, setReadyCounter] = useState(5);
 
   const increment = 1.6;
@@ -23,7 +23,8 @@ const PoseValidation: React.FC = (): ReactElement => {
   function counter() {
     console.log('____________ here _______________________');
     const interval = setInterval(() => {
-      if (!loading && poseCounter < 100) setPoseCounter((previous: number) => ++previous);
+      if (!loading && poseCounter < 100)
+        setPoseCounter((previous: number) => ++previous);
       if (poseCounter > 100) setPoseCounter(100);
       if (poseCounter <= 100) {
         setLoader((loader) => loader + increment);
@@ -68,7 +69,9 @@ const PoseValidation: React.FC = (): ReactElement => {
               </div>
               <div className="btn__container">
                 <button className="pose__validation__btn">Back</button>
-                <button className="pose__validation__btn">{startPauseText}</button>
+                <button className="pose__validation__btn">
+                  {startPauseText}
+                </button>
                 <button className="pose__validation__btn">Next</button>
               </div>
             </div>

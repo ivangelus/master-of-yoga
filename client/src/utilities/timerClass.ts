@@ -1,11 +1,10 @@
-export default class timerClass  {
+export default class timerClass {
+  myTimer: any;
+  timerLimit: number;
+  timerIncrement: number;
+  time: number;
 
-  myTimer: any
-  timerLimit: number
-  timerIncrement: number
-  time:number
-
-  constructor (limit: number, increment:number) {
+  constructor(limit: number, increment: number) {
     this.timerLimit = limit;
     this.timerIncrement = increment;
     this.time = 0;
@@ -19,9 +18,9 @@ export default class timerClass  {
   start(): void {
     this.myTimer = setInterval(this.myClock, this.timerIncrement);
   }
-  
+
   end(): void {
-      clearInterval(this.myTimer)
+    clearInterval(this.myTimer);
   }
 
   getTime(): number {
