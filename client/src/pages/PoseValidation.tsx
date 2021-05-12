@@ -1,41 +1,37 @@
 import React, { ReactElement, useEffect, useState } from 'react';
-import { css } from "@emotion/core";
+import { css } from '@emotion/core';
 import './PoseValidation.css';
 import Camera from '../components/Camera';
 import Timer from '../components/Timer';
-import HashLoader from "react-spinners/HashLoader";
+import HashLoader from 'react-spinners/HashLoader';
 
 const PoseValidation: React.FC = (): ReactElement => {
   const [loader, setLoader] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [poseCounter, setPoseCounter] = useState(0);
+  const [startPauseText, setStartPausetext] = useState('Start')
   const [readyCounter, setReadyCounter] = useState(5);
 
-  const counter = 0;
   const increment = 1.6;
 
   const override = css`
-  display: block;
-  margin: 0 auto;
-  border-color: red;
+    display: block;
+    margin: 0 auto;
+    border-color: red;
   `;
 
-  useEffect(() => {
-    function counting() {
-      let counter = 0;
-      console.log('____________ here _______________________')
-      const interval = setInterval(() => {
-        counter += increment;
-        if (counter <= 100) {
-          console.log(counter);
-          setLoader((loader) => loader + increment);
-        } else {
-          clearInterval(interval);
-        }
-      }, 1000);
-    }
-
-
-  }, []);
+  function counter() {
+    console.log('____________ here _______________________');
+    const interval = setInterval(() => {
+      if (!loading && poseCounter < 100) setPoseCounter((previous: number) => ++previous);
+      if (poseCounter > 100) setPoseCounter(100);
+      if (poseCounter <= 100) {
+        setLoader((loader) => loader + increment);
+      } else {
+        clearInterval(interval);
+      }
+    }, 1000);
+  }
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,10 +43,12 @@ const PoseValidation: React.FC = (): ReactElement => {
     <div className="pose__validation__container">
       {loading ? (
         <div className="messageContainer">
-          <HashLoader color={'red'} loading={loading} css={override} size={250} />
-          <h1>Loading</h1>
-          {/* <div className="readyMessage">Get Ready!</div>
-          <div className="readyCounter">{readyCounter}</div> */}
+          <HashLoader
+            color={'red'}
+            loading={loading}
+            css={override}
+            size={250}
+          />
         </div>
       ) : (
         <div className="pose__validation__container__camera__container">
@@ -70,6 +68,7 @@ const PoseValidation: React.FC = (): ReactElement => {
               </div>
               <div className="btn__container">
                 <button className="pose__validation__btn">Back</button>
+                <button className="pose__validation__btn">{startPauseText}</button>
                 <button className="pose__validation__btn">Next</button>
               </div>
             </div>
