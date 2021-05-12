@@ -16,12 +16,14 @@ const Camera = () => {
     videoHeight: number,
     canvas: any
   ) => {
-    const ctx = canvas.current.getContext('2d');
-    canvas.current.width = videoWidth;
-    canvas.current.height = videoHeight;
+    if (canvas.current) {
+      const ctx = canvas.current.getContext('2d');
+      canvas.current.width = videoWidth;
+      canvas.current.height = videoHeight;
 
-    drawKeypoints(pose['keypoints'], 0.5, ctx);
-    drawSkeleton(pose['keypoints'], 0.5, ctx);
+      drawKeypoints(pose['keypoints'], 0.5, ctx);
+      drawSkeleton(pose['keypoints'], 0.5, ctx);
+    }
   };
 
   const detect = async (net: any) => {

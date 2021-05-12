@@ -1,5 +1,6 @@
 import './TrackPose.css';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { PoseDTO } from '../interfaces/PoseDTO';
 
 interface Props {
@@ -8,7 +9,11 @@ interface Props {
 }
 
 const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
-  console.log('routine', routine);
+  const history = useHistory();
+
+  const handleClick = (): void => {
+    history.push(`/pose/${routine.level}/${index}`);
+  };
   return (
     <div className="track-pose-container">
       <div className="pose-image-container">
@@ -32,7 +37,9 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
           <div className="routine-description">{routine.description}</div>
         </div>
         <div className="progress-container">
-          <button className="btn-progress-practice">PRACTICE</button>
+          <button onClick={handleClick} className="btn-progress-practice">
+            PRACTICE
+          </button>
         </div>
       </div>
     </div>
