@@ -1,8 +1,4 @@
 .webcam__timer {
-  margin-top: 5rem;
-  bottom: 8vh;
-  left: 23vw;
-  font-weight: 50;
+  font-weight: bold;
   font-size: 50px;
-  position: absolute;
 }
