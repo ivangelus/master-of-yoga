@@ -21,7 +21,7 @@ const TrackPage: React.FC = () => {
   const history = useHistory();
 
   const handleClick = (): void => {
-    history.push(`/pose/${level}`);
+    history.push(`/pose/${level}/0`);
   };
 
   return (

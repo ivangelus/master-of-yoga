@@ -25,7 +25,7 @@ function App(): ReactElement {
       <Switch>
         <Route path="/" component={LandingPage} exact />
         <Route path="/about" component={About} />
-        <Route path="/pose" component={PoseValidation} />
+        <Route path="/pose/:level/:index" component={PoseValidation} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/trackPage/:level" component={TrackPage} />
         <Route component={PageNotFound} />

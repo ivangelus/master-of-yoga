@@ -1,4 +1,9 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+
+import { useAppSelector } from '../redux/hooks';
+import { RootState } from '../redux/store';
+
 import { css } from '@emotion/core';
 import './PoseValidation.css';
 import Camera from '../components/Camera';
@@ -11,6 +16,13 @@ const PoseValidation: React.FC = (): ReactElement => {
   const [poseCounter, setPoseCounter] = useState(0);
   const [startPauseText, setStartPausetext] = useState('Start');
   const [readyCounter, setReadyCounter] = useState(5);
+
+  const { level, index } = useParams<{
+    level: 'beginner' | 'intermediate' | 'advanced';
+    index: string;
+  }>();
+
+  const routines = useAppSelector((state: RootState) => state.routines[level]);
 
   const increment = 1.6;
 
@@ -40,6 +52,18 @@ const PoseValidation: React.FC = (): ReactElement => {
     }, 5000);
   }, []);
 
+  const history = useHistory();
+
+  const handleBack = (): void => {
+    history.push(`/pose/${level}/${Number(index) - 1}`);
+  };
+
+  const handleNext = (): void => {
+    history.push(`/pose/${level}/${Number(index) + 1}`);
+  };
+
+  console.log('routine is here son', routines[Number(index)]);
+
   return (
     <div className="pose__validation__container">
       {loading ? (
@@ -58,7 +82,16 @@ const PoseValidation: React.FC = (): ReactElement => {
           </div>
           <div className="pose__validation__container__camera__container_right">
             <div className="pose__validation__container__camera__container_right__image__container">
-              <h1>This is an image container</h1>
+              <img
+                src={routines[Number(index)].imageAddress}
+                alt={routines[Number(index)].name}
+                style={{
+                  maxHeight: '100%',
+                  minHeight: '100%',
+                  maxWidth: '100%',
+                  minWidth: '100%',
+                }}
+              />
             </div>
             <div className="pose__validation__container__camera__container_right__content__container">
               <div className="timer__container">
@@ -68,11 +101,15 @@ const PoseValidation: React.FC = (): ReactElement => {
                 <div className="loader" style={{ width: loader + '%' }}></div>
               </div>
               <div className="btn__container">
-                <button className="pose__validation__btn">Back</button>
+                <button onClick={handleBack} className="pose__validation__btn">
+                  Back
+                </button>
                 <button className="pose__validation__btn">
                   {startPauseText}
                 </button>
-                <button className="pose__validation__btn">Next</button>
+                <button onClick={handleNext} className="pose__validation__btn">
+                  Next
+                </button>
               </div>
             </div>
           </div>

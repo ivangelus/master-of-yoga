@@ -12,7 +12,7 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   const history = useHistory();
 
   const handleClick = (): void => {
-    history.push(`/pose/${index}`);
+    history.push(`/pose/${routine.level}/${index}`);
   };
   return (
     <div className="track-pose-container">
