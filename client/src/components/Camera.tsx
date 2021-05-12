@@ -81,9 +81,9 @@ const Camera = () => {
   };
   return (
     <div>
-      <div className= "webcam__container">
+      <div className="webcam__container">
         <Webcam
-          audio = {false}
+          audio={false}
           // mirrored={true}
           className="webcam__screen"
           videoConstraints={videoConstraints}

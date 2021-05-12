@@ -94,15 +94,3 @@
   height: 100%;
   width: 100%;
 }
-
-.readyMessage {
-  font-size: 10rem;
-  font-weight: 300;
-  /* text-align: center; */
-}
-
-.readyCounter {
-  font-size: 10rem;
-  font-weight: 300;
-  text-align: center;
-}
