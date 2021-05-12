@@ -19,8 +19,8 @@ const Timer = () => {
   }, []);
 
   return (
-    <div>
-      <p className="webcam__timer">Time left: {timer}</p>
+    <div className="webcam__timer__container">
+      <div className="webcam__timer">Time left: {timer}s</div>
     </div>
   );
 };
