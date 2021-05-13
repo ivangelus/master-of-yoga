@@ -1,11 +1,9 @@
 .tracks-container {
   display: flex;
-  height: 85%;
-  width: 30%;
-  min-width: 250px;
+  height: 400px;
+  width: 300px;
   align-items: center;
   flex-direction: column;
-  margin-top: .5rem;
   border-radius: .5rem;
   box-shadow: 0 0 10px gray;
   backdrop-filter: blur( 5px );
@@ -31,6 +29,6 @@
 }
 
 .progressbar-container {
-  height: 40%;
-  width: 60%;
+  height: 200px;
+  width: 150px;
 }

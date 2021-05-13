@@ -41,11 +41,10 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard-container">
-      <div className="dashboard-content-up">
+      <div className="dashboard-banner">
         <UserCard />
-        <Tips />
       </div>
-      <div className="dashboard-content-down">
+      <div className="dashboard-content">
         <Tracks title="beginner" />
         <Tracks title="intermediate" />
         <Tracks title="advanced" />

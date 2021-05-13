@@ -22,23 +22,13 @@ const UserCard: React.FC = () => {
   return (
     <div className="user-card-container">
       <div className="user-card-left">
-        <img className="profile-image" src={user.image} />
-        <Button
-          label="Edit Profile"
-          onClick={() => console.log('clicked')}
-          styles={{ marginBottom: 0 }}
-        />
-        <Button
-          label="Log Out"
-          onClick={handleLogOut}
-          styles={{ marginTop: 0 }}
-        />
-      </div>
-      <div className="user-card-right">
-        <div className="title-user-name">
-          <div className="user-name">{`Welcome ${user.firstName}!`}</div>
+        <div className="profile-image-container">
+          <img className="profile-image" src={user.image} />
         </div>
-        <div className="card-content">
+      </div>
+      <div className="user-card-middle">
+        <h3>{`Welcome ${user.firstName}!`}</h3>
+        <div className="user-card-middle-content">
           <p>
             Last Entry:{' '}
             <span>{`${new Date(user.lastEntry).toDateString()}`}</span>
@@ -51,8 +41,14 @@ const UserCard: React.FC = () => {
                 : ' No consecutive entries'}
             </span>
           </p>
-          <p>Badges:</p>
+          <p>
+            Badges: <span>All of them!</span>
+          </p>
         </div>
+      </div>
+      <div className="user-card-right">
+        <Button label="Edit Profile" onClick={() => console.log('clicked')} />
+        <Button label="Log Out" onClick={handleLogOut} />
       </div>
     </div>
   );
