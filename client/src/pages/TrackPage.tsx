@@ -3,7 +3,10 @@ import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
-
+import faceBookLogo from '../assets/facebook-32.png';
+import twitterLogo from '../assets/twitter-32.png';
+import instagramLogo from '../assets/instagram-32.png';
+import linkedinLogo from '../assets/linkedin-32.png';
 import { PoseDTO } from '../interfaces/PoseDTO';
 
 import TrackPose from '../containers/TrackPose';
@@ -38,13 +41,6 @@ const TrackPage: React.FC = () => {
       {routine.map((routine: PoseDTO, index: number) => (
         <TrackPose key={routine.id} routine={routine} index={index} />
       ))}
-      <footer className="footer__main__container">
-        <div className="info__links__container">
-          <p>Terms of use</p>
-          <p>FAQ</p>
-          <p>Privacy Policy</p>
-        </div>
-      </footer>
     </div>
   );
 };

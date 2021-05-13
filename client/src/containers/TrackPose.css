@@ -11,23 +11,27 @@
   padding: 0.5rem;
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
   background-color: #fff;
   border: solid #fff;
   border-radius: 20px;
   width: 100vh;
   height: auto;
   box-shadow: 0 0 0.6rem black;
-
 }
 
-.content-container {
+
+
+.pose-content-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-content: center;
+  width:30rem;
+  /* background-color: orangered; */
 }
 
-.content-container button {
+.pose-content-container button {
   align-self: center;
 }
 
@@ -44,6 +48,41 @@
   font-family: 'Roboto Slab', serif;
   margin-bottom: 6%;
   /* font-family: 'Handlee', cursive; */
+}
+
+.levels__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* margin-left: 2rem; */
+  margin-right: 2rem;
+  padding: 2rem;
+}
+
+.levels__btn {
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  cursor: pointer;
+}
+
+.level__inputs {
+  height: 1rem;
+}
+
+.levels__btn:hover {
+  opacity: 0.7;
+}
+.easy {
+  background-color: palegreen;
+}
+
+.medium {
+  background-color: yellow;
+}
+
+.hard {
+  background-color: tomato;
 }
 
 /* .progress-container {

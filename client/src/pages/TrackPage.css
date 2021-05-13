@@ -59,14 +59,33 @@
 .footer__main__container {
   padding-top: 2rem;
   background-color: #00CCBB;
-  height: 10rem;
+  height: 8.5rem;
   width: auto;
 }
 
 .info__links__container {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  margin-left: 62rem;
+  margin-bottom: 2rem;
+}
+
+.info__links {
+  margin-left: 2rem;
+  color: #fff;
+  font-weight: 800;
+}
+
+.logos__container {
+  display: flex;
+  justify-content: flex-end;
   margin-left: 40rem;
+  margin-right: 20rem;
+  align-items: flex-end;
+}
+
+.single__logo {
+  margin-left: 4rem;
 }
 
  ::-webkit-scrollbar {
