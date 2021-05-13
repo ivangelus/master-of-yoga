@@ -129,7 +129,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       ) : (
         <div className="pose__validation__container__camera__container">
           <div className="pose__validation__container__camera__container_left">
-            <Camera />
+            <Camera poseName={routines[Number(index)].id} />
           </div>
           <div className="pose__validation__container__camera__container_right">
             <div className="pose__validation__container__camera__container_right__image__container">
