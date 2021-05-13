@@ -157,17 +157,11 @@ const PoseValidation: React.FC = (): ReactElement => {
                 ></div>
               </div>
               <div className="btn__container">
-                <button onClick={handleBack} className="pose__validation__btn">
-                  Back
-                </button>
                 <button onClick={handleStart} className="pose__validation__btn">
                   {startPauseText()}
                 </button>
                 <button onClick={handleReset} className="pose__validation__btn">
                   Reset
-                </button>
-                <button onClick={handleNext} className="pose__validation__btn">
-                  Next
                 </button>
               </div>
             </div>
