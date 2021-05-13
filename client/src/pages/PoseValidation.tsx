@@ -153,7 +153,7 @@ const PoseValidation: React.FC = (): ReactElement => {
               <div className="progress__bar__container">
                 <div
                   className="loader"
-                  style={{ width: progress + '%', transition: 'width 1s' }}
+                  style={{ width: progress + '%', transition: 'width 2s' }}
                 ></div>
               </div>
               <div className="btn__container">
