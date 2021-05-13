@@ -1,31 +1,7 @@
 {
   "labels_id": [
-    "bigToePose",
     "catPose",
-    "chairPose",
-    "cobraPose",
-    "cowPose",
-    "craneCrowPose",
-    "eaglePose",
     "easyPose",
-    "extendedHandToBigToePose",
-    "extendedSideAnglePose",
-    "fireFlyPose",
-    "firePose",
-    "halfLordOfTheFishesPose",
-    "halfMoonPose",
-    "handStandPose",
-    "heroPose",
-    "highLungePose",
-    "lordOfTheDancePose",
-    "lotusPose",
-    "noosePose",
-    "peacockPose",
-    "revolvedSideAnglePose",
-    "sageKoundinyaIIPose",
-    "sageKoundinyaIPose",
-    "shoulderPressingPose",
-    "sideRecliningLegLiftPose",
-    "upwardFacingTwoFootStaffPose"
+    "heroPose"
   ]
 }

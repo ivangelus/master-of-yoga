@@ -39,8 +39,9 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
       canvas.current.width = videoWidth;
       canvas.current.height = videoHeight;
       if (poseName === evaluatedPose.pose) setColor('green');
-      drawKeypoints(pose['keypoints'], 0.5, ctx);
-      drawSkeleton(pose['keypoints'], 0.5, ctx);
+      else setColor('red');
+      drawKeypoints(pose['keypoints'], 0.7, ctx);
+      drawSkeleton(pose['keypoints'], 0.7, ctx);
     }
   };
 
@@ -62,6 +63,7 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
       //Make Detections
       const pose: any = await net.estimateSinglePose(video);
       let evaluatedPose: any;
+      // const label = 'heroPose';
       // console.log(pose.keypoints);
       if (pose.score >= 0.5) {
         const resultArr: number[] = await normalizer(
@@ -69,6 +71,8 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
           window.innerWidth / 2,
           window.innerHeight
         );
+        // savedData.push({'xs': resultArr, 'ys': label});
+        // localStorage.setItem('heroPose', JSON.stringify(savedData))
         const predictionResult = classifierModel.predict(
           tf.tensor(resultArr, [1, 34])
         ) as tf.Tensor;
@@ -77,7 +81,7 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
           classifierLabels,
           predictionResultArray
         );
-        // console.log(evaluatedPose);
+        console.log(evaluatedPose);
       } else {
         evaluatedPose = { pose: 'none' };
         // console.log('low confidence score');
@@ -99,9 +103,9 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
     (async () => {
       const net = await posenet.load({
         architecture: 'ResNet50',
-        outputStride: 16,
-        inputResolution: { width: 257, height: 200 },
-        quantBytes: 4,
+        outputStride: 32,
+        inputResolution: { width: 250, height: 250 },
+        quantBytes: 2,
       });
       const classifier = await tf.loadLayersModel(
         `localstorage://${classifierKey}`
@@ -111,7 +115,7 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
       }, 250);
     })();
     return () => clearInterval(interval);
-  }, []);
+  }, [poseName]);
 
   // const runPosnet = async () => {
   //   const net = await posenet.load({
