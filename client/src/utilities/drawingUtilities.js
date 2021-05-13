@@ -92,8 +92,8 @@
   */
  export function drawSegment([ay, ax], [by, bx], color, scale, ctx) {
    ctx.beginPath();
-   ctx.moveTo(ax * scale, ay * scale);
-   ctx.lineTo(bx * scale, by * scale);
+   ctx.moveTo(ax * scale, ay * scale );
+   ctx.lineTo(bx-1 * scale, by * scale);
    ctx.lineWidth = lineWidth;
    ctx.strokeStyle = color;
    ctx.stroke();
@@ -183,6 +183,7 @@
    canvas.width = size[0];
    canvas.height = size[1];
    const ctx = canvas.getContext("2d");
+
 
    ctx.drawImage(image, 0, 0);
  }

@@ -12,16 +12,18 @@ const Camera = () => {
   const drawCanvas = (
     pose: any,
     video: any,
-    videoWidth: any,
-    videoHeight: any,
+    videoWidth: number,
+    videoHeight: number,
     canvas: any
   ) => {
-    const ctx = canvas.current.getContext('2d');
-    canvas.current.width = videoWidth;
-    canvas.current.height = videoHeight;
+    if (canvas.current) {
+      const ctx = canvas.current.getContext('2d');
+      canvas.current.width = videoWidth;
+      canvas.current.height = videoHeight;
 
-    drawKeypoints(pose['keypoints'], 0.5, ctx);
-    drawSkeleton(pose['keypoints'], 0.5, ctx);
+      drawKeypoints(pose['keypoints'], 0.5, ctx);
+      drawSkeleton(pose['keypoints'], 0.5, ctx);
+    }
   };
 
   const detect = async (net: any) => {
@@ -75,18 +77,22 @@ const Camera = () => {
   // };
 
   const videoConstraints = {
-    width: 750,
-    height: 900,
+    width: window.innerWidth / 2,
+    height: window.innerHeight,
     facingMode: 'user',
   };
   return (
     <div>
-      <Webcam
-        className="webcam__screen"
-        videoConstraints={videoConstraints}
-        ref={webcamRef}
-      />
-      <canvas ref={canvasRef} className="webcam__screen" />
+      <div className="webcam__container">
+        <Webcam
+          audio={false}
+          // mirrored={true}
+          className="webcam__screen"
+          videoConstraints={videoConstraints}
+          ref={webcamRef}
+        />
+        <canvas ref={canvasRef} className="webcam__screen" />
+      </div>
     </div>
   );
 };

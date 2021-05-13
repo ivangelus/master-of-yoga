@@ -1,0 +1,53 @@
+.track-pose-container {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 4%;
+  padding-left: 4%;
+}
+
+.routine-name {
+  font-size: 2rem;
+  margin-bottom: 4%;
+  padding-top: 5%;
+  font-family: 'Handlee', cursive;
+  font-weight: 900;
+}
+
+.routine-description {
+  font-size: 1.1rem;
+  font-family: 'Roboto Slab', serif;
+  margin-bottom: 6%;
+  /* font-family: 'Handlee', cursive; */
+}
+
+.progress-container {
+  display: flex;
+  justify-content: center;
+  /* align-items: flex-end; */
+}
+
+.btn-progress-practice {
+  background-color: #23609F;
+  color: white;
+  height: 35px;
+  width: 110px;
+  border-radius: 2rem;
+  border: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 7%;
+  cursor: pointer;
+  box-shadow: 0 0 5px black;
+  transition-duration: 0.4s;
+  font-family: 'Handlee', cursive;
+  text-shadow: 0 0 1px white;
+  align-self:flex-end;
+  /* top: 50%; */
+  /* align-items: center; */
+  /* margin-top: 4%; */
+}
+
+.btn-progress-practice:hover {
+  box-shadow: 0 0 10px black;
+  background-color: #214875;
+}

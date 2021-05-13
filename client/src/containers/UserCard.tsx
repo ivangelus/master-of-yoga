@@ -1,45 +1,57 @@
 import './UserCard.css';
 import React from 'react';
-import { useAppSelector } from '../redux/hooks';
+import { useHistory } from 'react-router-dom';
+
 import { RootState } from '../redux/store';
-import { UserDTO } from '../interfaces/UserDTO';
+import { logoutUser } from '../redux/usersSlice';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+
+import Button from '../components/Button';
 
 const UserCard: React.FC = () => {
+  const history = useHistory();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.users);
-  // const user: UserDTO = {
-  //   firstName: 'Luke',
-  //   lastName: 'SkyWalker',
-  //   email: 'luke@email.com',
-  //   password: '1234',
-  //   lastEntry: 'Today',
-  //   consecutiveDays: 5,
-  // };
+
+  const handleLogOut = (): void => {
+    dispatch(logoutUser());
+    sessionStorage.removeItem('yogaMasterUser');
+    history.push('/');
+  };
 
   return (
     <div className="user-card-container">
       <div className="user-card-left">
-        <div className="profile-image"></div>
-        <button className="edit-profile">Edit Profile</button>
+        <img className="profile-image" src={user.image} />
+        <Button
+          label="Edit Profile"
+          onClick={() => console.log('clicked')}
+          styles={{ marginBottom: 0 }}
+        />
+        <Button
+          label="Log Out"
+          onClick={handleLogOut}
+          styles={{ marginTop: 0 }}
+        />
       </div>
       <div className="user-card-right">
         <div className="title-user-name">
-          <div className="user-name">
-            {user.firstName} {user.lastName}
-          </div>
+          <div className="user-name">{`Welcome ${user.firstName}!`}</div>
         </div>
         <div className="card-content">
-          <div className="email-container">
-            <div className="content-description">Email</div>
-            <div className="content-text">{user.email}</div>
-          </div>
-          <div className="last-entry-container">
-            <div className="content-description">Last Entry</div>
-            <div className="content-text">{user.lastEntry}</div>
-          </div>
-          <div className="days-container">
-            <div className="content-description">Streak</div>
-            <div className="content-text">{user.consecutiveDays} days!</div>
-          </div>
+          <p>
+            Last Entry:{' '}
+            <span>{`${new Date(user.lastEntry).toDateString()}`}</span>
+          </p>
+          <p>
+            Streak:
+            <span>
+              {user.consecutiveDays > 0
+                ? ` ${user.consecutiveDays} days!`
+                : ' No consecutive entries'}
+            </span>
+          </p>
+          <p>Badges:</p>
         </div>
       </div>
     </div>
