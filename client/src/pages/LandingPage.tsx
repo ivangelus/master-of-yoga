@@ -7,6 +7,7 @@ import { openModal } from '../redux/modalSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 import LearnMorePage from './LearnMorePage';
+import Footer from '../components/Footer';
 
 import NavBar from '../containers/NavBar';
 import Button from '../components/Button';
@@ -55,6 +56,7 @@ const LandingPage: React.FC = (): ReactElement => {
       </div>
       <LearnMorePage />
       {/* <div className="landing-page-learn-more"></div> */}
+      <Footer />
     </div>
   );
 };
