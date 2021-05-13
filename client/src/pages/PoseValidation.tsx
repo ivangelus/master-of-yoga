@@ -1,50 +1,76 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-
+import HashLoader from 'react-spinners/HashLoader';
 import { useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
-
 import { css } from '@emotion/core';
 import './PoseValidation.css';
-import Camera from '../components/Camera';
-import Timer from '../components/Timer';
-import HashLoader from 'react-spinners/HashLoader';
 
 const PoseValidation: React.FC = (): ReactElement => {
-  const [loader, setLoader] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [poseCounter, setPoseCounter] = useState(0);
-  const [startPauseText, setStartPausetext] = useState('Start');
-  const [readyCounter, setReadyCounter] = useState(5);
-
+  const [timerOn, setTimerOn] = useState(false);
+  const [timeLimit, setTimeLimit] = useState(30);
+  const [time, setTime] = useState(timeLimit);
+  const [progress, setProgress] = useState(0);
+  const [progressCounterOn, setProgressCounterOn] = useState(false);
+  const history = useHistory();
   const { level, index } = useParams<{
     level: 'beginner' | 'intermediate' | 'advanced';
     index: string;
   }>();
-
   const routines = useAppSelector((state: RootState) => state.routines[level]);
-
-  const increment = 1.6;
-
   const override = css`
     display: block;
     margin: 0 auto;
     border-color: red;
   `;
 
-  function counter() {
-    console.log('____________ here _______________________');
-    const interval = setInterval(() => {
-      if (!loading && poseCounter < 100)
-        setPoseCounter((previous: number) => ++previous);
-      if (poseCounter > 100) setPoseCounter(100);
-      if (poseCounter <= 100) {
-        setLoader((loader) => loader + increment);
-      } else {
-        clearInterval(interval);
-      }
-    }, 1000);
-  }
+  React.useEffect(() => {
+    let interval: any;
+    if (timerOn) {
+      interval = setInterval(() => {
+        setTime((prevTime: number): number => {
+          let newTime: number;
+          if (prevTime <= 0) {
+            newTime = 0;
+          } else {
+            newTime = prevTime - 1;
+          }
+          return newTime;
+        });
+        if (time <= 0) {
+          setTimerOn(false);
+        }
+      }, 1000);
+    } else if (!timerOn || time <= 0) {
+      clearInterval(interval);
+      setTimerOn(false);
+    }
+    return () => clearInterval(interval);
+  }, [timerOn]);
+
+  React.useEffect(() => {
+    let progressInterval: any;
+    const scoreIncrement = 100 / (timeLimit - 15);
+    if (progressCounterOn && progress < 100) {
+      progressInterval = setInterval(() => {
+        setProgress((prevProgress: number): number => {
+          let newProgress: number;
+          if (prevProgress >= 100) newProgress = 100;
+          else newProgress = prevProgress + scoreIncrement;
+          return newProgress;
+        });
+        if (progress >= 100) {
+          setProgressCounterOn(false);
+          setProgress(100);
+        }
+      }, 1000);
+    } else if (!progressCounterOn || progress >= 100) {
+      clearInterval(progressInterval);
+      setTimerOn(false);
+    }
+    return () => clearInterval(progressInterval);
+  }, [progressCounterOn]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -52,17 +78,41 @@ const PoseValidation: React.FC = (): ReactElement => {
     }, 5000);
   }, []);
 
-  const history = useHistory();
-
   const handleBack = (): void => {
-    history.push(`/pose/${level}/${Number(index) - 1}`);
+    if (index !== '0') {
+      setProgress(0);
+      setTime(timeLimit);
+      history.push(`/pose/${level}/${Number(index) - 1}`);
+    }
   };
 
   const handleNext = (): void => {
-    history.push(`/pose/${level}/${Number(index) + 1}`);
+    if (Number(index) < routines.length - 1) {
+      setProgressCounterOn(false);
+      setProgress(0);
+      setTimerOn(false);
+      setTime(timeLimit);
+      history.push(`/pose/${level}/${Number(index) + 1}`);
+    }
   };
 
-  console.log('routine is here son', routines[Number(index)]);
+  const handleStart = (): void => {
+    if (timerOn) setTimerOn(false);
+    else setTimerOn(true);
+    if (progressCounterOn) setProgressCounterOn(false);
+    else setProgressCounterOn(true);
+  };
+
+  const handleReset = (): void => {
+    setProgress(0);
+    setTimerOn(false);
+    setTime(timeLimit);
+  };
+
+  function startPauseText() {
+    if (timerOn) return 'Stop';
+    return 'Start';
+  }
 
   return (
     <div className="pose__validation__container">
@@ -78,7 +128,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       ) : (
         <div className="pose__validation__container__camera__container">
           <div className="pose__validation__container__camera__container_left">
-            <Camera />
+            {/* <Camera /> */}
           </div>
           <div className="pose__validation__container__camera__container_right">
             <div className="pose__validation__container__camera__container_right__image__container">
@@ -95,17 +145,25 @@ const PoseValidation: React.FC = (): ReactElement => {
             </div>
             <div className="pose__validation__container__camera__container_right__content__container">
               <div className="timer__container">
-                <Timer />
+                <div className="webcam__timer__container">
+                  <div className="webcam__timer">Time left: {time}s</div>
+                </div>
               </div>
               <div className="progress__bar__container">
-                <div className="loader" style={{ width: loader + '%' }}></div>
+                <div
+                  className="loader"
+                  style={{ width: progress + '%', transition: 'width 1s' }}
+                ></div>
               </div>
               <div className="btn__container">
                 <button onClick={handleBack} className="pose__validation__btn">
                   Back
                 </button>
-                <button className="pose__validation__btn">
-                  {startPauseText}
+                <button onClick={handleStart} className="pose__validation__btn">
+                  {startPauseText()}
+                </button>
+                <button onClick={handleReset} className="pose__validation__btn">
+                  Reset
                 </button>
                 <button onClick={handleNext} className="pose__validation__btn">
                   Next
