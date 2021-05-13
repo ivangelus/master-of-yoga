@@ -76,7 +76,7 @@ const PoseValidation: React.FC = (): ReactElement => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 5000);
+    }, 500);
   }, []);
 
   const handleBack = (): void => {
@@ -129,7 +129,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       ) : (
         <div className="pose__validation__container__camera__container">
           <div className="pose__validation__container__camera__container_left">
-            <Camera />
+            <Camera poseName={routines[Number(index)].id} />
           </div>
           <div className="pose__validation__container__camera__container_right">
             <div className="pose__validation__container__camera__container_right__image__container">
@@ -157,11 +157,17 @@ const PoseValidation: React.FC = (): ReactElement => {
                 ></div>
               </div>
               <div className="btn__container">
+                <button onClick={handleBack} className="pose__validation__btn">
+                  Back
+                </button>
                 <button onClick={handleStart} className="pose__validation__btn">
                   {startPauseText()}
                 </button>
                 <button onClick={handleReset} className="pose__validation__btn">
                   Reset
+                </button>
+                <button onClick={handleNext} className="pose__validation__btn">
+                  Next
                 </button>
               </div>
             </div>
