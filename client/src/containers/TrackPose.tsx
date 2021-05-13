@@ -1,37 +1,54 @@
 import './TrackPose.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PoseDTO } from '../interfaces/PoseDTO';
 
 interface Props {
   routine: PoseDTO;
   index: number;
+  setClicked: Dispatch<
+    SetStateAction<('easy' | 'medium' | 'hard' | 'unclicked')[]>
+  >;
+  clicked: ('easy' | 'medium' | 'hard' | 'unclicked')[];
 }
 
-const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
-  const changeBackground = changeColor();
+const TrackPose: React.FC<Props> = ({
+  routine,
+  index,
+  setClicked,
+  clicked,
+}: Props) => {
   const history = useHistory();
 
-  const [color1, setColor1] = useState('');
+  const [color1, setColor1] = useState('#fff');
   const [color2, setColor2] = useState('#fff');
   const [color3, setColor3] = useState('#fff');
 
   const handleClick = (): void => {
     history.push(`/pose/${routine.level}/${index}`);
   };
-  function changeColor(): any {
-    let state = 'unclicked';
-    return function changeBackground(num: number): void {
-      console.log('This is state -->', state);
-      if (num === 1 && state === 'unclicked') {
-        setColor1('green');
-        state = 'clicked';
-        console.log(state);
-      } else if (num === 1 && state === 'clicked') {
-        setColor1('orange');
-        state = 'unclicked';
-      }
-    };
+
+  function changeColor(num: number): void {
+    setClicked((oldClicked) => {
+      const newState = oldClicked.slice();
+      if (num === 1) newState[index] = 'easy';
+      if (num === 2) newState[index] = 'medium';
+      if (num === 3) newState[index] = 'hard';
+      return newState;
+    });
+    if (num === 1) {
+      setColor1('green');
+      setColor2('#fff');
+      setColor3('#fff');
+    } else if (num === 2) {
+      setColor1('#fff');
+      setColor2('yellow');
+      setColor3('#fff');
+    } else if (num === 3) {
+      setColor1('#fff');
+      setColor2('#fff');
+      setColor3('red');
+    }
   }
 
   return (
@@ -42,7 +59,6 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
             height: '300px',
             width: '400px',
             objectFit: 'cover',
-            marginRight: '-3rem',
           }}
           src={routine.imageAddress}
           alt="Yoga Pose"
@@ -57,28 +73,28 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
           </button>
         </div>
         <div className="levels__container">
-          {/* <button
-            onClick={() => changeBackground(1)}
+          <button
+            onClick={() => changeColor(1)}
             style={{ backgroundColor: color1 }}
             className="levels__btn easy"
           >
             Easy
           </button>
           <button
-            onClick={() => changeBackground(2)}
+            onClick={() => changeColor(2)}
             style={{ backgroundColor: color2 }}
             className="levels__btn medium"
           >
             Medium
           </button>
           <button
-            onClick={() => changeBackground(3)}
+            onClick={() => changeColor(3)}
             style={{ backgroundColor: color3 }}
             className="levels__btn hard"
           >
             Hard
-          </button> */}
-          <label>
+          </button>
+          {/* <label>
           EASY
           <input  name="levelOption" className="level__inputs" type="radio"/>
           </label>
@@ -89,7 +105,7 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
           <label>
           HARD
           <input name="levelOption" className="level__inputs" type="radio"/>
-          </label>
+          </label> */}
         </div>
       </div>
     </div>

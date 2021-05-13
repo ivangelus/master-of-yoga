@@ -1,22 +1,22 @@
 .allTracks__container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
 .track-pose-container {
   margin-top: 0.5rem;
   margin-bottom: 1rem;
-  padding: 0.5rem;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-evenly;
+  align-items: center;
   background-color: #fff;
   border: solid #fff;
   border-radius: 20px;
-  width: 100vh;
-  height: auto;
+  width: auto;
+  height: 20rem;
   box-shadow: 0 0 0.6rem black;
 }
 
@@ -25,10 +25,9 @@
 .pose-content-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-content: center;
-  width:30rem;
-  /* background-color: orangered; */
+  justify-content: space-evenly;
+  align-items:center;
+  width:35rem;
 }
 
 .pose-content-container button {
@@ -54,6 +53,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: flex-start;
   /* margin-left: 2rem; */
   margin-right: 2rem;
   padding: 2rem;
@@ -64,14 +64,16 @@
   height: 4rem;
   width: 4rem;
   cursor: pointer;
+  margin: 1rem;
+  font-family: 'Roboto Slab', serif;
 }
 
-.level__inputs {
+/* .level__inputs {
   height: 1rem;
-}
+} */
 
 .levels__btn:hover {
-  opacity: 0.7;
+  opacity: 0.5;
 }
 .easy {
   background-color: palegreen;

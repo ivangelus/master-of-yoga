@@ -1,5 +1,5 @@
 import './TrackPage.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
@@ -19,6 +19,10 @@ const TrackPage: React.FC = () => {
   const description = routines.descriptions[level];
   const routine = routines[level];
 
+  const [clicked, setClicked] = useState<
+    ('easy' | 'medium' | 'hard' | 'unclicked')[]
+  >([]);
+
   const title = level[0].toUpperCase() + level.slice(1);
 
   const history = useHistory();
@@ -27,6 +31,13 @@ const TrackPage: React.FC = () => {
     history.push(`/pose/${level}/0`);
   };
 
+  useEffect(() => {
+    const newClickedState: ('easy' | 'medium' | 'hard' | 'unclicked')[] = [];
+    routine.forEach((el) => {
+      newClickedState.push('unclicked');
+    });
+    setClicked(newClickedState);
+  }, []);
   return (
     <div className="track-page-container">
       <div className="title__container">
@@ -39,7 +50,13 @@ const TrackPage: React.FC = () => {
         </button>
       </div>
       {routine.map((routine: PoseDTO, index: number) => (
-        <TrackPose key={routine.id} routine={routine} index={index} />
+        <TrackPose
+          clicked={clicked}
+          setClicked={setClicked}
+          key={routine.id}
+          routine={routine}
+          index={index}
+        />
       ))}
     </div>
   );
