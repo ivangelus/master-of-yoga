@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import HashLoader from 'react-spinners/HashLoader';
 import { useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
+import Camera from '../components/Camera';
 import { css } from '@emotion/core';
 import './PoseValidation.css';
 
@@ -128,7 +129,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       ) : (
         <div className="pose__validation__container__camera__container">
           <div className="pose__validation__container__camera__container_left">
-            {/* <Camera /> */}
+            <Camera />
           </div>
           <div className="pose__validation__container__camera__container_right">
             <div className="pose__validation__container__camera__container_right__image__container">
