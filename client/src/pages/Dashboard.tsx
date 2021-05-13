@@ -19,6 +19,11 @@ const Dashboard: React.FC = () => {
   const classifierReady = useAppSelector((state) => state.classifier.isReady);
 
   useEffect(() => {
+    const data = localStorage.getItem('easyPose');
+    if (data) {
+      console.log(data);
+    }
+
     if (routine.intermediate.length === 0) {
       (async (): Promise<void> => {
         const data = await getRoutines();
