@@ -10,6 +10,12 @@
   background-position: center;
   height: 100vh;
   background-attachment: fixed; */
+  overflow: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 
 .landing-page-main {
@@ -24,7 +30,6 @@
   height: 90%;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
   justify-content: space-around;
   height: 100%;
 }
@@ -33,9 +38,7 @@
   display: flex;
   flex-direction: column;
   width: 55%;
-  /* height: 100%; */
   justify-content: center;
-  /* justify-content: space-around; */
   padding: .5rem;
   padding-left: 7rem;
 }
@@ -91,4 +94,8 @@
 
 .landing-page-image-container img {
   width: 100%;
+}
+
+.landing-page-learn-more {
+  height: 100vh;
 }

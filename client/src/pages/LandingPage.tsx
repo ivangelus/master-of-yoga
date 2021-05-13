@@ -6,6 +6,8 @@ import LandingViewImage from '../assets/landing_view_image.svg';
 import { openModal } from '../redux/modalSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
+import LearnMorePage from './LearnMorePage';
+
 import NavBar from '../containers/NavBar';
 import Button from '../components/Button';
 import Modal from '../containers/Modal';
@@ -28,10 +30,17 @@ const LandingPage: React.FC = (): ReactElement => {
         <div className="landing-page-content-container">
           <div className="landing-page-content">
             <h1>Master of Yoga</h1>
-            <h3>Build strength, awareness and harmony in both the mind and body</h3>
-          <button className="btn-landing-page-get-started" onClick={handleClick}>GET STARTED</button>
+            <h3>
+              Build strength, awareness and harmony in both the mind and body
+            </h3>
+            <button
+              className="btn-landing-page-get-started"
+              onClick={handleClick}
+            >
+              GET STARTED
+            </button>
           </div>
-            {/* <Button
+          {/* <Button
               onClick={handleClick}
               label="Start you shall!"
               styles={{ fontSize: '1.5rem', padding: '.75rem 1rem' }}
@@ -43,8 +52,9 @@ const LandingPage: React.FC = (): ReactElement => {
         <Modal>
           <UserAuth />
         </Modal>
-
       </div>
+      <LearnMorePage />
+      {/* <div className="landing-page-learn-more"></div> */}
     </div>
   );
 };
