@@ -15,28 +15,24 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
     history.push(`/pose/${routine.level}/${index}`);
   };
   return (
-    <div className="track-pose-container">
-      <div className="pose-image-container">
-        <img
-          style={{
-            height: '300px',
-            width: '400px',
-            objectFit: 'cover',
-            borderRadius: '5%',
-            boxShadow: '0 0 10px gray',
-          }}
-          src={routine.imageAddress}
-          alt="Yoga Pose"
-        />
-      </div>
-      <div>
+    <div className="allTracks__container">
+      <div className="track-pose-container">
+        <div className="pose-image-container">
+          <img
+            style={{
+              height: '300px',
+              width: '400px',
+              objectFit: 'cover',
+            }}
+            src={routine.imageAddress}
+            alt="Yoga Pose"
+          />
+        </div>
         <div className="content-container">
           <div className="routine-name">
             {index + 1}. {routine.name}
           </div>
           <div className="routine-description">{routine.description}</div>
-        </div>
-        <div className="progress-container">
           <button onClick={handleClick} className="btn-progress-practice">
             PRACTICE
           </button>

@@ -26,14 +26,25 @@ const TrackPage: React.FC = () => {
 
   return (
     <div className="track-page-container">
-      <div className="title">{title}</div>
+      <div className="title__container">
+        <div className="title">{title}</div>
+      </div>
       <div className="level-description-paragraph">{description}</div>
-      <button onClick={handleClick} className="btn-start-routine">
-        START
-      </button>
+      <div className="btn__start__container">
+        <button onClick={handleClick} className="btn-start-routine">
+          START
+        </button>
+      </div>
       {routine.map((routine: PoseDTO, index: number) => (
         <TrackPose key={routine.id} routine={routine} index={index} />
       ))}
+      <footer className="footer__main__container">
+        <div className="info__links__container">
+          <p>Terms of use</p>
+          <p>FAQ</p>
+          <p>Privacy Policy</p>
+        </div>
+      </footer>
     </div>
   );
 };

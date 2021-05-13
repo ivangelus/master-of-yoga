@@ -1,13 +1,21 @@
 .track-page-container {
   /* padding-top: 1%; */
-  background-color: rgba(255, 127, 80, 0.9);
+  background-color: #f5f5f5;
+}
+
+.title__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 204, 187, 0.6);
 }
 
 .title {
   font-size: 4rem;
   margin-bottom: 3%;
   padding-top: 2%;
-  font-family: 'Handlee', cursive;
+  font-family: 'Roboto Slab', serif;
+  color: #fff;
 }
 
 .level-description-paragraph {
@@ -16,19 +24,26 @@
   text-align: center;
   padding-left: 10%;
   padding-right: 10%;
+  margin-top: 2rem;
   margin-bottom: 4%;
 }
 
+.btn__start__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .btn-start-routine {
-  background-color: #23609F;
+  background-color: rgba(0, 204, 187, 0.6);
   color: white;
-  height: 50px;
-  width: 150px;
-  border-radius: 2rem;
+  height: 3rem;
+  width: 10rem;
+  border-radius: 1rem;
   border: 0;
   font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 7%;
+  margin-bottom: 2rem;
   cursor: pointer;
   box-shadow: 0 0 5px black;
   transition-duration: 0.4s;
@@ -38,14 +53,27 @@
 
 .btn-start-routine:hover {
   box-shadow: 0 0 10px black;
-  background-color: #214875;
+  background-color: #42cc82;
 }
 
-::-webkit-scrollbar {
-  width: 1em;
+.footer__main__container {
+  padding-top: 2rem;
+  background-color: #00CCBB;
+  height: 10rem;
+  width: auto;
 }
 
-::-webkit-scrollbar-track {
+.info__links__container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 40rem;
+}
+
+ ::-webkit-scrollbar {
+  width: 0.8em;
+}
+
+ ::-webkit-scrollbar-track {
   background: #f1f1f1;
 }
 
@@ -56,3 +84,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #214875;
 }
+
+/* ::-webkit-scrollbar {
+  display: none;
+} */

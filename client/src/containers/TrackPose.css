@@ -1,8 +1,34 @@
+.allTracks__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .track-pose-container {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: row;
-  padding-bottom: 4%;
-  padding-left: 4%;
+  background-color: #fff;
+  border: solid #fff;
+  border-radius: 20px;
+  width: 100vh;
+  height: auto;
+  box-shadow: 0 0 0.6rem black;
+
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content-container button {
+  align-self: center;
 }
 
 .routine-name {
@@ -20,24 +46,24 @@
   /* font-family: 'Handlee', cursive; */
 }
 
-.progress-container {
+/* .progress-container {
   display: flex;
   justify-content: center;
-  /* align-items: flex-end; */
-}
+  align-items: flex-end;
+} */
 
 .btn-progress-practice {
-  background-color: #23609F;
+  background-color: #00CCBB;
   color: white;
-  height: 35px;
-  width: 110px;
-  border-radius: 2rem;
+  height: 2rem;
+  width: 7rem;
+  border-radius: 0.5rem;
   border: 0;
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 7%;
   cursor: pointer;
-  box-shadow: 0 0 5px black;
+  /* box-shadow: 0 0 5px black; */
   transition-duration: 0.4s;
   font-family: 'Handlee', cursive;
   text-shadow: 0 0 1px white;
@@ -49,5 +75,5 @@
 
 .btn-progress-practice:hover {
   box-shadow: 0 0 10px black;
-  background-color: #214875;
+  background-color: #42cc82;
 }
