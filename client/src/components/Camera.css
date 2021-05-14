@@ -1,8 +1,6 @@
 .webcam__container {
   position: absolute; 
   width: 100%;
-  /* left: 1%;
-  top: 2%; */
 }
 
 .webcam__screen {
@@ -12,7 +10,6 @@
   width: 100%;
   align-self: center;
   justify-self: center;
-  /* background-color: teal; */
 }
 
 .webcam__screen_canvas {

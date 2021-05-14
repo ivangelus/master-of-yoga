@@ -2,28 +2,31 @@
 .registration-form {
   display: flex;
   flex-direction: column;
+
 }
 
 .login-form label,
 .registration-form label {
   font-size: 1.5rem;
-  font-family: 'Handlee', cursive;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border: 0;
 }
 
 .login-form input,
 .registration-form input {
-  font-family: 'Roboto Slab', serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   width: 100%;
   font-size: 1rem;
   border-radius: .25rem;
   margin-bottom: .75rem;
   padding: .25rem;
   padding-left: .5rem;
+  border: 1px solid rgb(105, 105, 105)
 }
 
 .login-form a,
 .registration-form a {
-  font-family: 'Roboto Slab', serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   cursor: pointer;
   font-size: .75rem;
   align-self: flex-end;
@@ -31,14 +34,14 @@
 
 .login-form a:hover,
 .registration-form a:hover {
-  color: orangered;
+  color: rgba(0, 204, 187, .9);
 }
 
 .login-form p,
 .registration-form p {
-  font-family: 'Roboto Slab', serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-weight: 700;
-  color: darkred;
+  color: rgba(0, 204, 187, .9);
   text-align: center;
   font-size: 1rem;
   margin-top: 1.5rem;
@@ -55,28 +58,33 @@
   cursor: pointer;
   color: white;
   width: 30%;
+  font-weight: 600;
   border: 0;
   box-shadow: 0 0 5px black;
-  background: linear-gradient(270deg, rgb(241, 139, 21), rgb(233,73,14));
+  background: rgba(0, 204, 187, .9);
 }
 
 .user-form-btn input:hover {
-  box-shadow: 0 0 15px black;
+  box-shadow: 0 0 4px black;
+  background-color: rgba(0, 204, 187, 1)
 }
 
 .google-sign-in {
-  font-family: 'Roboto Slab', serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 1rem;
   width: 65%;
   padding: .7rem 1rem;
   margin-top: .5rem;
   box-shadow: 0 0 5px black;
   border-radius: .25rem;
-  border: 2px solid orangered;
+  border: 2px solid rgba(0, 204, 187, .9);
   background-color: white;
+  cursor: pointer;
 }
 
 .google-sign-in:hover {
   color: white;
-  background-color: rgba(255, 69, 0, .5);
+  font-weight: 700;
+  background-color: rgba(255, 69, 0, .8);
+  border-color:rgba(255, 69, 0, .8);
 }

@@ -1,0 +1,30 @@
+.learn-more-page-container {
+  height: 170vh;
+  background-color: rgba(0, 204, 187, 0.1);
+  padding-top: 13%;
+}
+
+.learn-more-image-container {
+  height: 50%;
+  width: 50%;
+}
+
+.learn-more-content-up,
+.learn-more-content-down {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 12rem;
+}
+
+.learn-more-content-container {
+  width: 50%;
+}
+
+.learn-more-content {
+  width: 80%;
+}
+
+.learn-more-content p {
+  font-size: 1.2rem;
+  font-weight: 500;
+}

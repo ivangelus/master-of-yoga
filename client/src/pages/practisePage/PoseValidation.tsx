@@ -1,9 +1,9 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import HashLoader from 'react-spinners/HashLoader';
-import { useAppSelector } from '../redux/hooks';
-import { RootState } from '../redux/store';
-import Camera from '../components/Camera';
+import { useAppSelector } from '../../redux/hooks';
+import { RootState } from '../../redux/store';
+import Camera from '../../components/Camera';
 import { css } from '@emotion/core';
 import './PoseValidation.css';
 
@@ -76,7 +76,7 @@ const PoseValidation: React.FC = (): ReactElement => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 5000);
   }, []);
 
   const handleBack = (): void => {

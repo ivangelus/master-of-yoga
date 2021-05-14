@@ -6,6 +6,9 @@ import LandingViewImage from '../assets/landing_view_image.svg';
 import { openModal } from '../redux/modalSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
+import LearnMorePage from './LearnMorePage';
+import Footer from '../components/Footer';
+
 import NavBar from '../containers/NavBar';
 import Button from '../components/Button';
 import Modal from '../containers/Modal';
@@ -23,25 +26,37 @@ const LandingPage: React.FC = (): ReactElement => {
 
   return (
     <div className="landing-page-container">
-      <NavBar />
-      <div className="landing-page-content">
-        <div className="landing-page-text-container">
-          <h1>Master of Yoga</h1>
-          <h3>Learn Yoga you will.</h3>
-          <h3>Pay the premium you must.</h3>
-          <Button
-            onClick={handleClick}
-            label="Start you shall!"
-            styles={{ fontSize: '1.5rem', padding: '.75rem 1rem' }}
-          />
+      <div className="landing-page-main">
+        <NavBar />
+        <div className="landing-page-content-container">
+          <div className="landing-page-content">
+            <h1>Master of Yoga</h1>
+            <h3>
+              Build strength, awareness and harmony in both the mind and body
+            </h3>
+            <button
+              className="btn-landing-page-get-started"
+              onClick={handleClick}
+            >
+              GET STARTED
+            </button>
+          </div>
+          {/* <Button
+              onClick={handleClick}
+              label="Start you shall!"
+              styles={{ fontSize: '1.5rem', padding: '.75rem 1rem' }}
+            /> */}
+          {/* <div className="landing-page-image-container">
+            <img src={LandingViewImage} alt="Womam sitting in front of temple." />
+          </div> */}
         </div>
-        <div className="landing-page-image-container">
-          <img src={LandingViewImage} alt="Womam sitting in front of temple." />
-        </div>
+        <Modal>
+          <UserAuth />
+        </Modal>
       </div>
-      <Modal>
-        <UserAuth />
-      </Modal>
+      <LearnMorePage />
+      {/* <div className="landing-page-learn-more"></div> */}
+      <Footer />
     </div>
   );
 };
