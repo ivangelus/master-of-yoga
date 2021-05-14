@@ -1,6 +1,8 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-export default function normalizeKeypoints(keyPoints, width, height) {
-
+export default function normalizeKeypoints(
+  keyPoints: Array<{ position: { x: number } }>,
+  width: number,
+  height: number
+): number[] {
   const keyPointsList = [];
   for (let i = 0; i < keyPoints.length; i++) {
     let normalizedX = keyPoints[i].position.x / width;
