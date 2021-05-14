@@ -1,14 +1,17 @@
+import { initPoseNet, initClassifier } from '../utilities/initModels';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { Classifier } from '../interfaces/ClassifierDTO';
 import HashLoader from 'react-spinners/HashLoader';
 import { useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
 import Camera from '../components/Camera';
+import * as tf from '@tensorflow/tfjs';
 import { css } from '@emotion/core';
 import './PoseValidation.css';
 
 const PoseValidation: React.FC = (): ReactElement => {
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [timerOn, setTimerOn] = useState(false);
   const [timeLimit, setTimeLimit] = useState(30);
   const [time, setTime] = useState(timeLimit);
@@ -25,10 +28,14 @@ const PoseValidation: React.FC = (): ReactElement => {
     margin: 0 auto;
     border-color: red;
   `;
+  const classifier: Classifier = useAppSelector(
+    (state: RootState) => state.classifier
+  );
 
   React.useEffect(() => {
     let interval: any;
     if (timerOn) {
+      clearInterval(interval);
       interval = setInterval(() => {
         setTime((prevTime: number): number => {
           let newTime: number;
@@ -54,6 +61,7 @@ const PoseValidation: React.FC = (): ReactElement => {
     let progressInterval: any;
     const scoreIncrement = 100 / (timeLimit - 15);
     if (progressCounterOn && progress < 100) {
+      clearInterval(progressInterval);
       progressInterval = setInterval(() => {
         setProgress((prevProgress: number): number => {
           let newProgress: number;
@@ -72,12 +80,6 @@ const PoseValidation: React.FC = (): ReactElement => {
     }
     return () => clearInterval(progressInterval);
   }, [progressCounterOn]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
-  }, []);
 
   const handleBack = (): void => {
     if (index !== '0') {
@@ -117,7 +119,7 @@ const PoseValidation: React.FC = (): ReactElement => {
 
   return (
     <div className="pose__validation__container">
-      {loading ? (
+      {/* {loading ? (
         <div className="messageContainer">
           <HashLoader
             color={'red'}
@@ -126,7 +128,7 @@ const PoseValidation: React.FC = (): ReactElement => {
             size={250}
           />
         </div>
-      ) : (
+      ) : ( */}
         <div className="pose__validation__container__camera__container">
           <div className="pose__validation__container__camera__container_left">
             <Camera poseName={routines[Number(index)].id} />
@@ -173,7 +175,7 @@ const PoseValidation: React.FC = (): ReactElement => {
             </div>
           </div>
         </div>
-      )}
+      {/* )} */}
     </div>
   );
 };
