@@ -1,6 +1,6 @@
 import { initClassifier, initPoseNet } from '../utilities/initModels';
 import { Classifier } from '../interfaces/ClassifierDTO';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect} from 'react';
 import { detect } from '../utilities/cameraHelpers';
 import { useAppSelector } from '../redux/hooks';
 import type { MutableRefObject } from 'react';
