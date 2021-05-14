@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .footer-container {
   height: 190px;
   background-color: rgba(0, 204, 187, .6);
@@ -10,6 +14,7 @@
 .additional-info-container {
   display: flex;
   flex-direction: row;
+  justify-content: baseline;
 }
 
 .social-network-container {
@@ -50,8 +55,8 @@
 }
 
 .additional-info:hover {
-  border-bottom: 2px solid white;
-  padding-bottom: 2px;
+  text-decoration: underline;
+  color: #d35400
 }
 
 .social-network {
