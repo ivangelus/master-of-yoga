@@ -2,6 +2,7 @@ import './TrackPose.css';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PoseDTO } from '../interfaces/PoseDTO';
+import Instructions from '../components/Instructions';
 
 interface Props {
   routine: PoseDTO;
@@ -18,6 +19,7 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   const [clicked2, setClicked2] = useState(false);
   const [clicked3, setClicked3] = useState(false);
   const [sliderValue, setSliderValue] = useState(50);
+  const [instructions, setInstructions] = useState(false);
 
   const handleClick = (): void => {
     history.push(`/pose/${routine.level}/${index}`);
@@ -25,6 +27,10 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
 
   const handleChange = (event: any) => {
     setSliderValue(event.target.value);
+  };
+
+  const renderInstructions = () => {
+    setInstructions((instructions) => !instructions);
   };
 
   // function changeColor(num: number, state: boolean) {
@@ -71,9 +77,16 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
         </div>
         <div className="levels__container">
           <div className="levels__container--labels">
-            <p>Hard</p>
-            <p>Intermediate</p>
-            <p>Beginner</p>
+            <button onClick={renderInstructions} className="levels__btn">
+              Toggle Instructions
+            </button>
+            {instructions ? (
+              <div className="Instructions__Component__Container">
+                <Instructions />
+              </div>
+            ) : (
+              ''
+            )}
           </div>
           <div className="levels__container--slider-container">
             <input
