@@ -1,8 +1,37 @@
+.allTracks__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .track-pose-container {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
   display: flex;
   flex-direction: row;
-  padding-bottom: 4%;
-  padding-left: 4%;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #fff;
+  border: solid #fff;
+  border-radius: 20px;
+  width: auto;
+  height: 20rem;
+  box-shadow: 0 0 0.6rem black;
+}
+
+
+
+.pose-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items:center;
+  width:35rem;
+}
+
+.pose-content-container button {
+  align-self: center;
 }
 
 .routine-name {
@@ -20,24 +49,62 @@
   /* font-family: 'Handlee', cursive; */
 }
 
-.progress-container {
+.levels__container {
   display: flex;
-  justify-content: center;
-  /* align-items: flex-end; */
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  /* margin-left: 2rem; */
+  margin-right: 2rem;
+  padding: 2rem;
 }
 
+.levels__btn {
+  border-radius: 50%;
+  height: 4rem;
+  width: 4rem;
+  cursor: pointer;
+  margin: 1rem;
+  font-family: 'Roboto Slab', serif;
+}
+
+/* .level__inputs {
+  height: 1rem;
+} */
+
+.levels__btn:hover {
+  opacity: 0.5;
+}
+.easy {
+  background-color: palegreen;
+}
+
+.medium {
+  background-color: yellow;
+}
+
+.hard {
+  background-color: tomato;
+}
+
+/* .progress-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+} */
+
 .btn-progress-practice {
-  background-color: #23609F;
+  background-color: #00CCBB;
   color: white;
-  height: 35px;
-  width: 110px;
-  border-radius: 2rem;
+  height: 2rem;
+  width: 7rem;
+  border-radius: 0.5rem;
   border: 0;
   font-size: 1rem;
   font-weight: 700;
   margin-bottom: 7%;
   cursor: pointer;
-  box-shadow: 0 0 5px black;
+  /* box-shadow: 0 0 5px black; */
   transition-duration: 0.4s;
   font-family: 'Handlee', cursive;
   text-shadow: 0 0 1px white;
@@ -49,5 +116,5 @@
 
 .btn-progress-practice:hover {
   box-shadow: 0 0 10px black;
-  background-color: #214875;
+  background-color: #42cc82;
 }
