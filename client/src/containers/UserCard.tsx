@@ -1,5 +1,6 @@
 import './UserCard.css';
 import React from 'react';
+import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
 import { RootState } from '../redux/store';
@@ -12,6 +13,10 @@ const UserCard: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.users);
+
+  const dateTransform = () => {
+    return moment(user.lastEntry).format('dddd, MMM Do');
+  };
 
   const handleLogOut = (): void => {
     dispatch(logoutUser());
@@ -29,21 +34,20 @@ const UserCard: React.FC = () => {
       <div className="user-card-middle">
         <h3>{`Welcome ${user.firstName}!`}</h3>
         <div className="user-card-middle-content">
-          <p>
-            Last Entry:{' '}
-            <span>{`${new Date(user.lastEntry).toDateString()}`}</span>
-          </p>
-          <p>
-            Streak:
-            <span>
+          <div className="middle-content-taglines">
+            <p>Last Entry: </p>
+            <p>Streak: </p>
+            <p>Badges: </p>
+          </div>
+          <div className="middle-content-text">
+            <p>{dateTransform()}</p>
+            <p>
               {user.consecutiveDays > 0
                 ? ` ${user.consecutiveDays} days!`
                 : ' No consecutive entries'}
-            </span>
-          </p>
-          <p>
-            Badges: <span>All of them!</span>
-          </p>
+            </p>
+            <p> </p>
+          </div>
         </div>
       </div>
       <div className="user-card-right">

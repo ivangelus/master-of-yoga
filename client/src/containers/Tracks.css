@@ -6,9 +6,9 @@
   flex-direction: column;
   border-radius: .5rem;
   box-shadow: 0 0 10px gray;
-  backdrop-filter: blur( 5px );
-  -webkit-backdrop-filter: blur( 5px );
   background-color: rgba( 245, 245, 245, 0.85 );
+
+  border: 3px ridge rgb(0, 204, 187);
 }
 
 .tracks-container:hover {
