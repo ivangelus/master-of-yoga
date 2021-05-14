@@ -45,10 +45,10 @@ const Tracks: React.FC<Props> = ({ title }: Props) => {
               strokeLinecap: 'butt',
               transform: 'rotate(-126deg)',
               transformOrigin: 'center center',
-              stroke: '	#32CD32',
+              stroke: 'rgb(0, 204, 187)',
             },
             text: {
-              fill: '#808080',
+              fill: 'rgb(0, 204, 187)',
             },
           }}
           strokeWidth={10}

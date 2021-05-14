@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /**
  * @license
  * Copyright 2019 Google LLC. All Rights Reserved.
@@ -17,9 +18,13 @@
  import * as posenet from "@tensorflow-models/posenet";
  import * as tf from "@tensorflow/tfjs";
 
- const color = "aqua";
+ let color = "red";
  const boundingBoxColor = "red";
  const lineWidth = 3;
+
+ export function setColor(passedColor) {
+   color = passedColor;
+ }
 
  export const tryResNetButtonName = "tryResNetButton";
  export const tryResNetButtonText = "[New] Try ResNet50";

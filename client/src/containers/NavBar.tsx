@@ -12,12 +12,21 @@ const NavBar: React.FC = () => {
     dispatch(openModal());
   };
 
+  const scroll = (): void => {
+    const y = document.documentElement.clientHeight;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  };
+
   return (
     <nav className="navbar-container">
-      <Link to="/about">Meet the Team</Link>
-      <a style={{ cursor: 'pointer' }} onClick={handleClick}>
-        Sign In
-      </a>
+      <div className="navbar-logo">LOGO</div>
+      <div className="navbar-link-container">
+        <a onClick={scroll}>LEARN MORE</a>
+        <Link className="btn-navbar" to="/about">
+          MEET THE TEAM
+        </Link>
+        <a onClick={handleClick}>SIGN IN</a>
+      </div>
     </nav>
   );
 };
