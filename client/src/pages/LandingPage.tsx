@@ -24,6 +24,11 @@ const LandingPage: React.FC = (): ReactElement => {
     else dispatch(openModal());
   };
 
+  const btnAdditionalStyles = {
+    padding: '.75rem 1rem',
+    alignSelf: 'flex-start',
+  };
+
   return (
     <div className="landing-page-container">
       <div className="landing-page-main">
@@ -31,31 +36,20 @@ const LandingPage: React.FC = (): ReactElement => {
         <div className="landing-page-content-container">
           <div className="landing-page-content">
             <h1>Master of Yoga</h1>
-            <h3>
-              Build strength, awareness and harmony in both the mind and body
-            </h3>
-            <button
-              className="btn-landing-page-get-started"
+            <h3>Build strength, awareness and harmony</h3>
+            <h3>in both the mind and body</h3>
+            <Button
+              label="GET STARTED"
               onClick={handleClick}
-            >
-              GET STARTED
-            </button>
+              styles={btnAdditionalStyles}
+            />
           </div>
-          {/* <Button
-              onClick={handleClick}
-              label="Start you shall!"
-              styles={{ fontSize: '1.5rem', padding: '.75rem 1rem' }}
-            /> */}
-          {/* <div className="landing-page-image-container">
-            <img src={LandingViewImage} alt="Womam sitting in front of temple." />
-          </div> */}
         </div>
         <Modal>
           <UserAuth />
         </Modal>
       </div>
       <LearnMorePage />
-      {/* <div className="landing-page-learn-more"></div> */}
       <Footer />
     </div>
   );

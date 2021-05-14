@@ -51,8 +51,12 @@ const UserCard: React.FC = () => {
         </div>
       </div>
       <div className="user-card-right">
-        <Button label="Edit Profile" onClick={() => console.log('clicked')} />
-        <Button label="Log Out" onClick={handleLogOut} />
+        <Button label="EDIT PROFILE" onClick={() => console.log('clicked')} />
+        <Button
+          label="LOG OUT"
+          onClick={handleLogOut}
+          styles={{ backgroundColor: 'orangered' }}
+        />
       </div>
     </div>
   );

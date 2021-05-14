@@ -9,11 +9,9 @@ interface Props {
 
 const Button: React.FC<Props> = ({ label, onClick, styles }: Props) => {
   return (
-    <div>
-      <button className="btn-main" style={styles} onClick={onClick}>
-        {label}
-      </button>
-    </div>
+    <button className="btn-main" style={styles} onClick={onClick}>
+      {label}
+    </button>
   );
 };
 
