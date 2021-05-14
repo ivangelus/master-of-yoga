@@ -1,5 +1,5 @@
 export default function normalizeKeypoints(
-  keyPoints: Array<{ position: { x: number, y: number } }>,
+  keyPoints: Array<{ position: { x: number; y: number } }>,
   width: number,
   height: number
 ): number[] {

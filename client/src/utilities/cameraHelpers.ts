@@ -1,12 +1,11 @@
 import { setColor, drawKeypoints, drawSkeleton } from './drawingUtilities';
-import {PoseNetOutputDTO} from '../interfaces/PoseNetOutputDTO';
+import { PoseNetOutputDTO } from '../interfaces/PoseNetOutputDTO';
 import type { MutableRefObject } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import normalizer from './normalizer';
 import poseEvaluator from './poseEvaluator';
 
-
-export function drawCanvas (
+export function drawCanvas(
   pose: PoseNetOutputDTO,
   video: { height: number; width: number },
   videoWidth: number,
@@ -14,7 +13,7 @@ export function drawCanvas (
   canvas: MutableRefObject<any>,
   evaluatedPose: { pose: string; confidence: number },
   poseName: string
-): void  {
+): void {
   if (canvas.current) {
     const ctx = canvas.current.getContext('2d');
     canvas.current.width = videoWidth;
@@ -26,15 +25,14 @@ export function drawCanvas (
   }
 }
 
-export async function detect 
-(
-  net: any, 
+export async function detect(
+  net: any,
   classifierModel: tf.LayersModel | undefined,
-  webcamRef: any, 
-  classifierLabels: string[], 
-  canvasRef:  any,
-  poseName: string,
-  ) : Promise<void> {
+  webcamRef: any,
+  classifierLabels: string[],
+  canvasRef: any,
+  poseName: string
+): Promise<void> {
   if (
     typeof webcamRef.current !== 'undefined' &&
     webcamRef.current !== null &&
@@ -48,9 +46,12 @@ export async function detect
     webcamRef.current.video.height = videoHeight;
 
     let pose: PoseNetOutputDTO;
-    let evaluatedPose: { pose: string; confidence: number } = { pose: 'none', confidence: 0 };
+    let evaluatedPose: { pose: string; confidence: number } = {
+      pose: 'none',
+      confidence: 0,
+    };
 
-    if(video !== undefined) {
+    if (video !== undefined) {
       pose = await net.estimateSinglePose(video);
       if (pose.score >= 0.5) {
         const resultArr: number[] = await normalizer(
