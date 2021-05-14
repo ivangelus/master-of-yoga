@@ -13,7 +13,6 @@ interface Props {
 }
 
 const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
-  const [executeDetection, setExecuteDetection] = useState(false);
   const webcamRef: MutableRefObject<any> = useRef(null);
   const canvasRef: MutableRefObject<any> = useRef(null);
   const classifier: Classifier = useAppSelector(
@@ -29,7 +28,6 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
     async function init() {
       poseNetModel = await initPoseNet();
       classifierModel = await initClassifier(classifierKey);
-      setExecuteDetection(true);
     }
     init();
     interval = setInterval(
