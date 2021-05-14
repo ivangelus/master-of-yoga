@@ -10,7 +10,6 @@ import normalizer from '../utilities/normalizer';
 import { useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
 import * as tf from '@tensorflow/tfjs';
-import PropTypes from 'prop-types';
 import Webcam from 'react-webcam';
 import './Camera.css';
 
