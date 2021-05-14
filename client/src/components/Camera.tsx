@@ -1,6 +1,8 @@
 import { initClassifier, initPoseNet } from '../utilities/initModels';
+import { setIntervalAsync } from 'set-interval-async/dynamic';
+import { clearIntervalAsync } from 'set-interval-async';
 import { Classifier } from '../interfaces/ClassifierDTO';
-import React, { useRef, useEffect} from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { detect } from '../utilities/cameraHelpers';
 import { useAppSelector } from '../redux/hooks';
 import type { MutableRefObject } from 'react';
@@ -20,28 +22,32 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
   );
   const classifierLabels: string[] = classifier.labels;
   const classifierKey = classifier.storageKey;
-  let poseNetModel: any = undefined;
-  let classifierModel: tf.LayersModel | undefined = undefined;
-  let interval: NodeJS.Timer;
+  let poseNetModel: any;
+  let classifierModel: tf.LayersModel | undefined;
+  let interval: any;
+  // const poseName = useAppSelector((state: RootState) => state.currentPose.value);
 
   useEffect(() => {
+    console.log(poseName);
     async function init() {
-      poseNetModel = await initPoseNet();
-      classifierModel = await initClassifier(classifierKey);
+      if (poseNetModel === undefined) poseNetModel = await initPoseNet();
+      if (classifierModel === undefined)
+        classifierModel = await initClassifier(classifierKey);
+      interval = setIntervalAsync(
+        async () =>
+          await detect(
+            poseNetModel,
+            classifierModel,
+            webcamRef,
+            classifierLabels,
+            canvasRef,
+            poseName
+          ),
+        300
+      );
     }
     init();
-    interval = setInterval(
-      () =>
-        detect(
-          poseNetModel,
-          classifierModel,
-          webcamRef,
-          classifierLabels,
-          canvasRef,
-          poseName
-        ),
-      300
-    );
+    clearInterval(interval);
     return () => {
       clearInterval(interval);
     };

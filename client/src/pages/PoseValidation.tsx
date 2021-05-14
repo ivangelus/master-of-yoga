@@ -1,9 +1,10 @@
 import { initPoseNet, initClassifier } from '../utilities/initModels';
 import React, { ReactElement, useEffect, useState } from 'react';
+import { changeCurrentPose } from '../redux/currentPoseSlice';
 import { useParams, useHistory } from 'react-router-dom';
 import { Classifier } from '../interfaces/ClassifierDTO';
 import HashLoader from 'react-spinners/HashLoader';
-import { useAppSelector } from '../redux/hooks';
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { RootState } from '../redux/store';
 import Camera from '../components/Camera';
 import * as tf from '@tensorflow/tfjs';
@@ -12,6 +13,7 @@ import './PoseValidation.css';
 
 const PoseValidation: React.FC = (): ReactElement => {
   // const [loading, setLoading] = useState(true);
+  const dispatch = useAppDispatch();
   const [timerOn, setTimerOn] = useState(false);
   const [timeLimit, setTimeLimit] = useState(30);
   const [time, setTime] = useState(timeLimit);
@@ -85,6 +87,7 @@ const PoseValidation: React.FC = (): ReactElement => {
     if (index !== '0') {
       setProgress(0);
       setTime(timeLimit);
+      dispatch(changeCurrentPose(routines[Number(index) - 1].id));
       history.push(`/pose/${level}/${Number(index) - 1}`);
     }
   };
@@ -95,6 +98,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       setProgress(0);
       setTimerOn(false);
       setTime(timeLimit);
+      dispatch(changeCurrentPose(routines[Number(index) + 1].id));
       history.push(`/pose/${level}/${Number(index) + 1}`);
     }
   };
@@ -129,52 +133,52 @@ const PoseValidation: React.FC = (): ReactElement => {
           />
         </div>
       ) : ( */}
-        <div className="pose__validation__container__camera__container">
-          <div className="pose__validation__container__camera__container_left">
-            <Camera poseName={routines[Number(index)].id} />
+      <div className="pose__validation__container__camera__container">
+        <div className="pose__validation__container__camera__container_left">
+          <Camera poseName={routines[Number(index)].id} />
+        </div>
+        <div className="pose__validation__container__camera__container_right">
+          <div className="pose__validation__container__camera__container_right__image__container">
+            <img
+              src={routines[Number(index)].imageAddress}
+              alt={routines[Number(index)].name}
+              style={{
+                maxHeight: '100%',
+                minHeight: '100%',
+                maxWidth: '100%',
+                minWidth: '100%',
+              }}
+            />
           </div>
-          <div className="pose__validation__container__camera__container_right">
-            <div className="pose__validation__container__camera__container_right__image__container">
-              <img
-                src={routines[Number(index)].imageAddress}
-                alt={routines[Number(index)].name}
-                style={{
-                  maxHeight: '100%',
-                  minHeight: '100%',
-                  maxWidth: '100%',
-                  minWidth: '100%',
-                }}
-              />
+          <div className="pose__validation__container__camera__container_right__content__container">
+            <div className="timer__container">
+              <div className="webcam__timer__container">
+                <div className="webcam__timer">Time left: {time}s</div>
+              </div>
             </div>
-            <div className="pose__validation__container__camera__container_right__content__container">
-              <div className="timer__container">
-                <div className="webcam__timer__container">
-                  <div className="webcam__timer">Time left: {time}s</div>
-                </div>
-              </div>
-              <div className="progress__bar__container">
-                <div
-                  className="loader"
-                  style={{ width: progress + '%', transition: 'width 2s' }}
-                ></div>
-              </div>
-              <div className="btn__container">
-                <button onClick={handleBack} className="pose__validation__btn">
-                  Back
-                </button>
-                <button onClick={handleStart} className="pose__validation__btn">
-                  {startPauseText()}
-                </button>
-                <button onClick={handleReset} className="pose__validation__btn">
-                  Reset
-                </button>
-                <button onClick={handleNext} className="pose__validation__btn">
-                  Next
-                </button>
-              </div>
+            <div className="progress__bar__container">
+              <div
+                className="loader"
+                style={{ width: progress + '%', transition: 'width 2s' }}
+              ></div>
+            </div>
+            <div className="btn__container">
+              <button onClick={handleBack} className="pose__validation__btn">
+                Back
+              </button>
+              <button onClick={handleStart} className="pose__validation__btn">
+                {startPauseText()}
+              </button>
+              <button onClick={handleReset} className="pose__validation__btn">
+                Reset
+              </button>
+              <button onClick={handleNext} className="pose__validation__btn">
+                Next
+              </button>
             </div>
           </div>
         </div>
+      </div>
       {/* )} */}
     </div>
   );
