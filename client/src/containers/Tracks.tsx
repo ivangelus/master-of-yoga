@@ -15,7 +15,7 @@ interface Props {
 
 const buttonAdditionalStyles = {
   marginBottom: '2rem',
-  fontSize: '1.5rem',
+  fontSize: '1.2rem',
   width: '5rem',
 };
 
@@ -56,7 +56,7 @@ const Tracks: React.FC<Props> = ({ title }: Props) => {
       </div>
       <p>{`0 out of ${routine.length}\npositions mastered!`}</p>
       <Button
-        label="Start"
+        label="START"
         onClick={handleClick}
         styles={buttonAdditionalStyles}
       />
