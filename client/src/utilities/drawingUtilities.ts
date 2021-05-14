@@ -15,8 +15,6 @@
  * =============================================================================
  */
 import * as posenet from '@tensorflow-models/posenet';
-import { pointValueDTO } from '../interfaces/PoseNetOutputDTO';
-import * as tf from '@tensorflow/tfjs';
 
 let color = 'red';
 const lineWidth = 3;
