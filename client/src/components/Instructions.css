@@ -1,0 +1,48 @@
+.main__instructions__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-content: center;
+  border: solid black;
+  box-shadow: 0 0 5px black;
+  border-radius: 20%;
+  padding: 0.5rem;
+  width: 17.3rem;
+  margin-left: 3rem;
+  margin-right: -5rem;
+  height: auto;
+  margin-top: -3rem;
+  background-color: #f1f2f63a;
+}
+
+.instructions__container {
+  display: flex;
+  margin-left: 2rem;
+  align-items: flex-end;
+  margin-bottom: .8rem;
+}
+
+.hard__instructions-text {
+  color: #e74c3c;
+  font-weight: 800;
+  text-align:start;
+
+}
+
+.intermediate__instructions-text {
+  color: #f1c40f;
+  font-weight: 800;
+  text-align:start;
+
+}
+
+.beginner__instructions-text {
+  color: #2ecc71;
+  font-weight: 800;
+  text-align:start;
+
+}
+
+.arrow {
+  width: 5rem;
+}
