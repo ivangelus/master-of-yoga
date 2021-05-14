@@ -19,9 +19,9 @@ const TrackPage: React.FC = () => {
   const description = routines.descriptions[level];
   const routine = routines[level];
 
-  const [clicked, setClicked] = useState<
+  /*const [clicked, setClicked] = useState<
     ('easy' | 'medium' | 'hard' | 'unclicked')[]
-  >([]);
+  >([]);*/
 
   const title = level[0].toUpperCase() + level.slice(1);
 
@@ -31,13 +31,13 @@ const TrackPage: React.FC = () => {
     history.push(`/pose/${level}/0`);
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     const newClickedState: ('easy' | 'medium' | 'hard' | 'unclicked')[] = [];
     routine.forEach((el) => {
       newClickedState.push('unclicked');
     });
     setClicked(newClickedState);
-  }, []);
+  }, []);*/
   return (
     <div className="track-page-container">
       <div className="title__container">
@@ -51,8 +51,8 @@ const TrackPage: React.FC = () => {
       </div>
       {routine.map((routine: PoseDTO, index: number) => (
         <TrackPose
-          clicked={clicked}
-          setClicked={setClicked}
+          /*clicked={clicked}
+          setClicked={setClicked}*/
           key={routine.id}
           routine={routine}
           index={index}

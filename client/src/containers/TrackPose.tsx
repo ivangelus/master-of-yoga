@@ -6,29 +6,45 @@ import { PoseDTO } from '../interfaces/PoseDTO';
 interface Props {
   routine: PoseDTO;
   index: number;
-  setClicked: Dispatch<
+  /*setClicked: Dispatch<
     SetStateAction<('easy' | 'medium' | 'hard' | 'unclicked')[]>
   >;
-  clicked: ('easy' | 'medium' | 'hard' | 'unclicked')[];
+  clicked: ('easy' | 'medium' | 'hard' | 'unclicked')[];*/
 }
 
 const TrackPose: React.FC<Props> = ({
   routine,
   index,
-  setClicked,
-  clicked,
-}: Props) => {
+}: /*setClicked,
+  clicked,*/
+Props) => {
   const history = useHistory();
 
   const [color1, setColor1] = useState('#fff');
   const [color2, setColor2] = useState('#fff');
   const [color3, setColor3] = useState('#fff');
-
+  //const [clicked, setClicked] = useState(false);
   const handleClick = (): void => {
     history.push(`/pose/${routine.level}/${index}`);
   };
 
-  function changeColor(num: number): void {
+  function changeColor1(num: number) {
+    if (num === 1) {
+      setColor1('green');
+      setColor2('#fff');
+      setColor3('#fff');
+    } else if (num === 2) {
+      setColor1('#fff');
+      setColor2('yellow');
+      setColor3('#fff');
+    } else if (num === 3) {
+      setColor1('#fff');
+      setColor2('#fff');
+      setColor3('red');
+    }
+  }
+
+  /*function changeColor(num: number): void {
     setClicked((oldClicked) => {
       const newState = oldClicked.slice();
       if (num === 1) newState[index] = 'easy';
@@ -49,7 +65,7 @@ const TrackPose: React.FC<Props> = ({
       setColor2('#fff');
       setColor3('red');
     }
-  }
+  }*/
 
   return (
     <div className="allTracks__container">
@@ -74,21 +90,21 @@ const TrackPose: React.FC<Props> = ({
         </div>
         <div className="levels__container">
           <button
-            onClick={() => changeColor(1)}
+            onClick={() => changeColor1(1)}
             style={{ backgroundColor: color1 }}
             className="levels__btn easy"
           >
             Easy
           </button>
           <button
-            onClick={() => changeColor(2)}
+            onClick={() => changeColor1(2)}
             style={{ backgroundColor: color2 }}
             className="levels__btn medium"
           >
             Medium
           </button>
           <button
-            onClick={() => changeColor(3)}
+            onClick={() => changeColor1(3)}
             style={{ backgroundColor: color3 }}
             className="levels__btn hard"
           >
