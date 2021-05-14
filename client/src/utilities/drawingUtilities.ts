@@ -15,6 +15,7 @@
  * =============================================================================
  */
 import * as posenet from '@tensorflow-models/posenet';
+import { pointValueDTO } from '../interfaces/PoseNetOutputDTO';
 import * as tf from '@tensorflow/tfjs';
 
 let color = 'red';
@@ -65,7 +66,11 @@ export function drawSegment(
  * Draws a pose skeleton by looking up all adjacent keypoints/joints
  */
 export function drawSkeleton(
-  keypoints: [],
+  keypoints: Array<{
+    score: number;
+    position: { y: number; x: number };
+    part: string;
+  }>,
   minConfidence: number,
   ctx: CanvasRenderingContext2D,
   scale = 1
@@ -90,19 +95,24 @@ export function drawSkeleton(
  * Draw pose keypoints onto a canvas
  */
 export function drawKeypoints(
-  keypoints: Array<{ score: number; position: { y: number; x: number } }>,
+  keypoints: Array<{
+    part: string;
+    score: number;
+    position: { y: number; x: number };
+  }>,
   minConfidence: number,
   ctx: CanvasRenderingContext2D,
   scale = 1
 ): void {
+  const noDrawParts = ['leftEye', 'rightEye', 'leftEar', 'rightEar', 'nose'];
   for (let i = 0; i < keypoints.length; i++) {
     const keypoint = keypoints[i];
-
     if (keypoint.score < minConfidence) {
       continue;
     }
 
     const { y, x } = keypoint.position;
-    drawPoint(ctx, y * scale, x * scale, 3);
+    if (!noDrawParts.includes(keypoint.part))
+      drawPoint(ctx, y * scale, x * scale, 10);
   }
 }

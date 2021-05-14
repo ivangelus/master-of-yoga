@@ -3,11 +3,14 @@ import {
   drawSkeleton,
   setColor,
 } from '../utilities/drawingUtilities';
+import { PoseNetOutputDTO } from '../interfaces/PoseNetOutputDTO';
 import poseEvaluator from '../utilities/poseEvaluator';
-import * as posenet from '@tensorflow-models/posenet';
+import { Classifier } from '../interfaces/ClassifierDTO';
+import * as poseNet from '@tensorflow-models/posenet';
 import React, { useRef, useEffect } from 'react';
 import normalizer from '../utilities/normalizer';
 import { useAppSelector } from '../redux/hooks';
+import type { MutableRefObject } from 'react';
 import { RootState } from '../redux/store';
 import * as tf from '@tensorflow/tfjs';
 import Webcam from 'react-webcam';
@@ -18,19 +21,21 @@ interface Props {
 }
 
 const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
-  const webcamRef: any = useRef(null);
-  const canvasRef = useRef(null);
-  const classifier = useAppSelector((state: RootState) => state.classifier);
+  const webcamRef: MutableRefObject<any> = useRef(null);
+  const canvasRef: MutableRefObject<any> = useRef(null);
+  const classifier: Classifier = useAppSelector(
+    (state: RootState) => state.classifier
+  );
   const classifierKey = classifier.storageKey;
-  const classifierLabels = classifier.labels;
+  const classifierLabels: string[] = classifier.labels;
 
   const drawCanvas = (
-    pose: any,
-    video: any,
+    pose: PoseNetOutputDTO,
+    video: { height: number; width: number },
     videoWidth: number,
     videoHeight: number,
-    canvas: any,
-    evaluatedPose: any,
+    canvas: MutableRefObject<any>,
+    evaluatedPose: { pose: string; confidence: number },
     poseName: string
   ) => {
     if (canvas.current) {
@@ -39,6 +44,7 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
       canvas.current.height = videoHeight;
       if (poseName === evaluatedPose.pose) setColor('green');
       else setColor('red');
+      // console.log(pose);
       drawKeypoints(pose['keypoints'], 0.7, ctx);
       drawSkeleton(pose['keypoints'], 0.7, ctx);
     }
@@ -61,7 +67,7 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
 
       //Make Detections
       const pose: any = await net.estimateSinglePose(video);
-      let evaluatedPose: any;
+      let evaluatedPose: { pose: string; confidence: number };
       // const label = 'heroPose';
       // console.log(pose.keypoints);
       if (pose.score >= 0.5) {
@@ -75,14 +81,14 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
         const predictionResult = classifierModel.predict(
           tf.tensor(resultArr, [1, 34])
         ) as tf.Tensor;
-        const predictionResultArray = await predictionResult.array();
+        const predictionResultArray: any = await predictionResult.array();
         evaluatedPose = await poseEvaluator(
           classifierLabels,
           predictionResultArray
         );
-        console.log(evaluatedPose);
+        // console.log(evaluatedPose);
       } else {
-        evaluatedPose = { pose: 'none' };
+        evaluatedPose = { pose: 'none', confidence: 0 };
         // console.log('low confidence score');
       }
       drawCanvas(
@@ -100,17 +106,17 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
   useEffect(() => {
     let interval: NodeJS.Timeout;
     (async () => {
-      const net = await posenet.load({
+      const net = await poseNet.load({
         architecture: 'ResNet50',
         outputStride: 32,
         inputResolution: { width: 250, height: 250 },
         quantBytes: 2,
       });
-      const classifier = await tf.loadLayersModel(
+      const classifierModel = await tf.loadLayersModel(
         `localstorage://${classifierKey}`
       );
       interval = setInterval(() => {
-        detect(net, classifier);
+        detect(net, classifierModel);
       }, 250);
     })();
     return () => clearInterval(interval);
