@@ -1,52 +1,79 @@
 .main__instructions__container {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-content: center;
-  border: solid black;
-  box-shadow: 0 0 5px black;
-  border-radius: 1rem;
-  height: auto;
-  /* max-width: 100%; */
-  /* max-height: 100%; */
-  /* margin-left: 3rem; */
-  /* margin-right: -5rem; */
-  height: auto;
-  /* margin-top: -3rem; */
+  height: 22rem;
   background-color: #f1f2f63a;
+  margin-top: 1.5em;
 }
 
-.instructions__container {
+.instructions__container--hard {
   display: flex;
-  margin-left: 2rem;
-  align-items: flex-end;
+  margin-left: 1rem;
+  justify-content: center;
+  align-items: center;
   margin-bottom: .8rem;
-  height: auto;
+  height: 6rem;
+  width: 18rem;
+  border-radius: 1rem;
+  border: solid #fff;
+  background-color: #e74c3c
 }
+
+.instructions__container--intermediate {
+  display: flex;
+  margin-left: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: .8rem;
+  height: 6rem;
+  width: 18.3rem;
+  border-radius: 1rem;
+  background-color: #f1c40f;
+}
+
+.instructions__container--beginner {
+  display: flex;
+  margin-left: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: .8rem;
+  height: 6rem;
+  width: 18rem;
+  border-radius: 1rem;
+  border: solid #2ecc71;
+  background-color: #2ecc71;
+}
+
+
 
 .hard__instructions-text {
-  color: #e74c3c;
+  color: #fff;
   font-weight: 800;
   text-align:start;
   font-size: .8rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
 }
 
 .intermediate__instructions-text {
-  color: #f1c40f;
+  color: #fff;
   font-weight: 800;
   text-align:start;
   font-size: .8rem;
-
+  margin-left: 1rem;
 }
 
 .beginner__instructions-text {
-  color: #2ecc71;
+  color: #fff;
   font-weight: 800;
   text-align:start;
   font-size: .8rem;
-
+  margin-left: 1rem;
 }
 
 .arrow {
-  width: 5rem;
+  margin-top: 1rem;
+  width: 6rem;
 }

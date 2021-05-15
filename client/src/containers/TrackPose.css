@@ -50,9 +50,11 @@
 
 .levels__container {
   display: flex;
-  justify-content:flex-end;
-  height: 18rem;
-  width: 30rem;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content:flex-end; */
+  height: auto;
+  width: 35vw;
 }
 
 .levels__container__instructions {
@@ -62,6 +64,7 @@
   align-items: center;
   margin-left: 10rem; */
   width: 50%;
+  margin-right: -5rem;
 }
 
 .levels__container--slider-container {
@@ -72,8 +75,8 @@
 
 .levels__container--rangeSlider {
 -webkit-appearance: none;
-width: 20rem;
-height: 4rem;
+width: 20.5rem;
+height: 3.5rem;
 outline: none;
 transform: rotate(-90deg);
 background-image: linear-gradient(90deg, #2ecc71 0, #2ecc71 33%, #f1c40f 33%, #f1c40f 66%, #e74c3c  66%,  #e74c3c 100%);
