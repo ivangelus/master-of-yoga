@@ -27,10 +27,11 @@ const Dashboard: React.FC = () => {
 
     if (!classifierReady) {
       (async () => {
-        const classifier = await tf.loadLayersModel('./tfjs_model/model.json');
+        const folder = './tfjs_beginner';
+        const classifier = await tf.loadLayersModel(`${folder}/model.json`);
         await classifier.save('localstorage://master-yoga-classifier'); // saving to local storage
 
-        const response = await fetch('./tfjs_model/labels_index.json');
+        const response = await fetch(`${folder}/labels_index.json`);
         const labels = await response.json();
 
         dispatch(loadModel({ labels: labels.labels_id }));

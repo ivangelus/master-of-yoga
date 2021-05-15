@@ -56,15 +56,15 @@ export async function detect(
     if (video !== undefined) {
       pose = await net.estimateSinglePose(video);
       if (pose.score >= 0.5) {
-        const resultArr: number[] = await normalizer(
+        const resultArr: number[] = normalizer(
           pose.keypoints,
           window.innerWidth / 2,
           window.innerHeight
         );
         if (classifierModel !== undefined) {
-          const predictionResult = (await classifierModel.predict(
-            tf.tensor(resultArr, [1, 34])
-          )) as tf.Tensor;
+          const predictionResult = classifierModel.predict(
+            tf.tensor(resultArr, [1, 39])
+          ) as tf.Tensor;
           const predictionResultArray: any = await predictionResult.array();
           evaluatedPose = await poseEvaluator(
             classifierLabels,

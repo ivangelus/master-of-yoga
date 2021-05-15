@@ -1,0 +1,14 @@
+{
+  "labels_id": [
+    "catPose",
+    "chairPose",
+    "cobraPose",
+    "cowPose",
+    "easyPose",
+    "extendedSideAnglePose",
+    "halfLordOfTheFishesPose",
+    "heroPose",
+    "highLungePose",
+    "wrongPoses"
+  ]
+}
