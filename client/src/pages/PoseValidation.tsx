@@ -168,7 +168,7 @@ const PoseValidation: React.FC = (): ReactElement => {
             <div className="timer__container">
               <div className="webcam__timer__container">
                 <div className="webcam__timer">Time left: {time}s</div>
-                <GetReadyMarker isHidden={false} />
+                {/* <GetReadyMarker isHidden={false} /> */}
               </div>
             </div>
             <div className="progress__bar__container">
