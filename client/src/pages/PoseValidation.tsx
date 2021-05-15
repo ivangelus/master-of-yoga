@@ -1,9 +1,7 @@
-import { initPoseNet, initClassifier } from '../utilities/initModels';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { changeCurrentPose } from '../redux/currentPoseSlice';
 import { useParams, useHistory } from 'react-router-dom';
-import { Classifier } from '../interfaces/ClassifierDTO';
-import HashLoader from 'react-spinners/HashLoader';
+// import HashLoader from 'react-spinners/HashLoader';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { RootState } from '../redux/store';
 import Camera from '../components/Camera';
@@ -30,9 +28,6 @@ const PoseValidation: React.FC = (): ReactElement => {
     margin: 0 auto;
     border-color: red;
   `;
-  const classifier: Classifier = useAppSelector(
-    (state: RootState) => state.classifier
-  );
 
   React.useEffect(() => {
     let interval: any;

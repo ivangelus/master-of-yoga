@@ -25,14 +25,13 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
   let poseNetModel: any;
   let classifierModel: tf.LayersModel | undefined;
   let interval: any;
-  // const poseName = useAppSelector((state: RootState) => state.currentPose.value);
 
   useEffect(() => {
-    console.log(poseName);
     async function init() {
       if (poseNetModel === undefined) poseNetModel = await initPoseNet();
       if (classifierModel === undefined)
         classifierModel = await initClassifier(classifierKey);
+      if (interval) await clearIntervalAsync(interval);
       interval = setIntervalAsync(
         async () =>
           await detect(
@@ -47,11 +46,12 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
       );
     }
     init();
-    clearInterval(interval);
     return () => {
-      clearInterval(interval);
+      (async () => {
+        await clearIntervalAsync(interval);
+      })();
     };
-  }, []);
+  }, [poseName]);
 
   const videoConstraints = {
     width: window.innerWidth / 2,

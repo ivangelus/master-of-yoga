@@ -33,6 +33,7 @@ export async function detect(
   canvasRef: any,
   poseName: string
 ): Promise<void> {
+  console.log(poseName);
   if (
     typeof webcamRef.current !== 'undefined' &&
     webcamRef.current !== null &&
@@ -61,9 +62,9 @@ export async function detect(
           window.innerHeight
         );
         if (classifierModel !== undefined) {
-          const predictionResult = classifierModel.predict(
+          const predictionResult = (await classifierModel.predict(
             tf.tensor(resultArr, [1, 34])
-          ) as tf.Tensor;
+          )) as tf.Tensor;
           const predictionResultArray: any = await predictionResult.array();
           evaluatedPose = await poseEvaluator(
             classifierLabels,
