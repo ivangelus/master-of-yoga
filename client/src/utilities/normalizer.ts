@@ -1,20 +1,35 @@
 export default function normalizeKeypoints(
-  keyPoints: Array<{ position: { x: number } }>,
+  keyPoints: {
+    position: {
+      x: number;
+      y: number;
+    };
+    part: string;
+    score: number;
+  }[],
   width: number,
   height: number
 ): number[] {
-  const keyPointsList = [];
+  const head = ['leftEye', 'rightEye', 'leftEar', 'rightEar'];
+  const keyPointsList: number[] = [];
   for (let i = 0; i < keyPoints.length; i++) {
+    let normalizedY = keyPoints[i].position.y / height;
     let normalizedX = keyPoints[i].position.x / width;
-    let normalizedY = keyPoints[i].position.x / height;
 
     if (normalizedX < 0) normalizedX = 0;
     if (normalizedX > 1) normalizedX = 1;
     if (normalizedY < 0) normalizedY = 0;
     if (normalizedY > 1) normalizedY = 1;
 
-    keyPointsList.push(normalizedX);
-    keyPointsList.push(normalizedY);
+    if (head.includes(keyPoints[i].part)) {
+      keyPointsList[0] = (keyPointsList[0] + normalizedY) / 2;
+      keyPointsList[1] = (keyPointsList[1] + normalizedX) / 2;
+      keyPointsList[2] = (keyPointsList[2] + keyPoints[i].score) / 2;
+    } else {
+      keyPointsList.push(normalizedY);
+      keyPointsList.push(normalizedX);
+      keyPointsList.push(keyPoints[i].score);
+    }
   }
   return keyPointsList;
 }

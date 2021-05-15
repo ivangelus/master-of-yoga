@@ -71,7 +71,7 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
       // const label = 'heroPose';
       // console.log(pose.keypoints);
       if (pose.score >= 0.5) {
-        const resultArr: number[] = await normalizer(
+        const resultArr: number[] = normalizer(
           pose.keypoints,
           window.innerWidth / 2,
           window.innerHeight
@@ -79,14 +79,10 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
         // savedData.push({'xs': resultArr, 'ys': label});
         // localStorage.setItem('heroPose', JSON.stringify(savedData))
         const predictionResult = classifierModel.predict(
-          tf.tensor(resultArr, [1, 34])
+          tf.tensor(resultArr, [1, 39])
         ) as tf.Tensor;
         const predictionResultArray: any = await predictionResult.array();
-        evaluatedPose = await poseEvaluator(
-          classifierLabels,
-          predictionResultArray
-        );
-        // console.log(evaluatedPose);
+        evaluatedPose = poseEvaluator(classifierLabels, predictionResultArray);
       } else {
         evaluatedPose = { pose: 'none', confidence: 0 };
         // console.log('low confidence score');
