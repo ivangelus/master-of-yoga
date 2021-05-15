@@ -3,6 +3,7 @@ import modalReducer from './modalSlice';
 import usersReducer from './usersSlice';
 import routinesReducer from './routinesSlice';
 import classifierReducer from './classifierSlice';
+import currentPoseReducer from './currentPoseSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     users: usersReducer,
     routines: routinesReducer,
     classifier: classifierReducer,
+    currentPose: currentPoseReducer,
   },
 });
 
