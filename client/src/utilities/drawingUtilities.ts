@@ -17,7 +17,7 @@
 import * as posenet from '@tensorflow-models/posenet';
 
 let color = 'red';
-const lineWidth = 3;
+const lineWidth = 10;
 
 export function setColor(passedColor: string): void {
   color = passedColor;
@@ -111,6 +111,6 @@ export function drawKeypoints(
 
     const { y, x } = keypoint.position;
     if (!noDrawParts.includes(keypoint.part))
-      drawPoint(ctx, y * scale, x * scale, 10);
+      drawPoint(ctx, y * scale, x * scale, 20);
   }
 }

@@ -1,0 +1,13 @@
+.getReady_marker {
+  height: 70px;
+  width: 70px;
+  margin-left: 25px;
+  background-color: limegreen;
+  border-radius: 35px;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
