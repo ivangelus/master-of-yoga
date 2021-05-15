@@ -30,7 +30,15 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   };
 
   const renderInstructions = () => {
-    setInstructions((instructions) => !instructions);
+    setTimeout(() => {
+      setInstructions((instructions) => !instructions);
+    }, 1200);
+  };
+
+  const removeInstructions = () => {
+    setTimeout(() => {
+      setInstructions((instructions) => !instructions);
+    }, 700);
   };
 
   // function changeColor(num: number, state: boolean) {
@@ -76,20 +84,16 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
           </button>
         </div>
         <div className="levels__container">
-          <div className="levels__container--labels">
-            <button onClick={renderInstructions} className="levels__btn">
+          <div className="levels__container__instructions">
+            {/* <button onClick={renderInstructions} className="levels__btn">
               Toggle Instructions
-            </button>
-            {instructions ? (
-              <div className="Instructions__Component__Container">
-                <Instructions />
-              </div>
-            ) : (
-              ''
-            )}
+            </button> */}
+            {instructions ? <Instructions /> : ''}
           </div>
           <div className="levels__container--slider-container">
             <input
+              onMouseEnter={renderInstructions}
+              onMouseLeave={removeInstructions}
               type="range"
               min="0"
               max="100"
