@@ -4,12 +4,13 @@ from rest_framework import status
 from server import firebase
 
 def generateRoutinesListWithPosesData(posesList, routineList):
-  completeList = []
+  completeList = {}
   routineSet = set(routineList)
   for pose in posesList:
     if pose['id'] in routineSet:
-      completeList.append(pose)
-  return completeList
+      completeList[pose['id']] = pose
+  sortedList = [completeList[id] for id in routineList]
+  return sortedList
 
 class RoutinesView(APIView):
   def get(self, request):
