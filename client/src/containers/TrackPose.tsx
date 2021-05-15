@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PoseDTO } from '../interfaces/PoseDTO';
 import Instructions from '../components/Instructions';
+import Arrow from '../assets/BlackArrow.svg';
 
 interface Props {
   routine: PoseDTO;
@@ -12,12 +13,6 @@ interface Props {
 const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   const history = useHistory();
 
-  // const [color1, setColor1] = useState('#f5f6fa');
-  // const [color2, setColor2] = useState('#f5f6fa');
-  // const [color3, setColor3] = useState('#f5f6fa');
-  // const [clicked1, setClicked1] = useState(false);
-  // const [clicked2, setClicked2] = useState(false);
-  // const [clicked3, setClicked3] = useState(false);
   const [sliderValue, setSliderValue] = useState(50);
   const [instructions, setInstructions] = useState(false);
 
@@ -49,7 +44,7 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
             height: '300px',
             width: '400px',
             objectFit: 'cover',
-            borderRadius: '50%',
+            borderRadius: '2rem',
           }}
           src={routine.imageAddress}
           alt="Yoga Pose"
@@ -65,7 +60,14 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
         </div>
         <div className="levels__container">
           <div className="levels__container__instructions">
-            {instructions ? <Instructions /> : ''}
+            {instructions ? (
+              <Instructions />
+            ) : (
+              <div className="SelectLevel__Container">
+                <p>Select level of strictness</p>
+                <img src={Arrow} />
+              </div>
+            )}
           </div>
           <input
             onMouseEnter={renderInstructions}

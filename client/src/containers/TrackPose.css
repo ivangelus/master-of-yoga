@@ -45,24 +45,38 @@
   font-size: 1.1rem;
   font-family: 'Roboto Slab', serif;
   margin-bottom: 6%;
-  /* font-family: 'Handlee', cursive; */
+}
+
+.SelectLevel__Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 5rem;
+  margin-left: 2rem;
+}
+
+.SelectLevel__Container img {
+  align-self: flex-end;
+  margin-left: 4.5rem;
+  margin-top: -2rem;
+}
+
+.SelectLevel__Container p {
+  font-size: 2rem ;
+  font-family: 'Handlee', cursive;
+  font-weight: 800;
 }
 
 .levels__container {
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content:flex-end; */
   height: auto;
   width: 35vw;
 }
 
 .levels__container__instructions {
-  /* display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin-left: 10rem; */
   width: 50%;
   margin-right: -5rem;
 }
@@ -103,20 +117,6 @@ border: solid .4rem #84817a;
 box-shadow: 0 0 0 5px rgba(71, 61, 58, 0.767);}
 
 
-
-.levels__btn {
-  border-width: 0.3rem;
-  height: 2rem;
-  width: 10rem;
-  cursor: pointer;
-  text-align: center;
-  box-shadow: 0 0 5px black;
-  cursor: pointer;
-  margin-bottom: 3.3rem;
-  margin-top: -1.8rem;
-  align-self: flex-end;
-}
-
 .Instructions__component__container {
   height: 1.5rem;
   transition: height 0.25s linear;
@@ -128,26 +128,7 @@ box-shadow: 0 0 0 5px rgba(71, 61, 58, 0.767);}
   height: 7rem;
 }
 
-/* .btn__text{
-  font-family: 'Roboto Slab', serif;
-  font-size: 0.8rem;
-  text-align:center;
-}  */
 
-/* .level__inputs {
-  height: 1rem;
-} */
-
-.levels__btn:hover {
-  opacity: 0.5;
-}
-
-
-/* .progress-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-} */
 
 .btn-progress-practice {
   background-color: #00CCBB;
@@ -160,14 +141,10 @@ box-shadow: 0 0 0 5px rgba(71, 61, 58, 0.767);}
   font-weight: 700;
   margin-bottom: 7%;
   cursor: pointer;
-  /* box-shadow: 0 0 5px black; */
   transition-duration: 0.4s;
   font-family: 'Handlee', cursive;
   text-shadow: 0 0 1px white;
   align-self:flex-end;
-  /* top: 50%; */
-  /* align-items: center; */
-  /* margin-top: 4%; */
 }
 
 .btn-progress-practice:hover {
