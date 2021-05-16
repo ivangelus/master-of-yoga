@@ -25,40 +25,72 @@ const UserCard: React.FC = () => {
   };
 
   return (
-    <div className="user-card-container">
-      <div className="user-card-left">
-        <div className="profile-image-container">
-          <img className="profile-image" src={user.image} />
-        </div>
-      </div>
-      <div className="user-card-middle">
+    <div className="usercard__container">
+      <img className="usercard__image" src={user.image}></img>
+      <div className="usercard__data__container">
         <h3>{`Welcome ${user.firstName}!`}</h3>
-        <div className="user-card-middle-content">
-          <div className="middle-content-taglines">
-            <p>Last Entry: </p>
-            <p>Streak: </p>
-            <p>Badges: </p>
-          </div>
-          <div className="middle-content-text">
-            <p>{dateTransform()}</p>
-            <p>
-              {user.consecutiveDays > 0
-                ? ` ${user.consecutiveDays} days!`
-                : ' No consecutive entries'}
-            </p>
-            <p> </p>
-          </div>
-        </div>
+        <p>Last Entry: </p>
+        <p>Streak: </p>
+        <p>Badges: </p>
+        {/* <p>{dateTransform()}</p> */}
+        <p>
+          {user.consecutiveDays > 0
+            ? ` ${user.consecutiveDays} days!`
+            : ' No consecutive entries'}
+        </p>
+        <p> </p>
       </div>
-      <div className="user-card-right">
-        <Button label="EDIT PROFILE" onClick={() => console.log('clicked')} />
+      <div className="usercard__buttons__container">
+        <Button
+          label="EDIT PROFILE"
+          onClick={() => console.log('clicked')}
+          styles={{ width: '10rem', height: '3rem' }}
+        />
         <Button
           label="LOG OUT"
           onClick={handleLogOut}
-          styles={{ backgroundColor: 'orangered' }}
+          styles={{
+            backgroundColor: 'orangered',
+            width: '10rem',
+            height: '3rem',
+          }}
         />
       </div>
     </div>
+    // <div className="user-card-container">
+    //   <div className="user-card-left">
+    //     <div className="profile-image-container">
+    //       <img className="profile-image" src={user.image} />
+    //     </div>
+    //   </div>
+    //   <div className="user-card-middle">
+    //     <h3>{`Welcome ${user.firstName}!`}</h3>
+    //     <div className="user-card-middle-content">
+    //       <div className="middle-content-taglines">
+    //         <p>Last Entry: </p>
+    //         <p>Streak: </p>
+    //         <p>Badges: </p>
+    //       </div>
+    //       <div className="middle-content-text">
+    //         <p>{dateTransform()}</p>
+    //         <p>
+    //           {user.consecutiveDays > 0
+    //             ? ` ${user.consecutiveDays} days!`
+    //             : ' No consecutive entries'}
+    //         </p>
+    //         <p> </p>
+    //       </div>
+    //     </div>
+    //   </div>
+    //   <div className="user-card-right">
+    //     <Button label="EDIT PROFILE" onClick={() => console.log('clicked')} />
+    //     <Button
+    //       label="LOG OUT"
+    //       onClick={handleLogOut}
+    //       styles={{ backgroundColor: 'orangered' }}
+    //     />
+    //   </div>
+    // </div>
   );
 };
 
