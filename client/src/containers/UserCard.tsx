@@ -28,16 +28,17 @@ const UserCard: React.FC = () => {
     <div className="usercard__container">
       <img className="usercard__image" src={user.image}></img>
       <div className="usercard__data__container">
-        <h3>{`Welcome ${user.firstName}!`}</h3>
-        <p>Last Entry: </p>
-        <p>Streak: </p>
-        <p>Badges: </p>
-        {/* <p>{dateTransform()}</p> */}
-        <p>
+        <h2>{`Welcome ${user.firstName}!`}</h2>
+        <p className="usercard__textinfo">
+          Last Entry: &nbsp; {dateTransform()}
+        </p>
+        <p className="usercard__textinfo">
+          Streak: &nbsp;
           {user.consecutiveDays > 0
             ? ` ${user.consecutiveDays} days!`
             : ' No consecutive entries'}
         </p>
+        <p className="usercard__textinfo">Badges: </p>
         <p> </p>
       </div>
       <div className="usercard__buttons__container">
