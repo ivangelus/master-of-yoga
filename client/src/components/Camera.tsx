@@ -10,6 +10,7 @@ import { RootState } from '../redux/store';
 import * as tf from '@tensorflow/tfjs';
 import Webcam from 'react-webcam';
 import './Camera.css';
+import speak from '../utilities/speech';
 interface Props {
   poseName: string;
   setPoseOK: any;
@@ -35,6 +36,7 @@ const Camera: React.FC<Props> = ({
       if (poseNetModel === undefined) poseNetModel = await initPoseNet();
       if (classifierModel === undefined)
         classifierModel = await initClassifier(classifierKey);
+      speak('Position starting in 5, 4, 3, 2, 1');
       if (interval) await clearIntervalAsync(interval);
       interval = setIntervalAsync(
         async () =>
