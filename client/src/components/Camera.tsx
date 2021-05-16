@@ -27,7 +27,7 @@ const Camera: React.FC<Props> = ({
     async function init() {
       if (poseNetModel === undefined) poseNetModel = await initPoseNet();
       classifierModel = await initClassifier(poseName);
-      speak('Position starting in 5, 4, 3, 2, 1');
+      speak('Position starting');
       if (interval) await clearIntervalAsync(interval);
       interval = setIntervalAsync(
         async () =>
