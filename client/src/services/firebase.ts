@@ -1,9 +1,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import env from 'react-dotenv';
 
 const config = {
-  apiKey: env.FIREBASE_APIKEY,
+  apiKey: '',
   authDomain: 'master-yoga-ef07c.firebaseapp.com',
   databaseURL:
     'https://master-yoga-ef07c-default-rtdb.europe-west1.firebasedatabase.app',
@@ -13,6 +12,9 @@ const config = {
   appId: '1:406827781078:web:ae92f6607c4e74abccf277',
   measurementId: 'G-BQ1B138K0D',
 };
+
+const { REACT_APP_FIREBASE_APIKEY } = process.env;
+if (REACT_APP_FIREBASE_APIKEY) config.apiKey = REACT_APP_FIREBASE_APIKEY;
 
 firebase.initializeApp(config);
 

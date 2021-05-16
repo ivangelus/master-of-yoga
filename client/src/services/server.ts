@@ -1,10 +1,11 @@
-import env from 'react-dotenv';
 import axios, { AxiosResponse } from 'axios';
 import { UserDTO } from '../interfaces/UserDTO';
 import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
 import { AuthResponseDTO } from '../interfaces/AuthResponseDTO';
 
-const baseUrl: string = env.SERVER_ADDRESS;
+let baseUrl: string;
+const { REACT_APP_SERVER_ADDRESS } = process.env;
+if (REACT_APP_SERVER_ADDRESS) baseUrl = REACT_APP_SERVER_ADDRESS;
 
 async function getRoutines(): Promise<BaseRoutinesDTO> {
   try {
