@@ -7,6 +7,7 @@ import type { MutableRefObject } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import Webcam from 'react-webcam';
 import './Camera.css';
+import speak from '../utilities/speech';
 interface Props {
   poseName: string;
   setPoseOK: any;
@@ -26,6 +27,7 @@ const Camera: React.FC<Props> = ({
     async function init() {
       if (poseNetModel === undefined) poseNetModel = await initPoseNet();
       classifierModel = await initClassifier(poseName);
+      speak('Position starting in 5, 4, 3, 2, 1');
       if (interval) await clearIntervalAsync(interval);
       interval = setIntervalAsync(
         async () =>
