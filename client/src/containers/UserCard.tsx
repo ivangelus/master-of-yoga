@@ -31,20 +31,16 @@ const UserCard: React.FC = () => {
         <h2>{`Welcome ${user.firstName}!`}</h2>
         <div className="usercard__data__container">
           <div className="usercard__textinfo--titles">
-          <p>
-            Last Entry:
-          </p>
-          <p>
-            Streak:
-          </p>
-          <p>Badges: </p>
+            <p>Last Entry:</p>
+            <p>Streak:</p>
+            <p>Badges: </p>
           </div>
           <div className="usercard__textinfo--content">
             <p>{dateTransform()}</p>
             <p>
-            {user.consecutiveDays > 0
-              ? ` ${user.consecutiveDays} days!`
-              : ' No consecutive entries'}
+              {user.consecutiveDays > 0
+                ? ` ${user.consecutiveDays} days!`
+                : ' No consecutive entries'}
             </p>
           </div>
         </div>
