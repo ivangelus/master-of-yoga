@@ -1,7 +1,4 @@
-import { Classifier } from '../interfaces/ClassifierDTO';
 import * as poseNet from '@tensorflow-models/posenet';
-import { useAppSelector } from '../redux/hooks';
-import { RootState } from '../redux/store';
 import * as tf from '@tensorflow/tfjs';
 
 export async function initPoseNet(): Promise<any> {
@@ -18,7 +15,7 @@ export async function initClassifier(
   classifierKey: string
 ): Promise<tf.LayersModel> {
   const classifierModel = await tf.loadLayersModel(
-    `localstorage://${classifierKey}`
+    `../../tfjs/${classifierKey}/model.json`
   );
   return classifierModel;
 }

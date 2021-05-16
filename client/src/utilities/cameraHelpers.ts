@@ -35,7 +35,6 @@ export async function detect(
   net: any,
   classifierModel: tf.LayersModel | undefined,
   webcamRef: any,
-  classifierLabels: string[],
   canvasRef: any,
   poseName: string,
   setPoseOK: any
@@ -45,7 +44,6 @@ export async function detect(
     webcamRef.current !== null &&
     webcamRef.current.video.readyState === 4
   ) {
-    // console.log(poseName);
     const video = webcamRef.current.video;
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
@@ -72,10 +70,7 @@ export async function detect(
             tf.tensor(resultArr, [1, 39])
           ) as tf.Tensor;
           const predictionResultArray: any = await predictionResult.array();
-          evaluatedPose = await poseEvaluator(
-            classifierLabels,
-            predictionResultArray
-          );
+          evaluatedPose = poseEvaluator(poseName, predictionResultArray[0]);
         }
       }
       drawCanvas(
