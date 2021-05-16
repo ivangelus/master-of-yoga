@@ -96,3 +96,7 @@
   font-weight: bold;
   font-size: 50px;
 }
+
+.webcam__timer__container {
+  display: flex;
+}

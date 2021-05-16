@@ -2,7 +2,7 @@ import { initClassifier, initPoseNet } from '../utilities/initModels';
 import { setIntervalAsync } from 'set-interval-async/dynamic';
 import { clearIntervalAsync } from 'set-interval-async';
 import { Classifier } from '../interfaces/ClassifierDTO';
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { detect } from '../utilities/cameraHelpers';
 import { useAppSelector } from '../redux/hooks';
 import type { MutableRefObject } from 'react';
@@ -12,9 +12,13 @@ import Webcam from 'react-webcam';
 import './Camera.css';
 interface Props {
   poseName: string;
+  setPoseOK: any;
 }
 
-const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
+const Camera: React.FC<Props> = ({
+  poseName,
+  setPoseOK,
+}: Props): React.ReactElement => {
   const webcamRef: MutableRefObject<any> = useRef(null);
   const canvasRef: MutableRefObject<any> = useRef(null);
   const classifier: Classifier = useAppSelector(
@@ -40,7 +44,8 @@ const Camera: React.FC<Props> = ({ poseName }: Props): React.ReactElement => {
             webcamRef,
             classifierLabels,
             canvasRef,
-            poseName
+            poseName,
+            setPoseOK
           ),
         300
       );

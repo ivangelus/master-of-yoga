@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PoseDTO } from '../interfaces/PoseDTO';
 import Instructions from '../components/Instructions';
+import Arrow from '../assets/BlackArrow.svg';
 
 interface Props {
   routine: PoseDTO;
@@ -12,12 +13,6 @@ interface Props {
 const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   const history = useHistory();
 
-  const [color1, setColor1] = useState('#f5f6fa');
-  const [color2, setColor2] = useState('#f5f6fa');
-  const [color3, setColor3] = useState('#f5f6fa');
-  const [clicked1, setClicked1] = useState(false);
-  const [clicked2, setClicked2] = useState(false);
-  const [clicked3, setClicked3] = useState(false);
   const [sliderValue, setSliderValue] = useState(50);
   const [instructions, setInstructions] = useState(false);
 
@@ -30,29 +25,17 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   };
 
   const renderInstructions = () => {
-    setInstructions((instructions) => !instructions);
+    setTimeout(() => {
+      setInstructions((instructions) => !instructions);
+    }, 1000);
   };
 
-  // function changeColor(num: number, state: boolean) {
-  //   if (num === 1) {
-  //     setColor1('#27ae60');
-  //     setColor2('#f5f6fa');
-  //     setColor3('#f5f6fa');
-  //     setClicked1(!state);
-  //     return;
-  //   } else if (num === 2) {
-  //     setColor1('#f5f6fa');
-  //     setColor2('#f1c40f');
-  //     setColor3('#f5f6fa');
-  //     setClicked2(!state);
-  //     return;
-  //   } else {
-  //     setColor1('#f5f6fa');
-  //     setColor2('#f5f6fa');
-  //     setColor3('#c0392b');
-  //     setClicked3(!state);
-  //   }
-  // }
+  const removeInstructions = () => {
+    setTimeout(() => {
+      setInstructions((instructions) => !instructions);
+    }, 500);
+  };
+
   return (
     <div className="allTracks__container">
       <div className="track-pose-container">
@@ -61,7 +44,7 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
             height: '300px',
             width: '400px',
             objectFit: 'cover',
-            borderRadius: '50%',
+            borderRadius: '2rem',
           }}
           src={routine.imageAddress}
           alt="Yoga Pose"
@@ -76,53 +59,27 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
           </button>
         </div>
         <div className="levels__container">
-          <div className="levels__container--labels">
-            <button onClick={renderInstructions} className="levels__btn">
-              Toggle Instructions
-            </button>
+          <div className="levels__container__instructions">
             {instructions ? (
-              <div className="Instructions__Component__Container">
-                <Instructions />
-              </div>
+              <Instructions />
             ) : (
-              ''
+              <div className="SelectLevel__Container">
+                <p>Select level of strictness</p>
+                <img src={Arrow} />
+              </div>
             )}
           </div>
-          <div className="levels__container--slider-container">
-            <input
-              type="range"
-              min="0"
-              max="100"
-              value={sliderValue}
-              onChange={handleChange}
-              className="levels__container--rangeSlider"
-            />
-          </div>
+          <input
+            onMouseEnter={renderInstructions}
+            onMouseLeave={removeInstructions}
+            type="range"
+            min="0"
+            max="100"
+            value={sliderValue}
+            onChange={handleChange}
+            className="levels__container--rangeSlider"
+          />
         </div>
-        {/* <div className="levels__container"> */}
-        {/* <input type="range" min="0" max="100" value={sliderValue} onChange={handleChange} className="range__slider"/> */}
-        {/* <button
-            onClick={() => changeColor(1, clicked1)}
-            style={{ backgroundColor: color1 }}
-            className="levels__btn easy"
-          >
-            <p className="btn__text">Easy</p>
-          </button>
-          <button
-            onClick={() => changeColor(2, clicked2)}
-            style={{ backgroundColor: color2 }}
-            className="levels__btn medium"
-          >
-            <p className="btn__text">Medium</p>
-          </button>
-          <button
-            onClick={() => changeColor(3, clicked3)}
-            style={{ backgroundColor: color3 }}
-            className="levels__btn hard"
-          >
-            <p className="btn__text">Hard</p>
-          </button> */}
-        {/* </div> */}
       </div>
     </div>
   );

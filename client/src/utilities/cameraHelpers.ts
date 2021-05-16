@@ -12,14 +12,20 @@ export function drawCanvas(
   videoHeight: number,
   canvas: MutableRefObject<any>,
   evaluatedPose: { pose: string; confidence: number },
-  poseName: string
+  poseName: string,
+  setPoseOK: any
 ): void {
   if (canvas.current) {
     const ctx = canvas.current.getContext('2d');
     canvas.current.width = videoWidth;
     canvas.current.height = videoHeight;
-    if (poseName === evaluatedPose.pose) setColor('green');
-    else setColor('red');
+    if (poseName === evaluatedPose.pose) {
+      setColor('limegreen');
+      setPoseOK(true);
+    } else {
+      setColor('red');
+      setPoseOK(false);
+    }
     drawKeypoints(pose['keypoints'], 0.7, ctx);
     drawSkeleton(pose['keypoints'], 0.7, ctx);
   }
@@ -31,9 +37,9 @@ export async function detect(
   webcamRef: any,
   classifierLabels: string[],
   canvasRef: any,
-  poseName: string
+  poseName: string,
+  setPoseOK: any
 ): Promise<void> {
-  console.log(poseName);
   if (
     typeof webcamRef.current !== 'undefined' &&
     webcamRef.current !== null &&
@@ -79,7 +85,8 @@ export async function detect(
         videoHeight,
         canvasRef,
         evaluatedPose,
-        poseName
+        poseName,
+        setPoseOK
       );
     }
   }
