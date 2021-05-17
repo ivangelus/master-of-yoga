@@ -4,6 +4,9 @@ import type { MutableRefObject } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import normalizer from './normalizer';
 import poseEvaluator from './poseEvaluator';
+import speak from './speech';
+
+let speakFreq = 0;
 
 export function drawCanvas(
   pose: PoseNetOutputDTO,
@@ -20,6 +23,9 @@ export function drawCanvas(
     canvas.current.width = videoWidth;
     canvas.current.height = videoHeight;
     if (poseName === evaluatedPose.pose) {
+      speakFreq++;
+      if (speakFreq === 1 || speakFreq % 100 === 0)
+        speak('Hold current position');
       setColor('limegreen');
       setPoseOK(true);
     } else {
