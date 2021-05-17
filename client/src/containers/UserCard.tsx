@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
 import { RootState } from '../redux/store';
+import { openModal } from '../redux/modalSlice';
 import { logoutUser } from '../redux/usersSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
@@ -14,18 +15,14 @@ const UserCard: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.users);
-  const beginnerScore = useAppSelector(
-    (state: RootState) => state.users.posesCompletion.beginner
-  );
-  const intermediateScore = useAppSelector(
-    (state: RootState) => state.users.posesCompletion.intermediate
-  );
-  const advancedScore = useAppSelector(
-    (state: RootState) => state.users.posesCompletion.advanced
-  );
+  const daysLoggedIn = user.consecutiveDays;
 
   const dateTransform = () => {
     return moment(user.lastEntry).format('dddd, MMM Do');
+  };
+
+  const handleUpdate = () => {
+    dispatch(openModal());
   };
 
   const handleLogOut = (): void => {
@@ -62,8 +59,8 @@ const UserCard: React.FC = () => {
           <div className="usercard__textinfo--content">
             <p>{dateTransform()}</p>
             <p>
-              {user.consecutiveDays > 0
-                ? ` ${user.consecutiveDays} days!`
+              {daysLoggedIn && daysLoggedIn > 0
+                ? ` ${daysLoggedIn} days!`
                 : ' No consecutive entries'}
             </p>
             <div className="badges__container">
@@ -86,7 +83,7 @@ const UserCard: React.FC = () => {
       <div className="usercard__buttons__container">
         <Button
           label="EDIT PROFILE"
-          onClick={() => console.log('clicked')}
+          onClick={handleUpdate}
           styles={{ width: '10rem', height: '3rem' }}
         />
         <Button

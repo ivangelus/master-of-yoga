@@ -6,7 +6,22 @@ interface Props {
 }
 
 const GetReadyMarker: React.FC<Props> = ({ isHidden }: Props) => {
-  return <div className="getReady_marker"></div>;
+  function renderMarker() {
+    if (isHidden) return '';
+    else return 'getReady_marker';
+  }
+  function renderText() {
+    if (isHidden) return 'hidden';
+    else return 'getReady_text';
+  }
+  return (
+    <div className="container">
+      <div className={renderText()}>
+        Get ready for the next pose
+        <div className={renderMarker()}></div>
+      </div>
+    </div>
+  );
 };
 
 export default GetReadyMarker;

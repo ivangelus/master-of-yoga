@@ -5,6 +5,7 @@ import firebase, { auth, provider } from '../services/firebase';
 
 import { authUser, createUser } from '../services/server';
 import { updateUser } from '../redux/usersSlice';
+import { closeModal } from '../redux/modalSlice';
 import { useAppDispatch } from '../redux/hooks';
 import { UserDTO } from '../interfaces/UserDTO';
 
@@ -40,6 +41,7 @@ const UserAuth: React.FC = () => {
     dispatch(updateUser({ ...user }));
     sessionStorage.setItem('yogaMasterUser', JSON.stringify(user));
     history.push('/dashboard');
+    dispatch(closeModal());
   };
 
   const checkAuth = async (): Promise<void> => {

@@ -67,9 +67,9 @@ def authToken(token):
 
 def getUser(uid):
   user = db.collection('users').document(uid).get()
-  processedUser = user.to_dict()
+  processedUser = user
   if processedUser:
-    return processedUser
+    return processedUser.to_dict()
   else:
     return False
 
@@ -110,6 +110,10 @@ def registerUser(userData):
       'success': False,
       'msg': e
     }
+
+def updateUser(uid, userData):
+  db.collection('users').document(uid).update(userData)
+  return db.collection('users').document(uid).get().to_dict()
 
 # ************************************************
 # ******************* DATABASE *******************
