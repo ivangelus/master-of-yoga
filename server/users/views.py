@@ -25,10 +25,10 @@ class VerifyView(APIView):
     if authResult['valid']:
       uid = authResult['result']['user_id']
       userData = firebase.getUser(uid)
-      streak = getStreak(lastSignIn, userData['consecutiveDays'])
-      userData['consecutiveDays'] = streak
-      firebase.updateUser(uid, userData)
       if userData:
+        streak = getStreak(lastSignIn, userData['consecutiveDays'])
+        userData['consecutiveDays'] = streak
+        firebase.updateUser(uid, userData)
         authResult['result'] = userData
       else:
         newUser = firebase.newUser(authResult['result'])
