@@ -23,7 +23,7 @@ const CustomTrack: React.FC = () => {
   };
 
   const handleCreateTrack = (): void => {
-    console.log('click');
+    history.push('trackPage/createRoutine');
   };
 
   return (
