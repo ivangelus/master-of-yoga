@@ -1,7 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
-import { UserDTO, initialStateUserDTO } from '../interfaces/UserDTO';
+import {
+  UserDTO,
+  initialStateUserDTO,
+  PoseCompletionDTO,
+} from '../interfaces/UserDTO';
 
 export const usersSlice = createSlice({
   name: 'users',
@@ -13,6 +17,14 @@ export const usersSlice = createSlice({
     logoutUser: (state) => {
       return { ...state, ...initialStateUserDTO };
     },
+    // updatePoseCompletion: (state, action: PayloadAction<Partial<PoseCompletionDTO>>) => {
+    //   return {
+    //     ...state,
+    //     posesCompletion: state.posesCompletion.map(
+    //         (pose, i) => pose.id === action.payload.id ? {...pose, percentage: action.payload.percentage} : pose
+    //     )
+    //  }
+    // },
   },
 });
 

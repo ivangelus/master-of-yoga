@@ -1,4 +1,4 @@
-interface PoseCompletionDTO {
+export interface PoseCompletionDTO {
   level: 'beginner' | 'intermediate' | 'advanced';
   id: string;
   percentage: number;
