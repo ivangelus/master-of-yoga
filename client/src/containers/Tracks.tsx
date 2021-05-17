@@ -21,7 +21,71 @@ const buttonAdditionalStyles = {
 
 const Tracks: React.FC<Props> = ({ title }: Props) => {
   const history = useHistory();
-  const routine = useAppSelector((state) => state.routines[title]);
+
+  // const completedPoses = useAppSelector((state) => state.users.posesCompletion);
+  const completedPoses = [
+    {
+      id: 'heroPose',
+      level: 'beginner',
+      percentage: 100,
+    },
+    {
+      id: 'catPose',
+      level: 'beginner',
+      percentage: 17,
+    },
+    {
+      id: 'cobraPose',
+      level: 'beginner',
+      percentage: 100,
+    },
+    {
+      id: 'heroPose',
+      level: 'intermediate',
+      percentage: 65,
+    },
+    {
+      id: 'catPose',
+      level: 'intermediate',
+      percentage: 45,
+    },
+    {
+      id: 'cobraPose',
+      level: 'intermediate',
+      percentage: 10,
+    },
+    {
+      id: 'heroPose',
+      level: 'advanced',
+      percentage: 17,
+    },
+    {
+      id: 'catPose',
+      level: 'advanced',
+      percentage: 28,
+    },
+    {
+      id: 'cobraPose',
+      level: 'advanced',
+      percentage: 34,
+    },
+  ];
+
+  let percentageSum = 0;
+  let numOfPoses = 0;
+  let masteredPoses = 0;
+  for (let i = 0; i < completedPoses.length; i++) {
+    if (completedPoses[i].level === title) {
+      if (completedPoses[i].percentage === 100) {
+        masteredPoses = masteredPoses + 1;
+      }
+      percentageSum = percentageSum + completedPoses[i].percentage;
+      numOfPoses = numOfPoses + 1;
+    }
+  }
+  const trackPercentage = Math.floor(
+    (percentageSum / (numOfPoses * 100)) * 100
+  );
 
   const handleClick = (): void => {
     history.push(`trackPage/${title.toLowerCase()}`);
@@ -32,8 +96,8 @@ const Tracks: React.FC<Props> = ({ title }: Props) => {
       <h2>{title.toUpperCase()}</h2>
       <div className="progressbar-container">
         <CircularProgressbar
-          value={70}
-          text={`${70} %`}
+          value={trackPercentage}
+          text={`${trackPercentage} %`}
           circleRatio={0.7}
           styles={{
             trail: {
@@ -54,7 +118,7 @@ const Tracks: React.FC<Props> = ({ title }: Props) => {
           strokeWidth={10}
         />
       </div>
-      <p>{`0 out of ${routine.length}\npositions mastered!`}</p>
+      <p>{`${masteredPoses} out of ${numOfPoses}\npositions mastered!`}</p>
       <Button
         label="START"
         onClick={handleClick}
