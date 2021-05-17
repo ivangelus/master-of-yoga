@@ -23,7 +23,9 @@ async function authUser(
   token: string,
   lastSignIn: string | undefined
 ): Promise<AuthResponseDTO> {
-  const formattedDate = moment(lastSignIn).format('YYYY-MM-DD');
+  let formattedDate: string;
+  if (lastSignIn) formattedDate = moment(lastSignIn).format('YYYY-MM-DD');
+  else formattedDate = 'none';
   try {
     const user = await axios.post(`${baseUrl}/api/users/verify`, {
       token: token,

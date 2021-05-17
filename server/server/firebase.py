@@ -91,12 +91,11 @@ def registerUser(userData):
       'email': userData['email'],
       'image':'url',
       'lastEntry': '',
-      'posesCompletion': {
-        'begginer':'0%',
-        'advanced': '0%',
-        'intermediate':'0%'
-      }
+      'posesCompletion': []
     }
+    poses = getPosesList()
+    if poses:
+      registerUserData['posesCompletion'] = poses
     db.collection('users').document(uid).set(registerUserData)
     newUser = db.collection('users').document(uid).get()
     return {
@@ -127,16 +126,15 @@ def newUser(data):
     'lastName': name[1],
     'email': data['firebase']['identities']['email'][0],
     'consecutiveDays': 0,
-    'customTracks': ["0"],
+    'customTracks': [],
     'image':data['picture'],
     'lastEntry': data['auth_time'],
-    'posesCompletion': {
-      'begginer':"0%",
-      'advanced': '0%',
-      'intermediate':'0%'
-    }
+    'posesCompletion': []
   }
   try:
+    poses = getPosesList()
+    if poses:
+      userData['posesCompletion'] = poses
     db.collection('users').document(uid).set(userData)
     newUser = db.collection('users').document(uid).get()
     return newUser.to_dict()
@@ -168,6 +166,22 @@ def getRoutines():
       result[name] = formattedRoutines
       result[name + '_description'] = routineSnapshot.to_dict()['level_description']
     return result
+  except:
+    print('Failed to retrieve routines from database')
+    raise
+
+# ************************************************
+# ******************* HELPERS  *******************
+# ************************************************
+
+def getPosesList():
+  try:
+    poses = db.collection('poses').get()
+    posesList = []
+    for pose in poses:
+      tempPose = pose.to_dict()
+      posesList.append({'id': tempPose['id'], 'level': tempPose['level'], 'percentage': '0%'})
+    return posesList
   except:
     print('Failed to retrieve routines from database')
     raise
