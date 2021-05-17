@@ -20,6 +20,12 @@
   box-shadow: 0 0 0.6rem black;
 }
 
+.track-pose-container img {
+  height: 300px;
+  width: 400px;
+  object-fit: cover;
+  border-radius: 2rem;
+}
 
 .pose-content-container {
   display: flex;
@@ -129,7 +135,6 @@ box-shadow: 0 0 0 5px rgba(71, 61, 58, 0.767);}
 }
 
 
-
 .btn-progress-practice {
   background-color: #00CCBB;
   color: white;
@@ -157,4 +162,70 @@ box-shadow: 0 0 0 5px rgba(71, 61, 58, 0.767);}
   margin-right: 4%;
   height: 180px;
   width: 180px
+}
+
+@media screen and (max-width: 1200px) {
+  .allTracks__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%
+  }
+
+  .track-pose-container {
+    align-self: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #fff;
+    border: solid #fff;
+    border-radius: 20px;
+    width: 97%;
+    height: 15rem;
+    box-shadow: 0 0 0.6rem black;
+  }
+
+  .track-pose-container img {
+    height: 50%;
+    width: 30%;
+    object-fit: cover;
+  }
+
+  .pose-content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items:center;
+    width:33%;
+    height: auto;
+    font-size: 10px;
+  }
+
+  .routine-name {
+    font-size: 1.2rem;
+  }
+
+  .routine-description {
+    font-size: 0.9rem;
+  }
+
+  .progressBar-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5%;
+    margin-right: 4%;
+    height: 70%;
+    width: 25%;
+    background-color: cyan;
+  }
+
+}
+
+@media screen and (max-width:650px) {
+
 }

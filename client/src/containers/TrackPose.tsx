@@ -98,16 +98,7 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   return (
     <div className="allTracks__container">
       <div className="track-pose-container">
-        <img
-          style={{
-            height: '300px',
-            width: '400px',
-            objectFit: 'cover',
-            borderRadius: '2rem',
-          }}
-          src={routine.imageAddress}
-          alt="Yoga Pose"
-        />
+        <img src={routine.imageAddress} alt="Yoga Pose" />
         <div className="pose-content-container">
           <div className="routine-name">
             {index + 1}. {routine.name}
