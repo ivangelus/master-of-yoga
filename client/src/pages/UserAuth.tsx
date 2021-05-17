@@ -44,10 +44,10 @@ const UserAuth: React.FC = () => {
     dispatch(closeModal());
   };
 
-  const checkAuth = async (): Promise<void> => {
+  const checkAuth = async (lastSignIn: string | undefined): Promise<void> => {
     const token = await firebase.auth().currentUser?.getIdToken();
     if (token) {
-      const user = await authUser(token);
+      const user = await authUser(token, lastSignIn);
       if (user.valid) {
         updateUserAndNavigate(user.result);
       } else throw new Error('Invalid user');
@@ -76,8 +76,11 @@ const UserAuth: React.FC = () => {
 
     if (isLogin && form.email !== '' && form.password !== '') {
       try {
-        await auth.signInWithEmailAndPassword(form.email, form.password);
-        await checkAuth();
+        const signInResult = await auth.signInWithEmailAndPassword(
+          form.email,
+          form.password
+        );
+        await checkAuth(signInResult.user?.metadata.lastSignInTime);
       } catch (error) {
         errorHandler(error.message);
       }
@@ -91,8 +94,8 @@ const UserAuth: React.FC = () => {
 
   const googleSignIn = async (): Promise<void> => {
     try {
-      await auth.signInWithPopup(provider);
-      await checkAuth();
+      const signInResult = await auth.signInWithPopup(provider);
+      await checkAuth(signInResult.user?.metadata.lastSignInTime);
     } catch (error) {
       errorHandler(error.message);
     }
