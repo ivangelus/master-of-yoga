@@ -1,13 +1,10 @@
-import 'react-circular-progressbar/dist/styles.css';
 import './Tracks.css';
-
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { useAppSelector } from '../redux/hooks';
 
 import Button from '../components/Button';
-import { useAppSelector } from '../redux/hooks';
-import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
+import CircularProgressBar from '../components/CircularProgressBar';
 
 interface Props {
   title: 'beginner' | 'intermediate' | 'advanced';
@@ -83,6 +80,7 @@ const Tracks: React.FC<Props> = ({ title }: Props) => {
       numOfPoses = numOfPoses + 1;
     }
   }
+
   const trackPercentage = Math.floor(
     (percentageSum / (numOfPoses * 100)) * 100
   );
@@ -94,30 +92,7 @@ const Tracks: React.FC<Props> = ({ title }: Props) => {
   return (
     <div className="tracks-container">
       <h2>{title.toUpperCase()}</h2>
-      <div className="progressbar-container">
-        <CircularProgressbar
-          value={trackPercentage}
-          text={`${trackPercentage} %`}
-          circleRatio={0.7}
-          styles={{
-            trail: {
-              strokeLinecap: 'butt',
-              transform: 'rotate(-126deg)',
-              transformOrigin: 'center center',
-            },
-            path: {
-              strokeLinecap: 'butt',
-              transform: 'rotate(-126deg)',
-              transformOrigin: 'center center',
-              stroke: 'rgb(0, 204, 187)',
-            },
-            text: {
-              fill: 'rgb(0, 204, 187)',
-            },
-          }}
-          strokeWidth={10}
-        />
-      </div>
+      <CircularProgressBar progress={trackPercentage} />
       <p>{`${masteredPoses} out of ${numOfPoses}\npositions mastered!`}</p>
       <Button
         label="START"

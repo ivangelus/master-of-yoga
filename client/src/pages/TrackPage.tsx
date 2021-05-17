@@ -10,15 +10,22 @@ import TrackPose from '../containers/TrackPose';
 
 const TrackPage: React.FC = () => {
   const { level } = useParams<{
-    level: 'beginner' | 'intermediate' | 'advanced';
+    level: 'beginner' | 'intermediate' | 'advanced' | 'custom';
   }>();
   const routines = useAppSelector((state: RootState) => state.routines);
-  const description = routines.descriptions[level];
-  const routine = routines[level];
-
   const title = level[0].toUpperCase() + level.slice(1);
-
   const history = useHistory();
+  let description;
+  let routine: PoseDTO[] = [];
+
+  if (level !== 'custom') {
+    description = routines.descriptions[level];
+    routine = routines[level];
+  } else {
+    const userRoutine = useAppSelector((state) => state.users.customTracks);
+    description = 'Your own customized Yoga routine. Enjoy!';
+    if (userRoutine) routine = userRoutine;
+  }
 
   const handleClick = (): void => {
     history.push(`/pose/${level}/0`);

@@ -87,7 +87,7 @@ def registerUser(userData):
       'firstName': userData['firstName'],
       'lastName': userData['lastName'],
       'consecutiveDays': 0,
-      'customTracks': ['0'],
+      'customTracks': [],
       'email': userData['email'],
       'image':'url',
       'lastEntry': '',

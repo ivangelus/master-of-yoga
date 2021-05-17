@@ -1,0 +1,12 @@
+.create-custom-track {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-custom-description {
+  width: 90%;
+  padding-bottom: .5rem;
+}
