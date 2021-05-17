@@ -6,11 +6,12 @@ import { updateUser } from './redux/usersSlice';
 import { useAppDispatch } from './redux/hooks';
 
 import About from './pages/About';
+import Dashboard from './pages/Dashboard';
+import TrackPage from './pages/TrackPage';
 import LandingPage from './pages/LandingPage';
 import PageNotFound from './pages/PageNotFound';
 import PoseValidation from './pages/PoseValidation';
-import Dashboard from './pages/Dashboard';
-import TrackPage from './pages/TrackPage';
+import PrivateRoute from './components/PrivateRoute';
 
 function App(): ReactElement {
   const dispatch = useAppDispatch();
@@ -25,9 +26,9 @@ function App(): ReactElement {
       <Switch>
         <Route path="/" component={LandingPage} exact />
         <Route path="/about" component={About} />
-        <Route path="/pose/:level/:index" component={PoseValidation} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/trackPage/:level" component={TrackPage} />
+        <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/trackPage/:level" component={TrackPage} />
+        <PrivateRoute path="/pose/:level/:index" component={PoseValidation} />
         <Route component={PageNotFound} />
       </Switch>
     </div>
