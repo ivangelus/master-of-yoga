@@ -39,15 +39,29 @@ const UserCard: React.FC = () => {
             <p>Badges: </p>
           </div>
           <div className="usercard__textinfo--content">
-            <img src={bronzeLotusFlower} />
-            <img src={silverLotusFlower} />
-            <img src={goldLotusFlower} />
             <p>{dateTransform()}</p>
             <p>
               {user.consecutiveDays > 0
                 ? ` ${user.consecutiveDays} days!`
                 : ' No consecutive entries'}
             </p>
+            <div className="badges__container">
+              <img
+                src={bronzeLotusFlower}
+                alt="bronze badge"
+                className="bronze__badge"
+              />
+              <img
+                src={silverLotusFlower}
+                alt="silver badge"
+                className="silver__badge"
+              />
+              <img
+                src={goldLotusFlower}
+                alt="gold badge"
+                className="gold__badge"
+              />
+            </div>
           </div>
         </div>
       </div>

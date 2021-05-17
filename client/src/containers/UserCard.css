@@ -64,3 +64,29 @@ h2 {
   height: 100%;
   margin-right: 1rem;
 }
+
+.badges__container {
+  position: relative;
+  width: 8rem;
+  margin-left: -1.5rem;
+}
+
+.bronze__badge {
+position: absolute;
+left: 0;
+top: -1.2rem;
+bottom: 50;
+}
+
+.silver__badge {
+  position: absolute;
+  top:-1.2rem;
+  right: -5rem;
+
+}
+
+.gold__badge {
+position: absolute;
+right: -12rem;
+top: -1.2rem;
+}
