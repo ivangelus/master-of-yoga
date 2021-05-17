@@ -1,3 +1,9 @@
+interface PoseCompletionDTO {
+  level: 'beginner' | 'intermediate' | 'advanced';
+  id: string;
+  percentage: number;
+}
+
 export interface UserDTO {
   firstName?: string;
   lastName?: string;
@@ -7,11 +13,7 @@ export interface UserDTO {
   lastEntry?: string;
   consecutiveDays?: number;
   customTracks?: [];
-  posesCompletion?: {
-    beginner: string;
-    intermediate: string;
-    advanced: string;
-  };
+  posesCompletion?: PoseCompletionDTO[];
 }
 
 export const initialStateUserDTO: UserDTO = {
@@ -23,9 +25,5 @@ export const initialStateUserDTO: UserDTO = {
   lastEntry: new Date().toISOString(),
   consecutiveDays: 0,
   customTracks: [],
-  posesCompletion: {
-    beginner: '0%',
-    intermediate: '0%',
-    advanced: '0%',
-  },
+  posesCompletion: [],
 };
