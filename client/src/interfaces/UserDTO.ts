@@ -3,7 +3,6 @@ export interface UserDTO {
   lastName?: string;
   email: string;
   password?: string;
-  idToken?: string;
   image?: string;
   lastEntry?: string;
   consecutiveDays?: number;
@@ -15,12 +14,11 @@ export interface UserDTO {
   };
 }
 
-export const initialStateUserDTO = {
+export const initialStateUserDTO: UserDTO = {
   firstName: '',
   lastName: '',
   email: '',
   password: '',
-  idToken: '',
   image: '',
   lastEntry: new Date().toISOString(),
   consecutiveDays: 0,

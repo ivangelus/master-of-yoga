@@ -7,8 +7,10 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 import { getRoutines } from '../services/server';
 
+import UpdateUser from '../components/UpdateUser';
 import UserCard from '../containers/UserCard';
 import Tracks from '../containers/Tracks';
+import Modal from '../containers/Modal';
 
 const Dashboard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -33,6 +35,9 @@ const Dashboard: React.FC = () => {
         <Tracks title="intermediate" />
         <Tracks title="advanced" />
       </div>
+      <Modal>
+        <UpdateUser />
+      </Modal>
     </div>
   );
 };
