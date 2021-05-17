@@ -8,6 +8,9 @@ import { logoutUser } from '../redux/usersSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 import Button from '../components/Button';
+import bronzeLotusFlower from '../assets/bronze_lotusflower.svg';
+import silverLotusFlower from '../assets/silver_lotusflower.svg';
+import goldLotusFlower from '../assets/gold_lotusflower.svg';
 
 const UserCard: React.FC = () => {
   const history = useHistory();
@@ -36,6 +39,9 @@ const UserCard: React.FC = () => {
             <p>Badges: </p>
           </div>
           <div className="usercard__textinfo--content">
+            <img src={bronzeLotusFlower} />
+            <img src={silverLotusFlower} />
+            <img src={goldLotusFlower} />
             <p>{dateTransform()}</p>
             <p>
               {user.consecutiveDays > 0
