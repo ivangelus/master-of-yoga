@@ -9,9 +9,9 @@ export interface UserDTO {
   consecutiveDays?: number;
   customTracks?: [];
   posesCompletion?: {
-    beginner: string;
-    intermediate: string;
-    advanced: string;
+    beginner: number;
+    intermediate: number;
+    advanced: number;
   };
 }
 
@@ -26,8 +26,8 @@ export const initialStateUserDTO = {
   consecutiveDays: 0,
   customTracks: [],
   posesCompletion: {
-    beginner: '0%',
-    intermediate: '0%',
-    advanced: '0%',
+    beginner: 0,
+    intermediate: 0,
+    advanced: 0,
   },
 };

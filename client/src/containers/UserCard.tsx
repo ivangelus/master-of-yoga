@@ -8,14 +8,21 @@ import { logoutUser } from '../redux/usersSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 import Button from '../components/Button';
-import bronzeLotusFlower from '../assets/bronze_lotusflower.svg';
-import silverLotusFlower from '../assets/silver_lotusflower.svg';
-import goldLotusFlower from '../assets/gold_lotusflower.svg';
+import LotusFlower from '../assets/lotusFlower';
 
 const UserCard: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.users);
+  const beginnerScore = useAppSelector(
+    (state: RootState) => state.users.posesCompletion.beginner
+  );
+  const intermediateScore = useAppSelector(
+    (state: RootState) => state.users.posesCompletion.intermediate
+  );
+  const advancedScore = useAppSelector(
+    (state: RootState) => state.users.posesCompletion.advanced
+  );
 
   const dateTransform = () => {
     return moment(user.lastEntry).format('dddd, MMM Do');
@@ -25,6 +32,20 @@ const UserCard: React.FC = () => {
     dispatch(logoutUser());
     sessionStorage.removeItem('yogaMasterUser');
     history.push('/');
+  };
+
+  const badgeColor = (level: string /*score:number*/) => {
+    if (level === 'beginner' /*&& score === 100*/) {
+      return '#cd7f32';
+    }
+
+    if (level === 'intermediate' /* && score === 100*/) {
+      return '#c0c0c0';
+    }
+
+    if (level === 'advanced' /* && score === 100 */) {
+      return '#e1b12c';
+    }
   };
 
   return (
@@ -46,19 +67,16 @@ const UserCard: React.FC = () => {
                 : ' No consecutive entries'}
             </p>
             <div className="badges__container">
-              <img
-                src={bronzeLotusFlower}
-                alt="bronze badge"
+              <LotusFlower
+                fill={badgeColor('beginner')}
                 className="bronze__badge"
               />
-              <img
-                src={silverLotusFlower}
-                alt="silver badge"
+              <LotusFlower
+                fill={badgeColor('intermediate')}
                 className="silver__badge"
               />
-              <img
-                src={goldLotusFlower}
-                alt="gold badge"
+              <LotusFlower
+                fill={badgeColor('advanced')}
                 className="gold__badge"
               />
             </div>
