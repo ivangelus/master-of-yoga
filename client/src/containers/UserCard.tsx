@@ -9,6 +9,7 @@ import { logoutUser } from '../redux/usersSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 import Button from '../components/Button';
+import LotusFlower from '../assets/lotusFlower';
 
 const UserCard: React.FC = () => {
   const history = useHistory();
@@ -30,6 +31,20 @@ const UserCard: React.FC = () => {
     history.push('/');
   };
 
+  const badgeColor = (level: string /*score:number*/) => {
+    if (level === 'beginner' /*&& score === 100*/) {
+      return '#cd7f32';
+    }
+
+    if (level === 'intermediate' /* && score === 100*/) {
+      return '#c0c0c0';
+    }
+
+    if (level === 'advanced' /* && score === 100 */) {
+      return '#e1b12c';
+    }
+  };
+
   return (
     <div className="usercard__container">
       <img className="usercard__image" src={user.image}></img>
@@ -48,6 +63,20 @@ const UserCard: React.FC = () => {
                 ? ` ${daysLoggedIn} days!`
                 : ' No consecutive entries'}
             </p>
+            <div className="badges__container">
+              <LotusFlower
+                fill={badgeColor('beginner')}
+                className="bronze__badge"
+              />
+              <LotusFlower
+                fill={badgeColor('intermediate')}
+                className="silver__badge"
+              />
+              <LotusFlower
+                fill={badgeColor('advanced')}
+                className="gold__badge"
+              />
+            </div>
           </div>
         </div>
       </div>
