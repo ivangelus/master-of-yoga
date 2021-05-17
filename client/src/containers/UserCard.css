@@ -4,7 +4,7 @@
   width: 100vw;
   align-items: center;
   justify-content: space-evenly;
-  height: 37vh;
+  height: auto;
   background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('../assets/user-background.jpg');
   column-gap: 7rem;
   background-position: 0 60%;
@@ -12,8 +12,8 @@
 }
 
 .usercard__image {
-  height: 15rem;
-  width: 15rem;
+  height: 14rem;
+  width: 14rem;
   border-radius: 8rem;
 }
 
@@ -31,6 +31,7 @@
   width: 18rem;
   color: rgb(230, 230, 230);
   font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .usercard__textinfo--titles {
@@ -91,6 +92,67 @@ right: -11.5rem;
 top: -1.2rem;
 }
 
+
+
+@media screen and (max-width: 1200px) {
+  .usercard__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 0rem;
+    width: 100vw;
+    height: auto;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('../assets/user-background.jpg');
+    column-gap: 7rem;
+    background-position: 0 60%;
+    background-size: cover;
+  }
+
+  .usercard__image {
+    height: 8rem;
+    width: 8rem;
+    border-radius: 8rem;
+    align-self: flex-start;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: -6rem;
+  }
+
+  .usercard__main__container h2 {
+    font-family: 'Handlee', cursive;
+    align-self: center;
+    justify-self: flex-end;
+    font-size: 2rem;
+    margin-top: 1rem;
+    height: 20rem;
+    margin-bottom: -16rem;
+    font-weight: bold;
+    padding: 0;
+    color: rgb(230, 230, 230);
+  }
+
+    .usercard__main__container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items:center ;
+      height: auto;
+      margin-left: -2rem;
+      margin-top: -7rem;
+    }
+
+    .usercard__buttons__container {
+      align-self: flex-end;
+      justify-self: flex-start;
+      height: 100%;
+      margin-right: 1rem;
+      width:auto ;
+    }
+
+}
+
+
 @media screen and (max-width: 600px) {
   .usercard__container {
     display: flex;
@@ -99,7 +161,7 @@ top: -1.2rem;
     align-items: center;
     margin-left: 0rem;
     width: 100vw;
-    height: 37vh;
+    height: auto;
     background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('../assets/user-background.jpg');
     column-gap: 7rem;
     background-position: 0 60%;
@@ -139,11 +201,92 @@ top: -1.2rem;
     margin-top: -3rem;
   }
 
-  /* .usercard__buttons__container {
-    position: absolute;
-    height: auto;
-    left: 7rem;
-    top: 18em;
-  } */
+   .usercard__buttons__container {
+      align-self: center;
+      height: 100%;
+      margin-right: 1rem;
+      width: 15rem;
+    }
 
+}
+
+@media screen and (max-width: 470px) {
+  .usercard__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 0rem;
+    width: 100vw;
+    height: auto;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('../assets/user-background.jpg');
+    column-gap: 7rem;
+    background-position: 0 60%;
+    background-size: cover;
+  }
+
+  .usercard__image {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 8rem;
+    align-self: flex-start;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: -6rem;
+  }
+
+  .usercard__main__container h2 {
+    font-family: 'Handlee', cursive;
+    align-self: center;
+    justify-self: flex-end;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    height: 20rem;
+    margin-bottom: -16rem;
+    font-weight: bold;
+    padding: 0;
+    color: rgb(230, 230, 230);
+  }
+
+  .usercard__main__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items:center ;
+    height: auto;
+    margin-left: -2rem;
+    margin-top: -3rem;
+    font-size: 0.8rem;
+  }
+
+  .bronze__badge {
+    position: absolute;
+    left: 0;
+    top: -1.2rem;
+    bottom: 50;
+    width: 4rem;
+    }
+
+    .silver__badge {
+      position: absolute;
+      top:-1.2rem;
+      right: -1.2rem;
+      width: 4rem;
+
+    }
+
+    .gold__badge {
+    position: absolute;
+    right: -7rem;
+    top: -1.2rem;
+    width: 4rem;
+    }
+
+    .usercard__buttons__container {
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
+      margin-right: 1rem;
+      width: 15rem;
+    }
 }
