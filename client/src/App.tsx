@@ -29,10 +29,7 @@ function App(): ReactElement {
         <Route path="/about" component={About} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/trackPage/:level" component={TrackPage} />
-        <PrivateRoute
-          path="/trackPage/createRoutine"
-          component={CreateCustomRoutine}
-        />
+        <PrivateRoute path="/createRoutine" component={CreateCustomRoutine} />
         <PrivateRoute path="/pose/:level/:index" component={PoseValidation} />
         <Route component={PageNotFound} />
       </Switch>

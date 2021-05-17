@@ -1,3 +1,4 @@
+import { auth } from './firebase';
 import axios, { AxiosResponse } from 'axios';
 import { UserDTO } from '../interfaces/UserDTO';
 import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
@@ -49,11 +50,9 @@ async function createUser(newUser: UserDTO): Promise<UserDTO> {
   }
 }
 
-async function updateUserInfo(
-  uid: string,
-  info: Partial<UserDTO>
-): Promise<UserDTO> {
+async function updateUserInfo(info: Partial<UserDTO>): Promise<UserDTO> {
   try {
+    const uid = auth.currentUser?.uid;
     const response: AxiosResponse = await axios.post(
       `${baseUrl}/api/users/${uid}`,
       info

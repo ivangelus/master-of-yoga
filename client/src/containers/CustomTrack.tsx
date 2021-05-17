@@ -23,7 +23,7 @@ const CustomTrack: React.FC = () => {
   };
 
   const handleCreateTrack = (): void => {
-    history.push('trackPage/createRoutine');
+    history.push('createRoutine');
   };
 
   return (
@@ -32,12 +32,19 @@ const CustomTrack: React.FC = () => {
         <>
           <h2>CUSTOM TRACK</h2>
           <CircularProgressBar progress={30} />
-          <p>{`${1} out of ${9}\npositions mastered!`}</p>
-          <Button
-            label="START"
-            onClick={handleStartClick}
-            styles={buttonAdditionalStyles}
-          />
+          <p>{`${0} out of ${customTrack.length}\npositions mastered!`}</p>
+          <div className="custom-track-buttons">
+            <Button
+              label="START"
+              onClick={handleStartClick}
+              styles={buttonAdditionalStyles}
+            />
+            <Button
+              label="New Track"
+              onClick={handleCreateTrack}
+              styles={buttonAdditionalStyles}
+            />
+          </div>
         </>
       ) : (
         <>

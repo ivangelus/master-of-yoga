@@ -1,6 +1,6 @@
 import './UpdateUser.css';
 import React, { useState } from 'react';
-import { auth, storage } from '../services/firebase';
+import { storage } from '../services/firebase';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { updateUser } from '../redux/usersSlice';
@@ -38,25 +38,21 @@ const UpdateUser = () => {
     const info: Partial<Update> = {};
     if (update[target] && update[target] != '') {
       info[target] = update[target];
-      if (auth.currentUser) {
-        if (target === 'image' && image) {
-          // const { token } = await auth.currentUser.getIdTokenResult();
-          const snapshot = await storage
-            .ref(`/images/${image.name}`)
-            .put(image);
-          const imageUrl = await snapshot.ref.getDownloadURL();
-          info[target] = imageUrl;
-        }
-
-        updatedUser = await updateUserInfo(auth.currentUser.uid, info);
-        dispatch(updateUser(updatedUser));
-        if (updateResponse) {
-          updateResponse.textContent = 'Update Successful!';
-          setTimeout(() => {
-            updateResponse.textContent = ' ';
-          }, 3000);
-        } else alert('Update Successful!');
+      if (target === 'image' && image) {
+        // const { token } = await auth.currentUser.getIdTokenResult();
+        const snapshot = await storage.ref(`/images/${image.name}`).put(image);
+        const imageUrl = await snapshot.ref.getDownloadURL();
+        info[target] = imageUrl;
       }
+
+      updatedUser = await updateUserInfo(info);
+      dispatch(updateUser(updatedUser));
+      if (updateResponse) {
+        updateResponse.textContent = 'Update Successful!';
+        setTimeout(() => {
+          updateResponse.textContent = ' ';
+        }, 3000);
+      } else alert('Update Successful!');
     }
   };
 
