@@ -39,3 +39,10 @@ class RegisterView(APIView):
       return Response({
         'msg': str(registerResponse['msg'])
       })
+
+class UpdateView(APIView):
+  def post(self, request, uid):
+    parsedBody = json.loads(request.body)
+    updatedUser = firebase.updateUser(uid, parsedBody)
+    updatedUser['uid'] = uid
+    return Response(updatedUser)

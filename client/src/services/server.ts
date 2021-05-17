@@ -39,4 +39,19 @@ async function createUser(newUser: UserDTO): Promise<UserDTO> {
   }
 }
 
-export { createUser, authUser, getRoutines };
+async function updateUserInfo(
+  uid: string,
+  info: Partial<UserDTO>
+): Promise<UserDTO> {
+  try {
+    const response: AxiosResponse = await axios.post(
+      `${baseUrl}/api/users/${uid}`,
+      info
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export { createUser, authUser, updateUserInfo, getRoutines };

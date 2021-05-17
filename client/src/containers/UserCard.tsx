@@ -4,6 +4,7 @@ import moment from 'moment';
 import { useHistory } from 'react-router-dom';
 
 import { RootState } from '../redux/store';
+import { openModal } from '../redux/modalSlice';
 import { logoutUser } from '../redux/usersSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
@@ -13,9 +14,14 @@ const UserCard: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.users);
+  const daysLoggedIn = user.consecutiveDays;
 
   const dateTransform = () => {
     return moment(user.lastEntry).format('dddd, MMM Do');
+  };
+
+  const handleUpdate = () => {
+    dispatch(openModal());
   };
 
   const handleLogOut = (): void => {
@@ -38,8 +44,8 @@ const UserCard: React.FC = () => {
           <div className="usercard__textinfo--content">
             <p>{dateTransform()}</p>
             <p>
-              {user.consecutiveDays > 0
-                ? ` ${user.consecutiveDays} days!`
+              {daysLoggedIn && daysLoggedIn > 0
+                ? ` ${daysLoggedIn} days!`
                 : ' No consecutive entries'}
             </p>
           </div>
@@ -48,7 +54,7 @@ const UserCard: React.FC = () => {
       <div className="usercard__buttons__container">
         <Button
           label="EDIT PROFILE"
-          onClick={() => console.log('clicked')}
+          onClick={handleUpdate}
           styles={{ width: '10rem', height: '3rem' }}
         />
         <Button
