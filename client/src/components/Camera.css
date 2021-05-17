@@ -1,6 +1,7 @@
 .webcam__container {
   position: absolute; 
   width: 100%;
+  height: 100%;
 }
 
 .webcam__screen {
@@ -8,8 +9,10 @@
   top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
   align-self: center;
   justify-self: center;
+  z-index: 0;
 }
 
 .webcam__screen_canvas {
@@ -17,5 +20,14 @@
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 1;
 }
 
+.img {
+  position: absolute;
+  top: 0;
+  left:0;
+  /* left: 3%; */
+  width: 250px;
+  z-index: 2;
+}

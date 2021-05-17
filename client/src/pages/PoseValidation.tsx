@@ -21,6 +21,7 @@ const PoseValidation: React.FC = (): ReactElement => {
   const history = useHistory();
   const [poseOk, setPoseOk] = useState(false);
   const [sessionProgress, setSessionProgress] = useState<[] | number[]>([]);
+  const [getReadyHidden, setGetReadyHidden] = useState(true);
   const { level, index } = useParams<{
     level: 'beginner' | 'intermediate' | 'advanced';
     index: string;
@@ -55,13 +56,20 @@ const PoseValidation: React.FC = (): ReactElement => {
   };
 
   const handleStart = (): void => {
+    console.log(timerOn);
     function startLogic() {
       setTimerOn((previous) => !previous);
       setProgressCounterOn((previous) => !previous);
+      setGetReadyHidden(true);
+      console.log('start logic done');
     }
-    if (Number(index) === 0) {
+    if (Number(index) === 0 && !timerOn) {
       setTimeout(startLogic, 15000);
-    } else {
+      setGetReadyHidden(false);
+    } else if (Number(index) !== 0) {
+      startLogic();
+    } else if (timerOn) {
+      console.log('here');
       startLogic();
     }
   };
@@ -74,6 +82,7 @@ const PoseValidation: React.FC = (): ReactElement => {
 
   const handleChangePose = (): void => {
     setTimerOn(true);
+    setGetReadyHidden(true);
     setProgressCounterOn(true);
     setSessionProgress((previous) => [...previous, progress]);
   };
@@ -89,6 +98,7 @@ const PoseValidation: React.FC = (): ReactElement => {
             newTime = 0;
             clearInterval(interval);
             handleNext();
+            setGetReadyHidden(false);
             setTimeout(handleChangePose, 15000);
           } else {
             newTime = prevTime - 1;
@@ -136,65 +146,53 @@ const PoseValidation: React.FC = (): ReactElement => {
   }
 
   return (
-    <div className="pose__validation__container">
-      {/* {loading ? (
-        <div className="messageContainer">
-          <HashLoader
-            color={'red'}
-            loading={loading}
-            css={override}
-            size={250}
+    <div className="wrapper">
+      <div className="container">
+        <div className="container_top">
+          <Camera
+            poseName={routines[Number(index)].id}
+            setPoseOK={setPoseOk}
+            source={routines[Number(index)].imageAddress}
+            alt={routines[Number(index)].name}
           />
         </div>
-      ) : ( */}
-      <div className="pose__validation__container__camera__container">
-        <div className="pose__validation__container__camera__container_left">
-          <Camera poseName={routines[Number(index)].id} setPoseOK={setPoseOk} />
-        </div>
-        <div className="pose__validation__container__camera__container_right">
-          <div className="pose__validation__container__camera__container_right__image__container">
-            <img
-              src={routines[Number(index)].imageAddress}
-              alt={routines[Number(index)].name}
-              style={{
-                maxHeight: '100%',
-                minHeight: '100%',
-                maxWidth: '100%',
-                minWidth: '100%',
-              }}
-            />
+        <div className="container_bottom">
+          <div className="container_bottom_left">
+            <div className="webcam__timer">Time left: {time}s</div>
           </div>
-          <div className="pose__validation__container__camera__container_right__content__container">
-            <div className="timer__container">
-              <div className="webcam__timer__container">
-                <div className="webcam__timer">Time left: {time}s</div>
-                {/* <GetReadyMarker isHidden={false} /> */}
-              </div>
-            </div>
-            <div className="progress__bar__container">
-              <div
-                className="loader"
-                style={{ width: progress + '%', transition: 'width 2s' }}
-              ></div>
-            </div>
-            <div className="btn__container">
-              <button onClick={handleBack} className="pose__validation__btn">
-                Back
-              </button>
-              <button onClick={handleStart} className="pose__validation__btn">
+          <div className="container_bottom_middle">
+            <div className="container_bottom_middle_btns_top">
+              <button onClick={handleStart} className="btn_left">
                 {startPauseText()}
               </button>
-              <button onClick={handleReset} className="pose__validation__btn">
+              <button onClick={handleReset} className="btn_right">
                 Reset
               </button>
-              <button onClick={handleNext} className="pose__validation__btn">
+            </div>
+            <div className="container_bottom_middle_btns_bottom">
+              <button onClick={handleBack} className="btn_left">
+                Back
+              </button>
+              <button onClick={handleNext} className="btn_right">
                 Next
               </button>
             </div>
           </div>
+          <div className="container_bottom_right">
+            <div className="container_bottom_right_top">
+              <div className="loader_wrapper">
+                <div
+                  className="loader"
+                  style={{ width: progress + '%', transition: 'width 2s' }}
+                ></div>
+              </div>
+            </div>
+            <div className="container_bottom_right_bottom">
+              <GetReadyMarker isHidden={getReadyHidden} />
+            </div>
+          </div>
         </div>
       </div>
-      {/* )} */}
     </div>
   );
 };

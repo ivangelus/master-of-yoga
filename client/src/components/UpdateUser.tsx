@@ -11,7 +11,6 @@ import { updateUserInfo } from '../services/server';
 type Update = Pick<UserDTO, 'firstName' | 'lastName' | 'password' | 'image'>;
 
 const UpdateUser = () => {
-  const updateResponse = document.getElementById('update-response');
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.users);
   const [image, setImage] = useState<File>();
@@ -34,6 +33,7 @@ const UpdateUser = () => {
   };
 
   const clickHandler = async (target: keyof Update): Promise<void> => {
+    const updateResponse = document.getElementById('update-response');
     let updatedUser: UserDTO = user;
     const info: Partial<Update> = {};
     if (update[target] && update[target] != '') {

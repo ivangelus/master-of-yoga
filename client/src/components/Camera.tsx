@@ -7,15 +7,19 @@ import type { MutableRefObject } from 'react';
 import * as tf from '@tensorflow/tfjs';
 import Webcam from 'react-webcam';
 import './Camera.css';
-
+import speak from '../utilities/speech';
 interface Props {
   poseName: string;
   setPoseOK: any;
+  source: string;
+  alt: string;
 }
 
 const Camera: React.FC<Props> = ({
   poseName,
   setPoseOK,
+  source,
+  alt,
 }: Props): React.ReactElement => {
   const webcamRef: MutableRefObject<any> = useRef(null);
   const canvasRef: MutableRefObject<any> = useRef(null);
@@ -27,6 +31,7 @@ const Camera: React.FC<Props> = ({
     async function init() {
       if (poseNetModel === undefined) poseNetModel = await initPoseNet();
       classifierModel = await initClassifier(poseName);
+      speak('Position starting');
       if (interval) await clearIntervalAsync(interval);
       interval = setIntervalAsync(
         async () =>
@@ -50,8 +55,8 @@ const Camera: React.FC<Props> = ({
   }, [poseName]);
 
   const videoConstraints = {
-    width: window.innerWidth / 2,
-    height: window.innerHeight,
+    width: window.innerWidth,
+    height: window.innerHeight * 0.7,
     facingMode: 'user',
   };
 
@@ -65,6 +70,7 @@ const Camera: React.FC<Props> = ({
           ref={webcamRef}
         />
         <canvas ref={canvasRef} className="webcam__screen" />
+        <img src={source} alt={alt} className="img" />
       </div>
     </div>
   );

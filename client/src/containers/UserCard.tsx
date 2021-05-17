@@ -31,37 +31,40 @@ const UserCard: React.FC = () => {
   };
 
   return (
-    <div className="user-card-container">
-      <div className="user-card-left">
-        <div className="profile-image-container">
-          <img className="profile-image" src={user.image} />
-        </div>
-      </div>
-      <div className="user-card-middle">
-        <h3>{`Welcome ${user.firstName}!`}</h3>
-        <div className="user-card-middle-content">
-          <div className="middle-content-taglines">
-            <p>Last Entry: </p>
-            <p>Streak: </p>
+    <div className="usercard__container">
+      <img className="usercard__image" src={user.image}></img>
+      <div className="usercard__main__container">
+        <h2>{`Welcome ${user.firstName}!`}</h2>
+        <div className="usercard__data__container">
+          <div className="usercard__textinfo--titles">
+            <p>Last Entry:</p>
+            <p>Streak:</p>
             <p>Badges: </p>
           </div>
-          <div className="middle-content-text">
+          <div className="usercard__textinfo--content">
             <p>{dateTransform()}</p>
             <p>
               {daysLoggedIn && daysLoggedIn > 0
                 ? ` ${daysLoggedIn} days!`
                 : ' No consecutive entries'}
             </p>
-            <p> </p>
           </div>
         </div>
       </div>
-      <div className="user-card-right">
-        <Button label="EDIT PROFILE" onClick={handleUpdate} />
+      <div className="usercard__buttons__container">
+        <Button
+          label="EDIT PROFILE"
+          onClick={handleUpdate}
+          styles={{ width: '10rem', height: '3rem' }}
+        />
         <Button
           label="LOG OUT"
           onClick={handleLogOut}
-          styles={{ backgroundColor: 'orangered' }}
+          styles={{
+            backgroundColor: '#e74c3c',
+            width: '10rem',
+            height: '3rem',
+          }}
         />
       </div>
     </div>
