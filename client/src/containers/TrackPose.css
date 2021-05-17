@@ -151,3 +151,10 @@ box-shadow: 0 0 0 5px rgba(71, 61, 58, 0.767);}
   box-shadow: 0 0 10px black;
   background-color: #42cc82;
 }
+
+.progressBar-container {
+  margin-left: 5%;
+  margin-right: 4%;
+  height: 180px;
+  width: 180px
+}

@@ -9,7 +9,7 @@ export default (props: React.SVGProps<SVGSVGElement>) => {
       version="1.1"
       id="svg5907"
       fill="#cd7f32"
-      stroke-width="0.19062644"
+      strokeWidth="0.19062644"
       {...props}
     >
       <g id="layer1" transform="translate(0,203)">
