@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { UserDTO } from '../interfaces/UserDTO';
 import { BaseRoutinesDTO } from '../interfaces/RoutineDTO';
 import { AuthResponseDTO } from '../interfaces/AuthResponseDTO';
+import moment from 'moment';
 
 let baseUrl: string;
 const { REACT_APP_SERVER_ADDRESS } = process.env;
@@ -18,9 +19,16 @@ async function getRoutines(): Promise<BaseRoutinesDTO> {
   }
 }
 
-async function authUser(token: string): Promise<AuthResponseDTO> {
+async function authUser(
+  token: string,
+  lastSignIn: string | undefined
+): Promise<AuthResponseDTO> {
+  const formattedDate = moment(lastSignIn).format('YYYY-MM-DD');
   try {
-    const user = await axios.post(`${baseUrl}/api/users/verify`, { token });
+    const user = await axios.post(`${baseUrl}/api/users/verify`, {
+      token: token,
+      lastSignIn: formattedDate,
+    });
     return user.data;
   } catch (error) {
     throw new Error(error);

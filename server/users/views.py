@@ -3,15 +3,31 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from server import firebase
+from datetime import date, timedelta
 import json
+
+def getStreak(lastSignIn, lastStreak):
+  today = date.today()
+  yesterday = today - timedelta(days=1)
+  newStreak = 0
+  if lastSignIn == str(yesterday):
+    newStreak = lastStreak + 1
+  elif lastSignIn == str(today):
+    return lastStreak
+  return newStreak
+
 class VerifyView(APIView):
   def post(self, request):
     parsedRequestBody = json.loads(request.body)
+    lastSignIn = parsedRequestBody['lastSignIn']
     userToken = parsedRequestBody['token']
     authResult = firebase.authToken(userToken)
     if authResult['valid']:
       uid = authResult['result']['user_id']
       userData = firebase.getUser(uid)
+      streak = getStreak(lastSignIn, userData['consecutiveDays'])
+      userData['consecutiveDays'] = streak
+      firebase.updateUser(uid, userData)
       if userData:
         authResult['result'] = userData
       else:
