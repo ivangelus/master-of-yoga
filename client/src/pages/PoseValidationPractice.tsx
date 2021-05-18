@@ -10,11 +10,10 @@ import Camera from '../components/Camera';
 import './PoseValidationPractice.css';
 
 const PoseValidation: React.FC = (): ReactElement => {
-  const { level, index } =
-    useParams<{
-      level: 'beginner' | 'intermediate' | 'advanced';
-      index: string;
-    }>();
+  const { level, index } = useParams<{
+    level: 'beginner' | 'intermediate' | 'advanced';
+    index: string;
+  }>();
 
   const timeLimit = 60;
   const history = useHistory();
