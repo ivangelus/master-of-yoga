@@ -34,9 +34,10 @@
 .custom-routine-cards {
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
+  width: 95%;
   column-gap: 1rem;
   row-gap: 1rem;
   justify-content: center;
   align-items: center;
+  margin-bottom: 1rem;;
 }
