@@ -20,7 +20,7 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   );
 
   const handleClick = (): void => {
-    history.push(`/pose/${routine.level}/${index}`);
+    history.push(`/posePractice/${routine.level}/${index}`);
   };
 
   let completionPercentage = 0;

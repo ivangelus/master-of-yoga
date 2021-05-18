@@ -1,0 +1,158 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background: rgb(229,229,229);
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.container_top {
+  display: flex;
+  position: relative; 
+  height: 70%;
+  width: 100%;
+}
+.container_bottom {
+  display: flex;
+  height: 30%;
+  width: 100%;
+}
+
+.container_bottom_left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 40%;
+}
+
+.container_bottom_middle {
+  display: block;
+  height: 100%;
+  width: 20%;
+}
+
+.container_bottom_middle_btns_top {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 5px;
+  height: 50%;
+  width: 100%;
+}
+
+.container_bottom_middle_btns_bottom {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 5px;
+  height: 50%;
+  width: 100%;
+}
+
+.container_bottom_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+  width: 40%;
+}
+
+.container_bottom_right_top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 100%;
+}
+
+.container_bottom_right_bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 100%;
+}
+
+.container_right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 40%;
+}
+
+.container_right_image {
+  width: 100%;
+  height: 50%;
+  align-self: flex-start;
+}
+
+.btn_left {
+  background-color: rgba(0, 204, 187, 0.6);
+  color: white;
+  height: 40px;
+  width: 100px;
+  margin-right: 5px;
+  border-radius: 1rem;
+  border: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 0 5px black;
+  transition-duration: 0.4s;
+  font-family: 'Handlee', cursive;
+  text-shadow: 0 0 1px white;
+}
+
+.btn_right {
+  background-color: rgba(0, 204, 187, 0.6);
+  color: white;
+  height: 40px;
+  width: 100px;
+  margin-right: 5px;
+  border-radius: 1rem;
+  border: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 0 5px black;
+  transition-duration: 0.4s;
+  font-family: 'Handlee', cursive;
+  text-shadow: 0 0 1px white;
+}
+
+.loader_wrapper {
+  width: 80%;
+  height: 45px;
+  background-color: grey;
+}
+
+.loader {
+  background-color: rgb(43, 199, 43);
+  height: 100%;
+}
+
+.messageContainer {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.webcam__timer {
+  font-weight: bold;
+  font-size: 50px;
+}
