@@ -1,10 +1,32 @@
 .card-grid {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   width: 95%;
   column-gap: 1rem;
   row-gap: 1rem;
   justify-content: center;
   align-items: center;
-  margin-bottom: 1rem;;
+}
+
+
+.custom-card-grid {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  row-gap: 1rem;
+  margin-top: 2rem;
+  width: 100%;
+
+}
+
+.always-cards-grid {
+  margin-top: 5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  row-gap: 1rem;
 }

@@ -3,6 +3,7 @@ import './PoseCardGrid.css';
 import { PoseDTO } from '../interfaces/PoseDTO';
 
 import PoseCard from './PoseCard';
+import Footer from '../components/Footer';
 
 interface Props {
   posesArray: PoseDTO[];
@@ -25,26 +26,31 @@ const PoseCardGrid: React.FC<Props> = ({
 
   return (
     <div className="card-grid">
-      {customTrack.map((pose: PoseDTO) => (
-        <PoseCard
-          key={pose.id}
-          pose={pose}
-          handleOnDrag={handleOnDrag}
-          handleOnDrop={handleOnDrop}
-          handleClick={handleClick}
-          checked={true}
-        />
-      ))}
-      {sortArray(posesArray).map((pose: PoseDTO) => (
-        <PoseCard
-          key={pose.id}
-          pose={pose}
-          handleOnDrag={handleOnDrag}
-          handleOnDrop={handleOnDrop}
-          handleClick={handleClick}
-          checked={false}
-        />
-      ))}
+      {customTrack.length ? <h2>Your Custom Track!</h2> : ''}
+      <div className="custom-card-grid">
+        {customTrack.map((pose: PoseDTO) => (
+          <PoseCard
+            key={pose.id}
+            pose={pose}
+            handleOnDrag={handleOnDrag}
+            handleOnDrop={handleOnDrop}
+            handleClick={handleClick}
+            checked={true}
+          />
+        ))}
+      </div>
+      <div className="always-cards-grid">
+        {sortArray(posesArray).map((pose: PoseDTO) => (
+          <PoseCard
+            key={pose.id}
+            pose={pose}
+            handleOnDrag={handleOnDrag}
+            handleOnDrop={handleOnDrop}
+            handleClick={handleClick}
+            checked={false}
+          />
+        ))}
+      </div>
     </div>
   );
 };
