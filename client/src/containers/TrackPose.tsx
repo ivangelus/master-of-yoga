@@ -18,55 +18,57 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   // const [sliderValue, setSliderValue] = useState(50);
   // const [instructions, setInstructions] = useState(false);
 
-  //* const posesCompletion = useAppSelector((state) => state.users.posesCompletion);
+  const posesCompletion = useAppSelector(
+    (state) => state.users.posesCompletion
+  );
 
-  const posesCompletion = [
-    {
-      id: 'heroPose',
-      level: 'beginner',
-      percentage: 87,
-    },
-    {
-      id: 'catPose',
-      level: 'beginner',
-      percentage: 17,
-    },
-    {
-      id: 'cobraPose',
-      level: 'beginner',
-      percentage: 100,
-    },
-    {
-      id: 'fireLogPose',
-      level: 'intermediate',
-      percentage: 65,
-    },
-    {
-      id: 'noosePose',
-      level: 'intermediate',
-      percentage: 45,
-    },
-    {
-      id: 'bigToePose',
-      level: 'intermediate',
-      percentage: 10,
-    },
-    {
-      id: 'fireflyPose',
-      level: 'advanced',
-      percentage: 17,
-    },
-    {
-      id: 'sideRecliningLegLiftPose',
-      level: 'advanced',
-      percentage: 28,
-    },
-    {
-      id: 'peacockPose',
-      level: 'advanced',
-      percentage: 34,
-    },
-  ];
+  // const posesCompletion = [
+  //   {
+  //     id: 'heroPose',
+  //     level: 'beginner',
+  //     percentage: 87,
+  //   },
+  //   {
+  //     id: 'catPose',
+  //     level: 'beginner',
+  //     percentage: 17,
+  //   },
+  //   {
+  //     id: 'cobraPose',
+  //     level: 'beginner',
+  //     percentage: 100,
+  //   },
+  //   {
+  //     id: 'fireLogPose',
+  //     level: 'intermediate',
+  //     percentage: 65,
+  //   },
+  //   {
+  //     id: 'noosePose',
+  //     level: 'intermediate',
+  //     percentage: 45,
+  //   },
+  //   {
+  //     id: 'bigToePose',
+  //     level: 'intermediate',
+  //     percentage: 10,
+  //   },
+  //   {
+  //     id: 'fireflyPose',
+  //     level: 'advanced',
+  //     percentage: 17,
+  //   },
+  //   {
+  //     id: 'sideRecliningLegLiftPose',
+  //     level: 'advanced',
+  //     percentage: 28,
+  //   },
+  //   {
+  //     id: 'peacockPose',
+  //     level: 'advanced',
+  //     percentage: 34,
+  //   },
+  // ];
 
   const handleClick = (): void => {
     history.push(`/pose/${routine.level}/${index}`);

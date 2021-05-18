@@ -146,24 +146,8 @@ const PoseValidation: React.FC = (): ReactElement => {
     return 'Start';
   }
 
-  // const data = useAppSelector((state) => state.users.posesCompletion);
-
   if (time === 0 && progress > 0) {
-    // console.log('element inside', routines[Number(index)].id)
-    // console.log('percentage progress', progress)
     // const updated = data.map(pose => {
-    //     // console.log('pose is the right pose _--------------------------------------')
-    //     // console.log(pose.id === routines[Number(index)].id)
-    //   // console.log('pose is smaller percentage _--------------------------------------')
-    //   // console.log(pose.percentage < progress)
-    //   // console.log('pose id inside', pose.id)
-    //   // console.log('ppoe percentage inside', pose.percentage)
-    //   // if (pose.id === routines[Number(index)].id) {
-    //   //   console.log('inside mothafucka')
-    //   //   console.log('conditional below')
-    //   //   console.log(pose.percentage < progress)
-    //   // }
-
     //   if (pose.id === routines[Number(index)].id && pose.percentage < progress) {
     //     console.log('inside another mothafucka')
     //     pose = { ...pose, percentage: progress }
@@ -173,19 +157,14 @@ const PoseValidation: React.FC = (): ReactElement => {
     //    }
     //   return pose;
     // })
-
-    // console.log('updated', updated);
-    // console.log('data now', data)
     dispatch(
       updatePoseCompletion({
         id: routines[Number(index)].id,
         percentage: progress,
       })
     );
-    // console.log('dispatched with', {id: routines[Number(index)].id, percentage: progress})
   }
   // const data = useAppSelector((state) => state.users.posesCompletion);
-
   // console.log('data after selecting', data);
 
   return (
