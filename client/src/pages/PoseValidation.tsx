@@ -4,10 +4,10 @@ import { updatePoseCompletion } from '../redux/usersSlice';
 import { useParams, useHistory } from 'react-router-dom';
 import React, { ReactElement, useState } from 'react';
 import { RootState } from '../redux/store';
-import './PoseValidation.css';
 
-import Camera from '../components/Camera';
 import GetReadyMarker from '../components/GetReadyMarker';
+import Camera from '../components/Camera';
+import './PoseValidation.css';
 
 const PoseValidation: React.FC = (): ReactElement => {
   const { level, index } = useParams<{
