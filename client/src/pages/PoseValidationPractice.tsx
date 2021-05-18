@@ -7,7 +7,7 @@ import { RootState } from '../redux/store';
 
 import GetReadyMarker from '../components/GetReadyMarker';
 import Camera from '../components/Camera';
-import './PoseValidation.css';
+import './PoseValidationPractice.css';
 
 const PoseValidation: React.FC = (): ReactElement => {
   const { level, index } =
@@ -35,7 +35,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       setProgress(0);
       setTime(timeLimit);
       dispatch(changeCurrentPose(routines[Number(index) - 1].id));
-      history.push(`/pose/${level}/${Number(index) - 1}`);
+      history.push(`/posePractice/${level}/${Number(index) - 1}`);
     }
   };
 
@@ -46,8 +46,8 @@ const PoseValidation: React.FC = (): ReactElement => {
       setTime(timeLimit);
       setProgress(0);
       dispatch(changeCurrentPose(routines[Number(index) + 1].id));
-      history.push(`/pose/${level}/${Number(index) + 1}`);
-    } else history.push('/dashboard', { update: true });
+      history.push(`/posePractice/${level}/${Number(index) + 1}`);
+    } else history.push('/dashboard', { update: false });
   };
 
   const handleStart = (): void => {
@@ -57,7 +57,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       setGetReadyHidden(true);
     }
 
-    if (Number(index) === 0 && !timerOn) {
+    if (time === timeLimit && !timerOn) {
       setTimeout(startLogic, 15000);
       setGetReadyHidden(false);
     } else if (Number(index) !== 0) {
@@ -73,12 +73,6 @@ const PoseValidation: React.FC = (): ReactElement => {
     setTime(timeLimit);
   };
 
-  const handleChangePose = (): void => {
-    setTimerOn(true);
-    setGetReadyHidden(true);
-    setProgressCounterOn(true);
-  };
-
   React.useEffect(() => {
     let interval: any;
 
@@ -90,9 +84,6 @@ const PoseValidation: React.FC = (): ReactElement => {
           if (prevTime <= 0) {
             newTime = 0;
             clearInterval(interval);
-            handleNext();
-            setGetReadyHidden(false);
-            setTimeout(handleChangePose, 15000);
           } else {
             newTime = prevTime - 1;
           }

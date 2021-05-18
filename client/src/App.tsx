@@ -11,6 +11,7 @@ import TrackPage from './pages/TrackPage';
 import LandingPage from './pages/LandingPage';
 import PageNotFound from './pages/PageNotFound';
 import PoseValidation from './pages/PoseValidation';
+import PoseValidationPractice from './pages/PoseValidationPractice';
 import PrivateRoute from './components/PrivateRoute';
 import CreateCustomRoutine from './pages/CreateCustomRoutine';
 
@@ -31,6 +32,10 @@ function App(): ReactElement {
         <PrivateRoute path="/trackPage/:level" component={TrackPage} />
         <PrivateRoute path="/createRoutine" component={CreateCustomRoutine} />
         <PrivateRoute path="/pose/:level/:index" component={PoseValidation} />
+        <PrivateRoute
+          path="/posePractice/:level/:index"
+          component={PoseValidationPractice}
+        />
         <Route component={PageNotFound} />
       </Switch>
     </div>
