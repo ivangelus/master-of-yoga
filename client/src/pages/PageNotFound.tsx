@@ -3,8 +3,9 @@ import React from 'react';
 
 const PageNotFound: React.FC = () => {
   return (
-    <div>
-      <h1>Ops... the page you are after, we have not found...</h1>
+    <div className="container">
+      <h1>Ooops... something went wrong</h1>
+      <div className="image_container"></div>
     </div>
   );
 };

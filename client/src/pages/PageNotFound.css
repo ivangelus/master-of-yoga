@@ -1,0 +1,18 @@
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+}
+
+.image_container{ 
+  display: flex;
+  position: relative;
+  width: 50vw;
+  height: 75%;
+  background-image: url('../assets/NotFoundImage.gif');
+  background-size: cover;
+}
