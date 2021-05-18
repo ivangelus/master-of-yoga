@@ -30,7 +30,7 @@ async function authUser(token: string): Promise<AuthResponseDTO> {
   }
 }
 
-async function createUser(newUser: UserDTO): Promise<UserDTO> {
+async function createUser(newUser: Partial<UserDTO>): Promise<UserDTO> {
   try {
     const response: AxiosResponse = await axios.post(
       `${baseUrl}/api/users`,
