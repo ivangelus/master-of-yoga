@@ -4,12 +4,10 @@ import { updatePoseCompletion } from '../redux/usersSlice';
 import { useParams, useHistory } from 'react-router-dom';
 import React, { ReactElement, useState } from 'react';
 import { RootState } from '../redux/store';
+
 import GetReadyMarker from '../components/GetReadyMarker';
-import './PoseValidation.css';
-
-import * as tf from '@tensorflow/tfjs';
-
 import Camera from '../components/Camera';
+import './PoseValidation.css';
 
 const PoseValidation: React.FC = (): ReactElement => {
   const { level, index } = useParams<{
