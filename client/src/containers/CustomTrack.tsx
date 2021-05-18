@@ -4,8 +4,8 @@ import React from 'react';
 import { useHistory } from 'react-router';
 import { useAppSelector } from '../redux/hooks';
 
-import CircularProgressBar from '../components/CircularProgressBar';
 import Button from '../components/Button';
+import CircularProgressBar from '../components/CircularProgressBar';
 
 const buttonAdditionalStyles = {
   marginBottom: '2rem',
@@ -15,8 +15,32 @@ const buttonAdditionalStyles = {
 
 const CustomTrack: React.FC = () => {
   const history = useHistory();
-  const user = useAppSelector((state) => state.users);
-  const customTrack = user.customTracks;
+  const userTrack = useAppSelector((state) => state.users.customTracks);
+  const completedPoses = useAppSelector((state) => state.users.posesCompletion);
+
+  let masteredPoses = 0;
+  let trackPercentage: number;
+  if (userTrack && userTrack.length > 1) {
+    const userPosesId = userTrack.map((pose) => pose.id);
+    console.log(userPosesId);
+
+    let percentageSum = 0;
+    for (let i = 0; i < completedPoses.length; i++) {
+      if (userPosesId.includes(completedPoses[i].id)) {
+        if (completedPoses[i].percentage === 100) {
+          masteredPoses = masteredPoses + 1;
+        }
+        percentageSum = percentageSum + completedPoses[i].percentage;
+      }
+    }
+
+    trackPercentage = Math.ceil(
+      (percentageSum / (userTrack.length * 100)) * 100
+    );
+  } else {
+    masteredPoses = 0;
+    trackPercentage = 0;
+  }
 
   const handleStartClick = (): void => {
     history.push('trackPage/custom');
@@ -28,11 +52,11 @@ const CustomTrack: React.FC = () => {
 
   return (
     <div className="tracks-container">
-      {customTrack && customTrack.length > 1 ? (
+      {userTrack && userTrack.length > 1 ? (
         <>
           <h2>CUSTOM TRACK</h2>
-          <CircularProgressBar progress={30} />
-          <p>{`${0} out of ${customTrack.length}\npositions mastered!`}</p>
+          <CircularProgressBar progress={trackPercentage || 0} />
+          <p>{`${masteredPoses} out of ${userTrack.length}\npositions mastered!`}</p>
           <div className="custom-track-buttons">
             <Button
               label="START"
@@ -40,7 +64,7 @@ const CustomTrack: React.FC = () => {
               styles={buttonAdditionalStyles}
             />
             <Button
-              label="New Track"
+              label="NEW"
               onClick={handleCreateTrack}
               styles={buttonAdditionalStyles}
             />
