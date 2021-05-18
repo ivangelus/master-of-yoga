@@ -1,15 +1,18 @@
 import './NavBar.css';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { openModal } from '../redux/modalSlice';
-import { useAppDispatch } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 const NavBar: React.FC = () => {
+  const history = useHistory();
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.users);
 
   const handleClick = () => {
-    dispatch(openModal());
+    if (user.email) history.push('/dashboard');
+    else dispatch(openModal());
   };
 
   const scroll = (): void => {

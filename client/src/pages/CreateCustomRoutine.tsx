@@ -1,61 +1,90 @@
 import './CreateCustomRoutine.css';
-import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { PoseDTO } from '../interfaces/PoseDTO';
+import React, { useState } from 'react';
 import { updateUserInfo } from '../services/server';
 
 import { updateUser } from '../redux/usersSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
-import PoseCard from '../containers/PoseCard';
 import Button from '../components/Button';
+import PoseCardGrid from '../containers/PoseCardGrid';
 
 const CreateCustomRoutine: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const routines = useAppSelector((state) => state.routines);
-  const routineArray = [
+  const [dragPose, setDragPose] = useState<PoseDTO>();
+  const [customTrack, setCustomTrack] = useState<PoseDTO[]>([]);
+  const [posesArray, setPosesArray] = useState<PoseDTO[]>([
     ...routines['beginner'],
     ...routines['intermediate'],
     ...routines['advanced'],
-  ];
-  let customTrack: PoseDTO[] = [];
+  ]);
 
-  const handleCardClick = (checkBox: HTMLInputElement) => {
-    const poseId = checkBox.value;
+  const handleClick = (checkBox: HTMLInputElement, pose: PoseDTO) => {
     if (checkBox.checked) {
-      routineArray.forEach((pose) =>
-        pose.id === poseId ? customTrack.push(pose) : {}
-      );
+      setCustomTrack([...customTrack, pose]);
+      setPosesArray(posesArray.filter((pose) => pose.id !== checkBox.value));
     } else {
-      customTrack = customTrack.filter((pose) => pose.id !== poseId);
+      setCustomTrack(customTrack.filter((pose) => pose.id !== checkBox.value));
+      setPosesArray([...posesArray, pose]);
+    }
+  };
+
+  const handleOnDrag = (pose: PoseDTO) => {
+    setDragPose(pose);
+  };
+
+  const handleOnDrop = (dropPose: PoseDTO) => {
+    if (dragPose) {
+      const indexOfPose = customTrack.findIndex(
+        (pose) => pose.id === dragPose.id
+      );
+      const newPosition = customTrack.findIndex(
+        (pose) => pose.id === dropPose.id
+      );
+
+      const newCustomTrack = [
+        ...customTrack.slice(0, indexOfPose),
+        ...customTrack.slice(indexOfPose + 1),
+      ];
+      newCustomTrack.splice(newPosition, 0, dragPose);
+      setCustomTrack(newCustomTrack);
     }
   };
 
   const handleSave = async () => {
     dispatch(updateUser({ customTracks: customTrack }));
-    await updateUserInfo({ customTracks: customTrack });
+    updateUserInfo({ customTracks: customTrack });
+    history.push('dashboard');
+  };
+
+  const handleBack = () => {
     history.push('dashboard');
   };
 
   return (
     <div className="custom-routine-container">
       <div className="custom-routine-header">
-        <div className="custom-routine-save">
-          <h2>Custom Routine</h2>
-          <Button label="Save" onClick={handleSave} />
-        </div>
-        <p>
-          Click on the cards below to add or remove them from your personalized
-          routine. When you are satisfied, click on &quot;Save&quot; to store
-          your sequence and return to the Dashboard.
-        </p>
+        <h2>Create your Routine!</h2>
+        <Button label="Save" onClick={handleSave} />
+        <Button label="Back" onClick={handleBack} />
       </div>
-      <div className="custom-routine-cards">
-        {routineArray.map((pose: PoseDTO) => (
-          <PoseCard key={pose.id} pose={pose} handleClick={handleCardClick} />
-        ))}
-      </div>
+      <p>
+        Click on the cards below to add or remove them from your personalized
+        routine. As you do, your selection will automatically move to the top of
+        the list, and you can reorder them by simply draggin and dropping them
+        in place! When you are satisfied, click on &quot;Save&quot; to store
+        your sequence and return to the Dashboard.
+      </p>
+      <PoseCardGrid
+        posesArray={posesArray}
+        customTrack={customTrack}
+        handleClick={handleClick}
+        handleOnDrag={handleOnDrag}
+        handleOnDrop={handleOnDrop}
+      />
     </div>
   );
 };

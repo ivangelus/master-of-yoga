@@ -48,6 +48,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       setProgressCounterOn(false);
       setTimerOn(false);
       setTime(timeLimit);
+      console.log(progress);
       setProgress(0);
       dispatch(changeCurrentPose(routines[Number(index) + 1].id));
       history.push(`/pose/${level}/${Number(index) + 1}`);
@@ -55,7 +56,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       history.push('/dashboard', { update: true });
     }
   };
-
+  console.log('render');
   const handleStart = (): void => {
     console.log(timerOn);
     function startLogic() {
@@ -85,6 +86,7 @@ const PoseValidation: React.FC = (): ReactElement => {
     setTimerOn(true);
     setGetReadyHidden(true);
     setProgressCounterOn(true);
+    console.log(progress);
     setSessionProgress((previous) => [...previous, progress]);
   };
 

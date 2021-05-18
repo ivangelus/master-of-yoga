@@ -4,20 +4,42 @@ import { PoseDTO } from '../interfaces/PoseDTO';
 
 interface Props {
   pose: PoseDTO;
-  handleClick: (input: HTMLInputElement) => void;
+  checked: boolean;
+  handleOnDrag: (pose: PoseDTO) => void;
+  handleOnDrop: (pose: PoseDTO) => void;
+  handleClick: (input: HTMLInputElement, pose: PoseDTO) => void;
 }
 
-const PoseCard: React.FC<Props> = ({ pose, handleClick }: Props) => {
-  const handleClickLocally = () => {
+const PoseCard: React.FC<Props> = ({
+  pose,
+  checked,
+  handleOnDrag,
+  handleOnDrop,
+  handleClick,
+}: Props) => {
+  const handleCardClick = (event: React.MouseEvent) => {
     const checkBox = document.getElementById(pose.id) as HTMLInputElement;
     checkBox.checked = !checkBox.checked;
-    handleClick(checkBox);
+    handleClick(checkBox, pose);
   };
 
   return (
-    <div className="pose-card" onClick={handleClickLocally}>
+    <div
+      className="pose-card"
+      onClick={(event) => handleCardClick(event)}
+      draggable={checked}
+      onDrag={() => handleOnDrag(pose)}
+      onDrop={() => handleOnDrop(pose)}
+      onDragOver={(event) => event.preventDefault()}
+    >
       <div className="pose-card-choice">
-        <input id={pose.id} type="checkbox" value={pose.id} />
+        <input
+          id={pose.id}
+          type="checkbox"
+          value={pose.id}
+          defaultChecked={checked}
+          disabled={true}
+        />
         <h3>{pose.name.split(' ').slice(0, -1).join(' ')}</h3>
       </div>
       <div className="pose-card-image">
