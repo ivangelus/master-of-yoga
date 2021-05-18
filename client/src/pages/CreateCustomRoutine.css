@@ -5,6 +5,12 @@
   justify-content: flex-start;
 }
 
+.custom-routine-container p {
+  width: 80%;
+  padding-bottom: .5rem;
+  line-height: 1.5rem;
+}
+
 .custom-routine-header {
   width: 100%;
   color: white;

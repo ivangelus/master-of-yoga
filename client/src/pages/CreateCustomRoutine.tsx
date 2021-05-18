@@ -1,7 +1,7 @@
 import './CreateCustomRoutine.css';
 import { useHistory } from 'react-router-dom';
 import { PoseDTO } from '../interfaces/PoseDTO';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { updateUserInfo } from '../services/server';
 
 import { updateUser } from '../redux/usersSlice';
@@ -14,6 +14,7 @@ const CreateCustomRoutine: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const routines = useAppSelector((state) => state.routines);
+  const [dragPose, setDragPose] = useState<PoseDTO>();
   const [customTrack, setCustomTrack] = useState<PoseDTO[]>([]);
   const [posesArray, setPosesArray] = useState<PoseDTO[]>([
     ...routines['beginner'],
@@ -28,6 +29,28 @@ const CreateCustomRoutine: React.FC = () => {
     } else {
       setCustomTrack(customTrack.filter((pose) => pose.id !== checkBox.value));
       setPosesArray([...posesArray, pose]);
+    }
+  };
+
+  const handleOnDrag = (pose: PoseDTO) => {
+    setDragPose(pose);
+  };
+
+  const handleOnDrop = (dropPose: PoseDTO) => {
+    if (dragPose) {
+      const indexOfPose = customTrack.findIndex(
+        (pose) => pose.id === dragPose.id
+      );
+      const newPosition = customTrack.findIndex(
+        (pose) => pose.id === dropPose.id
+      );
+
+      const newCustomTrack = [
+        ...customTrack.slice(0, indexOfPose),
+        ...customTrack.slice(indexOfPose + 1),
+      ];
+      newCustomTrack.splice(newPosition, 0, dragPose);
+      setCustomTrack(newCustomTrack);
     }
   };
 
@@ -50,13 +73,17 @@ const CreateCustomRoutine: React.FC = () => {
       </div>
       <p>
         Click on the cards below to add or remove them from your personalized
-        routine. When you are satisfied, click on &quot;Save&quot; to store your
-        sequence and return to the Dashboard.
+        routine. As you do, your selection will automatically move to the top of
+        the list, and you can reorder them by simply draggin and dropping them
+        in place! When you are satisfied, click on &quot;Save&quot; to store
+        your sequence and return to the Dashboard.
       </p>
       <PoseCardGrid
         posesArray={posesArray}
         customTrack={customTrack}
         handleClick={handleClick}
+        handleOnDrag={handleOnDrag}
+        handleOnDrop={handleOnDrop}
       />
     </div>
   );

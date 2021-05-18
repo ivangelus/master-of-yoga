@@ -11,6 +11,11 @@
   cursor: pointer;
 }
 
+.pose-card:hover {
+  transform: scale(1.1);
+  transition: .2s;
+}
+
 .pose-card h3 {
   font-size: 1rem;
   font-weight: normal;

@@ -7,12 +7,16 @@ import PoseCard from './PoseCard';
 interface Props {
   posesArray: PoseDTO[];
   customTrack: PoseDTO[];
+  handleOnDrag: (pose: PoseDTO) => void;
+  handleOnDrop: (pose: PoseDTO) => void;
   handleClick: (input: HTMLInputElement, pose: PoseDTO) => void;
 }
 
 const PoseCardGrid: React.FC<Props> = ({
   posesArray,
   customTrack,
+  handleOnDrag,
+  handleOnDrop,
   handleClick,
 }: Props) => {
   const sortArray = (arrayOfPoses: PoseDTO[]): PoseDTO[] => {
@@ -25,6 +29,8 @@ const PoseCardGrid: React.FC<Props> = ({
         <PoseCard
           key={pose.id}
           pose={pose}
+          handleOnDrag={handleOnDrag}
+          handleOnDrop={handleOnDrop}
           handleClick={handleClick}
           checked={true}
         />
@@ -33,6 +39,8 @@ const PoseCardGrid: React.FC<Props> = ({
         <PoseCard
           key={pose.id}
           pose={pose}
+          handleOnDrag={handleOnDrag}
+          handleOnDrop={handleOnDrop}
           handleClick={handleClick}
           checked={false}
         />
