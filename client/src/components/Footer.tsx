@@ -9,8 +9,7 @@ const Footer: React.FC = (): ReactElement => {
   return (
     <div className="footer-container">
       <div className="footer-left-container">
-        <div className="footer-logo">LOGO</div>
-        <div className="footer-title">Master of Yoga</div>
+        <div className="footer-logo"></div>
       </div>
       <div className="footer-right-container">
         <div className="additional-info-container">
