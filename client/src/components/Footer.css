@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  color: white
+  color: white;
 }
 
 .additional-info-container {
@@ -59,4 +59,34 @@
   font-size: 2.5rem;
   font-weight: bold;
   margin-right: 2rem;
+}
+
+@media screen and (max-width:550px) {
+  .footer-container {
+    height: auto;
+    width: auto;
+    background-color: rgba(0, 204, 187, .6);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    color: white;
+  }
+
+  .footer-logo {
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+
+  .footer-title {
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+
+  .additional-info {
+    font-size: 1rem;
+  }
+
+  .social-network {
+    font-size: 1rem;
+  }
 }
