@@ -8,6 +8,7 @@ import { RootState } from '../redux/store';
 import GetReadyMarker from '../components/GetReadyMarker';
 import Camera from '../components/Camera';
 import './PoseValidation.css';
+import speak from '../utilities/speech';
 
 const PoseValidation: React.FC = (): ReactElement => {
   const { level, index } = useParams<{
@@ -51,13 +52,15 @@ const PoseValidation: React.FC = (): ReactElement => {
 
   const handleStart = (): void => {
     function startLogic() {
+      speak('Position starting');
       setTimerOn((previous) => !previous);
       setProgressCounterOn((previous) => !previous);
       setGetReadyHidden(true);
     }
 
     if (Number(index) === 0 && !timerOn) {
-      setTimeout(startLogic, 15000);
+      speak(`Next up: ${routines[Number(index)].name}`);
+      setTimeout(startLogic, 5000);
       setGetReadyHidden(false);
     } else if (Number(index) !== 0) {
       startLogic();
@@ -73,6 +76,7 @@ const PoseValidation: React.FC = (): ReactElement => {
   };
 
   const handleChangePose = (): void => {
+    speak('Position starting');
     setTimerOn(true);
     setGetReadyHidden(true);
     setProgressCounterOn(true);
@@ -91,7 +95,8 @@ const PoseValidation: React.FC = (): ReactElement => {
             clearInterval(interval);
             handleNext();
             setGetReadyHidden(false);
-            setTimeout(handleChangePose, 15000);
+            speak(`Next up: ${routines[Number(index) + 1].name}`);
+            setTimeout(handleChangePose, 10000);
           } else {
             newTime = prevTime - 1;
           }
