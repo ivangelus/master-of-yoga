@@ -1,5 +1,5 @@
 import './CreateCustomRoutine.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PoseDTO } from '../interfaces/PoseDTO';
 import { updateUserInfo } from '../services/server';
@@ -14,12 +14,17 @@ const CreateCustomRoutine: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const routines = useAppSelector((state) => state.routines);
-  const routineArray = [
+  let customTrack: PoseDTO[] = [];
+  let routineArray = [
+    ...customTrack,
     ...routines['beginner'],
     ...routines['intermediate'],
     ...routines['advanced'],
   ];
-  let customTrack: PoseDTO[] = [];
+
+  const sortArray = (arrayOfPoses: PoseDTO[]): PoseDTO[] => {
+    return arrayOfPoses.sort((a, b) => (a.id > b.id ? 1 : -1));
+  };
 
   const handleCardClick = (checkBox: HTMLInputElement) => {
     const poseId = checkBox.value;
@@ -27,6 +32,7 @@ const CreateCustomRoutine: React.FC = () => {
       routineArray.forEach((pose) =>
         pose.id === poseId ? customTrack.push(pose) : {}
       );
+      routineArray = routineArray.filter((pose) => pose.id !== poseId);
     } else {
       customTrack = customTrack.filter((pose) => pose.id !== poseId);
     }
@@ -52,7 +58,10 @@ const CreateCustomRoutine: React.FC = () => {
         </p>
       </div>
       <div className="custom-routine-cards">
-        {routineArray.map((pose: PoseDTO) => (
+        {customTrack.map((pose: PoseDTO) => (
+          <PoseCard key={pose.id} pose={pose} handleClick={handleCardClick} />
+        ))}
+        {sortArray(routineArray).map((pose: PoseDTO) => (
           <PoseCard key={pose.id} pose={pose} handleClick={handleCardClick} />
         ))}
       </div>
