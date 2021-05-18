@@ -1,6 +1,6 @@
 import { PoseDTO } from './PoseDTO';
 
-interface PoseCompletionDTO {
+export interface PoseCompletionDTO {
   level: 'beginner' | 'intermediate' | 'advanced';
   id: string;
   percentage: number;
@@ -15,7 +15,7 @@ export interface UserDTO {
   lastEntry?: string;
   consecutiveDays?: number;
   customTracks?: PoseDTO[];
-  posesCompletion?: PoseCompletionDTO[];
+  posesCompletion: PoseCompletionDTO[];
 }
 
 export const initialStateUserDTO: UserDTO = {

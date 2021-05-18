@@ -1,5 +1,6 @@
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { changeCurrentPose } from '../redux/currentPoseSlice';
+import { updatePoseCompletion } from '../redux/usersSlice';
 import GetReadyMarker from '../components/GetReadyMarker';
 import { useParams, useHistory } from 'react-router-dom';
 import React, { ReactElement, useState } from 'react';
@@ -52,7 +53,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       dispatch(changeCurrentPose(routines[Number(index) + 1].id));
       history.push(`/pose/${level}/${Number(index) + 1}`);
     } else {
-      console.log(sessionProgress);
+      history.push('/dashboard', { update: true });
     }
   };
   console.log('render');
@@ -136,7 +137,6 @@ const PoseValidation: React.FC = (): ReactElement => {
         }
       }, 1000);
     } else if (!poseOk || progress >= 100) {
-      console.log('trigger');
       clearInterval(progressInterval);
     }
     return () => clearInterval(progressInterval);
@@ -145,6 +145,15 @@ const PoseValidation: React.FC = (): ReactElement => {
   function startPauseText() {
     if (timerOn) return 'Stop';
     return 'Start';
+  }
+
+  if (time === 0 && progress > 0) {
+    dispatch(
+      updatePoseCompletion({
+        id: routines[Number(index)].id,
+        percentage: progress,
+      })
+    );
   }
 
   return (

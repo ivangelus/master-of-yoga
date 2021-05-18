@@ -180,7 +180,7 @@ def getPosesList():
     posesList = []
     for pose in poses:
       tempPose = pose.to_dict()
-      posesList.append({'id': tempPose['id'], 'level': tempPose['level'], 'percentage': '0%'})
+      posesList.append({'id': tempPose['id'], 'level': tempPose['level'], 'percentage': 0})
     return posesList
   except:
     print('Failed to retrieve routines from database')
