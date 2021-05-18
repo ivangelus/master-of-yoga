@@ -1,5 +1,6 @@
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { changeCurrentPose } from '../redux/currentPoseSlice';
+import { updatePoseCompletion } from '../redux/usersSlice';
 import GetReadyMarker from '../components/GetReadyMarker';
 import { useParams, useHistory } from 'react-router-dom';
 import React, { ReactElement, useState } from 'react';
@@ -14,7 +15,7 @@ const PoseValidation: React.FC = (): ReactElement => {
   // const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
   const [timerOn, setTimerOn] = useState(false);
-  const [timeLimit, setTimeLimit] = useState(60);
+  const [timeLimit, setTimeLimit] = useState(15);
   const [time, setTime] = useState(timeLimit);
   const [progress, setProgress] = useState(0);
   const [progressCounterOn, setProgressCounterOn] = useState(false);
@@ -134,16 +135,57 @@ const PoseValidation: React.FC = (): ReactElement => {
         }
       }, 1000);
     } else if (!poseOk || progress >= 100) {
-      console.log('trigger');
       clearInterval(progressInterval);
     }
     return () => clearInterval(progressInterval);
-  }, [progressCounterOn, poseOk]);
+  }, [poseOk]);
 
   function startPauseText() {
     if (timerOn) return 'Stop';
     return 'Start';
   }
+
+  // const data = useAppSelector((state) => state.users.posesCompletion);
+
+  if (time === 0 && progress > 0) {
+    // console.log('element inside', routines[Number(index)].id)
+    // console.log('percentage progress', progress)
+    // const updated = data.map(pose => {
+    //     // console.log('pose is the right pose _--------------------------------------')
+    //     // console.log(pose.id === routines[Number(index)].id)
+    //   // console.log('pose is smaller percentage _--------------------------------------')
+    //   // console.log(pose.percentage < progress)
+    //   // console.log('pose id inside', pose.id)
+    //   // console.log('ppoe percentage inside', pose.percentage)
+    //   // if (pose.id === routines[Number(index)].id) {
+    //   //   console.log('inside mothafucka')
+    //   //   console.log('conditional below')
+    //   //   console.log(pose.percentage < progress)
+    //   // }
+
+    //   if (pose.id === routines[Number(index)].id && pose.percentage < progress) {
+    //     console.log('inside another mothafucka')
+    //     pose = { ...pose, percentage: progress }
+    //   }
+    //    else {
+    //        pose = {...pose}
+    //    }
+    //   return pose;
+    // })
+
+    // console.log('updated', updated);
+    // console.log('data now', data)
+    dispatch(
+      updatePoseCompletion({
+        id: routines[Number(index)].id,
+        percentage: progress,
+      })
+    );
+    // console.log('dispatched with', {id: routines[Number(index)].id, percentage: progress})
+  }
+  const data = useAppSelector((state) => state.users.posesCompletion);
+
+  console.log('data after selecting', data);
 
   return (
     <div className="wrapper">

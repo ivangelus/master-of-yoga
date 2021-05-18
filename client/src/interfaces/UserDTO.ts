@@ -13,7 +13,7 @@ export interface UserDTO {
   lastEntry?: string;
   consecutiveDays?: number;
   customTracks?: [];
-  posesCompletion?: PoseCompletionDTO[];
+  posesCompletion: PoseCompletionDTO[];
 }
 
 export const initialStateUserDTO: UserDTO = {

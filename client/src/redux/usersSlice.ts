@@ -17,17 +17,27 @@ export const usersSlice = createSlice({
     logoutUser: (state) => {
       return { ...state, ...initialStateUserDTO };
     },
-    // updatePoseCompletion: (state, action: PayloadAction<Partial<PoseCompletionDTO>>) => {
-    //   return {
-    //     ...state,
-    //     posesCompletion: state.posesCompletion.map(
-    //         (pose, i) => pose.id === action.payload.id ? {...pose, percentage: action.payload.percentage} : pose
-    //     )
-    //  }
-    // },
+    updatePoseCompletion: (
+      state,
+      action: PayloadAction<{ id: string; percentage: number }>
+    ) => {
+      return {
+        ...state,
+        posesCompletion: state.posesCompletion.map((pose, i) =>
+          pose.id === action.payload.id &&
+          pose.percentage < action.payload.percentage
+            ? { ...pose, percentage: action.payload.percentage }
+            : pose
+        ),
+      };
+    },
   },
 });
 
-export const { updateUser, logoutUser } = usersSlice.actions;
+export const {
+  updateUser,
+  logoutUser,
+  updatePoseCompletion,
+} = usersSlice.actions;
 export const selectUsers = (state: RootState) => state.users;
 export default usersSlice.reducer;
