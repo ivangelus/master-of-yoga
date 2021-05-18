@@ -2,6 +2,7 @@ import os
 import pathlib
 import pyrebase
 import firebase_admin
+from datetime import date
 from dotenv import load_dotenv, dotenv_values
 from firebase_admin import auth, credentials, firestore
 
@@ -90,7 +91,7 @@ def registerUser(userData):
       'customTracks': [],
       'email': userData['email'],
       'image':'url',
-      'lastEntry': '',
+      'lastEntry': str(date.today()),
       'posesCompletion': []
     }
     poses = getPosesList()
@@ -128,7 +129,7 @@ def newUser(data):
     'consecutiveDays': 0,
     'customTracks': [],
     'image':data['picture'],
-    'lastEntry': data['auth_time'],
+    'lastEntry': str(date.today()),
     'posesCompletion': []
   }
   try:
