@@ -20,54 +20,6 @@ const Tracks: React.FC<Props> = ({ title }: Props) => {
   const history = useHistory();
 
   const completedPoses = useAppSelector((state) => state.users.posesCompletion);
-  console.log('completed poses in the tracks', completedPoses);
-  // const completedPoses = [
-  //   {
-  //     id: 'heroPose',
-  //     level: 'beginner',
-  //     percentage: 100,
-  //   },
-  //   {
-  //     id: 'catPose',
-  //     level: 'beginner',
-  //     percentage: 17,
-  //   },
-  //   {
-  //     id: 'cobraPose',
-  //     level: 'beginner',
-  //     percentage: 100,
-  //   },
-  //   {
-  //     id: 'heroPose',
-  //     level: 'intermediate',
-  //     percentage: 65,
-  //   },
-  //   {
-  //     id: 'catPose',
-  //     level: 'intermediate',
-  //     percentage: 45,
-  //   },
-  //   {
-  //     id: 'cobraPose',
-  //     level: 'intermediate',
-  //     percentage: 10,
-  //   },
-  //   {
-  //     id: 'heroPose',
-  //     level: 'advanced',
-  //     percentage: 17,
-  //   },
-  //   {
-  //     id: 'catPose',
-  //     level: 'advanced',
-  //     percentage: 28,
-  //   },
-  //   {
-  //     id: 'cobraPose',
-  //     level: 'advanced',
-  //     percentage: 34,
-  //   },
-  // ];
 
   let percentageSum = 0;
   let numOfPoses = 0;

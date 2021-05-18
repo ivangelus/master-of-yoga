@@ -15,7 +15,7 @@ const PoseValidation: React.FC = (): ReactElement => {
   // const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
   const [timerOn, setTimerOn] = useState(false);
-  const [timeLimit, setTimeLimit] = useState(20);
+  const [timeLimit, setTimeLimit] = useState(60);
   const [time, setTime] = useState(timeLimit);
   const [progress, setProgress] = useState(0);
   const [progressCounterOn, setProgressCounterOn] = useState(false);
@@ -52,8 +52,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       dispatch(changeCurrentPose(routines[Number(index) + 1].id));
       history.push(`/pose/${level}/${Number(index) + 1}`);
     } else {
-      history.push('/dashboard');
-      console.log(sessionProgress);
+      history.push('/dashboard', { update: true });
     }
   };
 
@@ -147,16 +146,6 @@ const PoseValidation: React.FC = (): ReactElement => {
   }
 
   if (time === 0 && progress > 0) {
-    // const updated = data.map(pose => {
-    //   if (pose.id === routines[Number(index)].id && pose.percentage < progress) {
-    //     console.log('inside another mothafucka')
-    //     pose = { ...pose, percentage: progress }
-    //   }
-    //    else {
-    //        pose = {...pose}
-    //    }
-    //   return pose;
-    // })
     dispatch(
       updatePoseCompletion({
         id: routines[Number(index)].id,
@@ -164,8 +153,6 @@ const PoseValidation: React.FC = (): ReactElement => {
       })
     );
   }
-  // const data = useAppSelector((state) => state.users.posesCompletion);
-  // console.log('data after selecting', data);
 
   return (
     <div className="wrapper">

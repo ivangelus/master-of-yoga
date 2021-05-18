@@ -15,80 +15,13 @@ interface Props {
 const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
   const history = useHistory();
 
-  // const [sliderValue, setSliderValue] = useState(50);
-  // const [instructions, setInstructions] = useState(false);
-
   const posesCompletion = useAppSelector(
     (state) => state.users.posesCompletion
   );
 
-  // const posesCompletion = [
-  //   {
-  //     id: 'heroPose',
-  //     level: 'beginner',
-  //     percentage: 87,
-  //   },
-  //   {
-  //     id: 'catPose',
-  //     level: 'beginner',
-  //     percentage: 17,
-  //   },
-  //   {
-  //     id: 'cobraPose',
-  //     level: 'beginner',
-  //     percentage: 100,
-  //   },
-  //   {
-  //     id: 'fireLogPose',
-  //     level: 'intermediate',
-  //     percentage: 65,
-  //   },
-  //   {
-  //     id: 'noosePose',
-  //     level: 'intermediate',
-  //     percentage: 45,
-  //   },
-  //   {
-  //     id: 'bigToePose',
-  //     level: 'intermediate',
-  //     percentage: 10,
-  //   },
-  //   {
-  //     id: 'fireflyPose',
-  //     level: 'advanced',
-  //     percentage: 17,
-  //   },
-  //   {
-  //     id: 'sideRecliningLegLiftPose',
-  //     level: 'advanced',
-  //     percentage: 28,
-  //   },
-  //   {
-  //     id: 'peacockPose',
-  //     level: 'advanced',
-  //     percentage: 34,
-  //   },
-  // ];
-
   const handleClick = (): void => {
     history.push(`/pose/${routine.level}/${index}`);
   };
-
-  // const handleChange = (event: any) => {
-  //   setSliderValue(event.target.value);
-  // };
-
-  // const renderInstructions = () => {
-  //   setTimeout(() => {
-  //     setInstructions((instructions) => !instructions);
-  //   }, 1000);
-  // };
-
-  // const removeInstructions = () => {
-  //   setTimeout(() => {
-  //     setInstructions((instructions) => !instructions);
-  //   }, 500);
-  // };
 
   let completionPercentage = 0;
   for (let i = 0; i < posesCompletion.length; i++) {
@@ -143,28 +76,6 @@ const TrackPose: React.FC<Props> = ({ routine, index }: Props) => {
             strokeWidth={10}
           />
         </div>
-        {/* <div className="levels__container">
-          <div className="levels__container__instructions">
-            {instructions ? (
-              <Instructions />
-            ) : (
-              <div className="SelectLevel__Container">
-                <p>Select level of strictness</p>
-                <img src={Arrow} />
-              </div>
-            )}
-          </div>
-          <input
-            onMouseEnter={renderInstructions}
-            onMouseLeave={removeInstructions}
-            type="range"
-            min="0"
-            max="100"
-            value={sliderValue}
-            onChange={handleChange}
-            className="levels__container--rangeSlider"
-          />
-        </div> */}
       </div>
     </div>
   );

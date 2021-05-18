@@ -6,6 +6,9 @@ import { updateRoutines } from '../redux/routinesSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 import { getRoutines } from '../services/server';
+import { useHistory } from 'react-router-dom';
+
+import { updateUserInfo } from '../services/server';
 
 import CustomTrack from '../containers/CustomTrack';
 import UpdateUser from '../components/UpdateUser';
@@ -16,12 +19,21 @@ import Modal from '../containers/Modal';
 const Dashboard: React.FC = () => {
   const dispatch = useAppDispatch();
   const routine = useAppSelector((state: RootState) => state.routines);
+  const history = useHistory();
+  const posesCompletion = useAppSelector(
+    (state) => state.users.posesCompletion
+  );
 
   useEffect(() => {
     if (routine.intermediate.length === 0) {
       (async (): Promise<void> => {
         const data = await getRoutines();
         dispatch(updateRoutines(data));
+      })();
+    }
+    if (history.location.state) {
+      (async (): Promise<void> => {
+        const updatedUser = await updateUserInfo({ posesCompletion });
       })();
     }
   }, []);
