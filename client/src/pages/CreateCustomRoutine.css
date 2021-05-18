@@ -15,20 +15,10 @@
   background-color: rgba(0, 204, 187, 0.6);
 }
 
-.custom-routine-save {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  column-gap: 1rem;
-  margin-top: 1rem;
-}
-
-.custom-routine-header p {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-  margin-top: .5rem;
-  line-height: 1.5rem;
-  padding: 0 2rem;
+.custom-routine-header h2 {
+  font-size: 2rem;
+  margin-bottom: .5rem;
+  text-shadow: 0 0 3px black;
 }
 
 .custom-routine-cards {

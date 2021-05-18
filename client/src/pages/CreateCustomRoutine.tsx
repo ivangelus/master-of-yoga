@@ -44,19 +44,22 @@ const CreateCustomRoutine: React.FC = () => {
     history.push('dashboard');
   };
 
+  const handleBack = () => {
+    history.push('dashboard');
+  };
+
   return (
     <div className="custom-routine-container">
       <div className="custom-routine-header">
-        <div className="custom-routine-save">
-          <h2>Custom Routine</h2>
-          <Button label="Save" onClick={handleSave} />
-        </div>
-        <p>
-          Click on the cards below to add or remove them from your personalized
-          routine. When you are satisfied, click on &quot;Save&quot; to store
-          your sequence and return to the Dashboard.
-        </p>
+        <h2>Create your Routine!</h2>
+        <Button label="Save" onClick={handleSave} />
+        <Button label="Back" onClick={handleBack} />
       </div>
+      <p>
+        Click on the cards below to add or remove them from your personalized
+        routine. When you are satisfied, click on &quot;Save&quot; to store your
+        sequence and return to the Dashboard.
+      </p>
       <div className="custom-routine-cards">
         {customTrack.map((pose: PoseDTO) => (
           <PoseCard key={pose.id} pose={pose} handleClick={handleCardClick} />
