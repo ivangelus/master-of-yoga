@@ -10,3 +10,9 @@
   width: 90%;
   padding-bottom: .5rem;
 }
+
+.custom-track-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
