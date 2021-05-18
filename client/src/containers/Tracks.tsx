@@ -19,7 +19,10 @@ const buttonAdditionalStyles = {
 const Tracks: React.FC<Props> = ({ title }: Props) => {
   const history = useHistory();
 
-  // const completedPoses = useAppSelector((state) => state.users.posesCompletion);
+  const posesCompletion = useAppSelector(
+    (state) => state.users.posesCompletion
+  );
+  console.log('posescompletion in the tracks', posesCompletion);
   const completedPoses = [
     {
       id: 'heroPose',

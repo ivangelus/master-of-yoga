@@ -15,7 +15,7 @@ const PoseValidation: React.FC = (): ReactElement => {
   // const [loading, setLoading] = useState(true);
   const dispatch = useAppDispatch();
   const [timerOn, setTimerOn] = useState(false);
-  const [timeLimit, setTimeLimit] = useState(15);
+  const [timeLimit, setTimeLimit] = useState(20);
   const [time, setTime] = useState(timeLimit);
   const [progress, setProgress] = useState(0);
   const [progressCounterOn, setProgressCounterOn] = useState(false);
@@ -52,6 +52,7 @@ const PoseValidation: React.FC = (): ReactElement => {
       dispatch(changeCurrentPose(routines[Number(index) + 1].id));
       history.push(`/pose/${level}/${Number(index) + 1}`);
     } else {
+      history.push('/dashboard');
       console.log(sessionProgress);
     }
   };
@@ -183,9 +184,9 @@ const PoseValidation: React.FC = (): ReactElement => {
     );
     // console.log('dispatched with', {id: routines[Number(index)].id, percentage: progress})
   }
-  const data = useAppSelector((state) => state.users.posesCompletion);
+  // const data = useAppSelector((state) => state.users.posesCompletion);
 
-  console.log('data after selecting', data);
+  // console.log('data after selecting', data);
 
   return (
     <div className="wrapper">
