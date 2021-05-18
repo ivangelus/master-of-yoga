@@ -32,9 +32,7 @@ const Dashboard: React.FC = () => {
       })();
     }
     if (history.location.state) {
-      (async (): Promise<void> => {
-        const updatedUser = await updateUserInfo({ posesCompletion });
-      })();
+      updateUserInfo({ posesCompletion });
     }
   }, []);
 
