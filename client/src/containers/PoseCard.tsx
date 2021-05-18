@@ -8,14 +8,14 @@ interface Props {
 }
 
 const PoseCard: React.FC<Props> = ({ pose, handleClick }: Props) => {
-  const handleClickLocally = () => {
+  const handleCardClick = () => {
     const checkBox = document.getElementById(pose.id) as HTMLInputElement;
     checkBox.checked = !checkBox.checked;
     handleClick(checkBox);
   };
 
   return (
-    <div className="pose-card" onClick={handleClickLocally}>
+    <div className="pose-card" onClick={handleCardClick}>
       <div className="pose-card-choice">
         <input id={pose.id} type="checkbox" value={pose.id} />
         <h3>{pose.name.split(' ').slice(0, -1).join(' ')}</h3>

@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 import PoseCard from '../containers/PoseCard';
 import Button from '../components/Button';
+import PoseCardGrid from '../containers/PoseCardGrid';
 
 const CreateCustomRoutine: React.FC = () => {
   const history = useHistory();
@@ -22,11 +23,7 @@ const CreateCustomRoutine: React.FC = () => {
     ...routines['advanced'],
   ];
 
-  const sortArray = (arrayOfPoses: PoseDTO[]): PoseDTO[] => {
-    return arrayOfPoses.sort((a, b) => (a.id > b.id ? 1 : -1));
-  };
-
-  const handleCardClick = (checkBox: HTMLInputElement) => {
+  const handleClick = (checkBox: HTMLInputElement) => {
     const poseId = checkBox.value;
     if (checkBox.checked) {
       routineArray.forEach((pose) =>
@@ -40,7 +37,7 @@ const CreateCustomRoutine: React.FC = () => {
 
   const handleSave = async () => {
     dispatch(updateUser({ customTracks: customTrack }));
-    await updateUserInfo({ customTracks: customTrack });
+    updateUserInfo({ customTracks: customTrack });
     history.push('dashboard');
   };
 
@@ -60,14 +57,11 @@ const CreateCustomRoutine: React.FC = () => {
         routine. When you are satisfied, click on &quot;Save&quot; to store your
         sequence and return to the Dashboard.
       </p>
-      <div className="custom-routine-cards">
-        {customTrack.map((pose: PoseDTO) => (
-          <PoseCard key={pose.id} pose={pose} handleClick={handleCardClick} />
-        ))}
-        {sortArray(routineArray).map((pose: PoseDTO) => (
-          <PoseCard key={pose.id} pose={pose} handleClick={handleCardClick} />
-        ))}
-      </div>
+      <PoseCardGrid
+        posesArray={routineArray}
+        customTrack={customTrack}
+        handleClick={handleClick}
+      />
     </div>
   );
 };
