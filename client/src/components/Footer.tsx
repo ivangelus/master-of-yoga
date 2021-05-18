@@ -1,5 +1,9 @@
 import React, { ReactElement } from 'react';
 import './Footer.css';
+import facebookIcon from '../assets/facebook-24.png';
+import instagramIcon from '../assets/instagram-24.png';
+import twitterIcon from '../assets/twitter-24.png';
+import linkedInIcon from '../assets/linkedin-3-24.png';
 
 const Footer: React.FC = (): ReactElement => {
   return (
@@ -15,10 +19,10 @@ const Footer: React.FC = (): ReactElement => {
           <div className="additional-info">Privacy Policy</div>
         </div>
         <div className="social-network-container">
-          <div className="social-network">f</div>
-          <div className="social-network">tweet</div>
-          <div className="social-network">In</div>
-          <div className="social-network">lIn</div>
+          <img src={facebookIcon} className="social-network" />
+          <img src={instagramIcon} className="social-network" />
+          <img src={twitterIcon} className="social-network" />
+          <img src={linkedInIcon} className="social-network" />
         </div>
       </div>
     </div>
