@@ -1,39 +1,34 @@
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { changeCurrentPose } from '../redux/currentPoseSlice';
 import { updatePoseCompletion } from '../redux/usersSlice';
-import GetReadyMarker from '../components/GetReadyMarker';
 import { useParams, useHistory } from 'react-router-dom';
 import React, { ReactElement, useState } from 'react';
-// import HashLoader from 'react-spinners/HashLoader';
 import { RootState } from '../redux/store';
-import Camera from '../components/Camera';
-import * as tf from '@tensorflow/tfjs';
-import { css } from '@emotion/core';
 import './PoseValidation.css';
 
+import Camera from '../components/Camera';
+import GetReadyMarker from '../components/GetReadyMarker';
+
 const PoseValidation: React.FC = (): ReactElement => {
-  // const [loading, setLoading] = useState(true);
-  const dispatch = useAppDispatch();
-  const [timerOn, setTimerOn] = useState(false);
-  const [timeLimit, setTimeLimit] = useState(60);
-  const [time, setTime] = useState(timeLimit);
-  const [progress, setProgress] = useState(0);
-  const [progressCounterOn, setProgressCounterOn] = useState(false);
-  const history = useHistory();
-  const [poseOk, setPoseOk] = useState(false);
-  const [sessionProgress, setSessionProgress] = useState<[] | number[]>([]);
-  const [getReadyHidden, setGetReadyHidden] = useState(true);
   const { level, index } = useParams<{
     level: 'beginner' | 'intermediate' | 'advanced';
     index: string;
   }>();
-  const prepTime = 15;
+
+  const timeLimit = 60;
+  const history = useHistory();
+  const dispatch = useAppDispatch();
   const routines = useAppSelector((state: RootState) => state.routines[level]);
-  const override = css`
-    display: block;
-    margin: 0 auto;
-    border-color: red;
-  `;
+
+  const [time, setTime] = useState(timeLimit);
+  const [progress, setProgress] = useState(0);
+  const [poseOk, setPoseOk] = useState(false);
+  const [timerOn, setTimerOn] = useState(false);
+  const [getReadyHidden, setGetReadyHidden] = useState(true);
+  const [width, setWidth] = useState<number>(window.innerWidth);
+  const [height, setHeight] = useState<number>(window.innerHeight);
+  const [progressCounterOn, setProgressCounterOn] = useState(false);
+
   const handleBack = (): void => {
     if (index !== '0') {
       setProgress(0);
@@ -48,30 +43,25 @@ const PoseValidation: React.FC = (): ReactElement => {
       setProgressCounterOn(false);
       setTimerOn(false);
       setTime(timeLimit);
-      console.log(progress);
       setProgress(0);
       dispatch(changeCurrentPose(routines[Number(index) + 1].id));
       history.push(`/pose/${level}/${Number(index) + 1}`);
-    } else {
-      history.push('/dashboard', { update: true });
-    }
+    } else history.push('/dashboard', { update: true });
   };
-  console.log('render');
+
   const handleStart = (): void => {
-    console.log(timerOn);
     function startLogic() {
       setTimerOn((previous) => !previous);
       setProgressCounterOn((previous) => !previous);
       setGetReadyHidden(true);
-      console.log('start logic done');
     }
+
     if (Number(index) === 0 && !timerOn) {
       setTimeout(startLogic, 15000);
       setGetReadyHidden(false);
     } else if (Number(index) !== 0) {
       startLogic();
     } else if (timerOn) {
-      console.log('here');
       startLogic();
     }
   };
@@ -86,12 +76,11 @@ const PoseValidation: React.FC = (): ReactElement => {
     setTimerOn(true);
     setGetReadyHidden(true);
     setProgressCounterOn(true);
-    console.log(progress);
-    setSessionProgress((previous) => [...previous, progress]);
   };
 
   React.useEffect(() => {
     let interval: any;
+
     if (timerOn) {
       clearInterval(interval);
       interval = setInterval(() => {
@@ -108,20 +97,21 @@ const PoseValidation: React.FC = (): ReactElement => {
           }
           return newTime;
         });
-        if (time <= 0) {
-          setTimerOn(false);
-        }
+
+        if (time <= 0) setTimerOn(false);
       }, 1000);
     } else if (!timerOn || time <= 0) {
       clearInterval(interval);
       setTimerOn(false);
     }
+
     return () => clearInterval(interval);
   }, [timerOn]);
 
   React.useEffect(() => {
     let progressInterval: any;
     const scoreIncrement = 100 / (timeLimit - 10);
+
     if (poseOk && progress < 100 && timerOn) {
       if (progressInterval) clearInterval(progressInterval);
       progressInterval = setInterval(() => {
@@ -131,6 +121,7 @@ const PoseValidation: React.FC = (): ReactElement => {
           else newProgress = prevProgress + scoreIncrement;
           return newProgress;
         });
+
         if (progress >= 100) {
           setProgressCounterOn(false);
           setProgress(100);
@@ -139,8 +130,14 @@ const PoseValidation: React.FC = (): ReactElement => {
     } else if (!poseOk || progress >= 100) {
       clearInterval(progressInterval);
     }
+
     return () => clearInterval(progressInterval);
   }, [poseOk]);
+
+  React.useEffect(() => {
+    setWidth(window.innerWidth);
+    setHeight(window.innerHeight);
+  }, [width, height]);
 
   function startPauseText() {
     if (timerOn) return 'Stop';
@@ -165,6 +162,8 @@ const PoseValidation: React.FC = (): ReactElement => {
             setPoseOK={setPoseOk}
             source={routines[Number(index)].imageAddress}
             alt={routines[Number(index)].name}
+            width={width}
+            height={height}
           />
         </div>
         <div className="container_bottom">

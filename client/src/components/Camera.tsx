@@ -8,11 +8,14 @@ import * as tf from '@tensorflow/tfjs';
 import Webcam from 'react-webcam';
 import './Camera.css';
 import speak from '../utilities/speech';
+
 interface Props {
   poseName: string;
   setPoseOK: any;
   source: string;
   alt: string;
+  width: number;
+  height: number;
 }
 
 const Camera: React.FC<Props> = ({
@@ -20,6 +23,8 @@ const Camera: React.FC<Props> = ({
   setPoseOK,
   source,
   alt,
+  width,
+  height,
 }: Props): React.ReactElement => {
   const webcamRef: MutableRefObject<any> = useRef(null);
   const canvasRef: MutableRefObject<any> = useRef(null);
@@ -46,7 +51,9 @@ const Camera: React.FC<Props> = ({
         300
       );
     }
+
     init();
+
     return () => {
       (async () => {
         await clearIntervalAsync(interval);
@@ -55,8 +62,8 @@ const Camera: React.FC<Props> = ({
   }, [poseName]);
 
   const videoConstraints = {
-    width: window.innerWidth,
-    height: window.innerHeight * 0.7,
+    width: width * 0.95,
+    height: height * 0.7,
     facingMode: 'user',
   };
 
