@@ -22,7 +22,6 @@ const CustomTrack: React.FC = () => {
   let trackPercentage: number;
   if (userTrack && userTrack.length > 1) {
     const userPosesId = userTrack.map((pose) => pose.id);
-    console.log(userPosesId);
 
     let percentageSum = 0;
     for (let i = 0; i < completedPoses.length; i++) {
