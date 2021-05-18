@@ -15,7 +15,7 @@ const GetReadyMarker: React.FC<Props> = ({ isHidden }: Props) => {
     else return 'getReady_text';
   }
   return (
-    <div className="container">
+    <div className="get-ready-container">
       <div className={renderText()}>
         Get ready for the next pose
         <div className={renderMarker()}></div>
