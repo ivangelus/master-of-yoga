@@ -55,6 +55,9 @@ export async function detect(
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
+    webcamRef.current.video.width = videoWidth;
+    webcamRef.current.video.height = videoHeight;
+
     let pose: PoseNetOutputDTO;
     let evaluatedPose: { pose: string; confidence: number } = {
       pose: 'none',
