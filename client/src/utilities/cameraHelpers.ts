@@ -54,6 +54,8 @@ export async function detect(
     const video = webcamRef.current.video;
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
+    webcamRef.current.video.width = videoWidth;
+    webcamRef.current.video.height = videoHeight;
 
     webcamRef.current.video.width = videoWidth;
     webcamRef.current.video.height = videoHeight;
