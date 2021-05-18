@@ -1,3 +1,5 @@
+import { PoseDTO } from './PoseDTO';
+
 export interface PoseCompletionDTO {
   level: 'beginner' | 'intermediate' | 'advanced';
   id: string;
@@ -12,7 +14,7 @@ export interface UserDTO {
   image?: string;
   lastEntry?: string;
   consecutiveDays?: number;
-  customTracks?: [];
+  customTracks?: PoseDTO[];
   posesCompletion: PoseCompletionDTO[];
 }
 
