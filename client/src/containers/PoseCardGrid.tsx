@@ -7,7 +7,7 @@ import PoseCard from './PoseCard';
 interface Props {
   posesArray: PoseDTO[];
   customTrack: PoseDTO[];
-  handleClick: (input: HTMLInputElement) => void;
+  handleClick: (input: HTMLInputElement, pose: PoseDTO) => void;
 }
 
 const PoseCardGrid: React.FC<Props> = ({
@@ -22,10 +22,20 @@ const PoseCardGrid: React.FC<Props> = ({
   return (
     <div className="card-grid">
       {customTrack.map((pose: PoseDTO) => (
-        <PoseCard key={pose.id} pose={pose} handleClick={handleClick} />
+        <PoseCard
+          key={pose.id}
+          pose={pose}
+          handleClick={handleClick}
+          checked={true}
+        />
       ))}
       {sortArray(posesArray).map((pose: PoseDTO) => (
-        <PoseCard key={pose.id} pose={pose} handleClick={handleClick} />
+        <PoseCard
+          key={pose.id}
+          pose={pose}
+          handleClick={handleClick}
+          checked={false}
+        />
       ))}
     </div>
   );

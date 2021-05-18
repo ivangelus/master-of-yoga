@@ -1,13 +1,12 @@
 import './CreateCustomRoutine.css';
-import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { PoseDTO } from '../interfaces/PoseDTO';
+import React, { useEffect, useState } from 'react';
 import { updateUserInfo } from '../services/server';
 
 import { updateUser } from '../redux/usersSlice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
-import PoseCard from '../containers/PoseCard';
 import Button from '../components/Button';
 import PoseCardGrid from '../containers/PoseCardGrid';
 
@@ -15,23 +14,20 @@ const CreateCustomRoutine: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const routines = useAppSelector((state) => state.routines);
-  let customTrack: PoseDTO[] = [];
-  let routineArray = [
-    ...customTrack,
+  const [customTrack, setCustomTrack] = useState<PoseDTO[]>([]);
+  const [posesArray, setPosesArray] = useState<PoseDTO[]>([
     ...routines['beginner'],
     ...routines['intermediate'],
     ...routines['advanced'],
-  ];
+  ]);
 
-  const handleClick = (checkBox: HTMLInputElement) => {
-    const poseId = checkBox.value;
+  const handleClick = (checkBox: HTMLInputElement, pose: PoseDTO) => {
     if (checkBox.checked) {
-      routineArray.forEach((pose) =>
-        pose.id === poseId ? customTrack.push(pose) : {}
-      );
-      routineArray = routineArray.filter((pose) => pose.id !== poseId);
+      setCustomTrack([...customTrack, pose]);
+      setPosesArray(posesArray.filter((pose) => pose.id !== checkBox.value));
     } else {
-      customTrack = customTrack.filter((pose) => pose.id !== poseId);
+      setCustomTrack(customTrack.filter((pose) => pose.id !== checkBox.value));
+      setPosesArray([...posesArray, pose]);
     }
   };
 
@@ -58,7 +54,7 @@ const CreateCustomRoutine: React.FC = () => {
         sequence and return to the Dashboard.
       </p>
       <PoseCardGrid
-        posesArray={routineArray}
+        posesArray={posesArray}
         customTrack={customTrack}
         handleClick={handleClick}
       />
