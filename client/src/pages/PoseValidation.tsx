@@ -59,7 +59,7 @@ const PoseValidation: React.FC = (): ReactElement => {
     }
 
     if (Number(index) === 0 && !timerOn) {
-      speak('Loading models');
+      speak(`Next up: ${routines[Number(index)].name}`);
       setTimeout(startLogic, 5000);
       setGetReadyHidden(false);
     } else if (Number(index) !== 0) {
@@ -95,6 +95,7 @@ const PoseValidation: React.FC = (): ReactElement => {
             clearInterval(interval);
             handleNext();
             setGetReadyHidden(false);
+            speak(`Next up: ${routines[Number(index) + 1].name}`);
             setTimeout(handleChangePose, 10000);
           } else {
             newTime = prevTime - 1;
