@@ -18,7 +18,6 @@ const buttonAdditionalStyles = {
 
 const Tracks: React.FC<Props> = ({ title }: Props) => {
   const history = useHistory();
-
   const completedPoses = useAppSelector((state) => state.users.posesCompletion);
 
   let percentageSum = 0;
@@ -34,9 +33,7 @@ const Tracks: React.FC<Props> = ({ title }: Props) => {
     }
   }
 
-  const trackPercentage = Math.floor(
-    (percentageSum / (numOfPoses * 100)) * 100
-  );
+  const trackPercentage = Math.ceil((percentageSum / (numOfPoses * 100)) * 100);
 
   const handleClick = (): void => {
     history.push(`trackPage/${title.toLowerCase()}`);
