@@ -2,6 +2,7 @@ import { setColor, drawKeypoints, drawSkeleton } from './drawingUtilities';
 import { PoseNetOutputDTO } from '../interfaces/PoseNetOutputDTO';
 import type { MutableRefObject } from 'react';
 import * as tf from '@tensorflow/tfjs';
+
 import normalizer from './normalizer';
 import poseEvaluator from './poseEvaluator';
 import speak from './speech';
@@ -54,9 +55,6 @@ export async function detect(
     const videoWidth = webcamRef.current.video.videoWidth;
     const videoHeight = webcamRef.current.video.videoHeight;
 
-    webcamRef.current.video.width = videoWidth;
-    webcamRef.current.video.height = videoHeight;
-
     let pose: PoseNetOutputDTO;
     let evaluatedPose: { pose: string; confidence: number } = {
       pose: 'none',
@@ -68,8 +66,8 @@ export async function detect(
       if (pose.score >= 0.5) {
         const resultArr: number[] = normalizer(
           pose.keypoints,
-          window.innerWidth / 2,
-          window.innerHeight
+          videoWidth,
+          videoHeight
         );
         if (classifierModel !== undefined) {
           const predictionResult = classifierModel.predict(
@@ -79,6 +77,7 @@ export async function detect(
           evaluatedPose = poseEvaluator(poseName, predictionResultArray[0]);
         }
       }
+
       drawCanvas(
         pose,
         video,
