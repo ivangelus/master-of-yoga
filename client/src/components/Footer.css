@@ -22,10 +22,11 @@
   margin-left: 8rem;
   margin-top: 2rem;
 }
-
 .footer-logo {
-  font-size: 3rem;
-  font-weight: bold;
+  height: 120px;
+  width: 130px;
+  background-image: url('../assets/logo.png');
+  background-size: cover;
 }
 
 .footer-title {

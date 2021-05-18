@@ -22,7 +22,7 @@ const NavBar: React.FC = () => {
 
   return (
     <nav className="navbar-container">
-      <div className="navbar-logo">LOGO</div>
+      <div className="navbar-logo"></div>
       <div className="navbar-link-container">
         <a onClick={scroll}>LEARN MORE</a>
         <Link className="btn-navbar" to="/about">
