@@ -1,5 +1,5 @@
 import './UpdateUser.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { storage } from '../services/firebase';
 
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
@@ -20,6 +20,10 @@ const UpdateUser = () => {
     password: '',
     image: '',
   });
+
+  useEffect(() => {
+    sessionStorage.setItem('yogaMasterUser', JSON.stringify(user));
+  }, [user]);
 
   const valueChange = (
     target: keyof Update,
