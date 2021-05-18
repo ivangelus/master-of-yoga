@@ -19,15 +19,15 @@ def getStreak(lastSignIn, lastStreak):
 class VerifyView(APIView):
   def post(self, request):
     parsedRequestBody = json.loads(request.body)
-    lastSignIn = parsedRequestBody['lastSignIn']
     userToken = parsedRequestBody['token']
     authResult = firebase.authToken(userToken)
     if authResult['valid']:
       uid = authResult['result']['user_id']
       userData = firebase.getUser(uid)
       if userData:
-        streak = getStreak(lastSignIn, userData['consecutiveDays'])
+        streak = getStreak(userData['lastEntry'], userData['consecutiveDays'])
         userData['consecutiveDays'] = streak
+        userData['lastEntry'] = str(date.today())
         firebase.updateUser(uid, userData)
         authResult['result'] = userData
       else:
