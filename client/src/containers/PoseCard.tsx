@@ -17,7 +17,7 @@ const PoseCard: React.FC<Props> = ({
   handleOnDrop,
   handleClick,
 }: Props) => {
-  const handleCardClick = (event: React.MouseEvent) => {
+  const handleCardClick = () => {
     const checkBox = document.getElementById(pose.id) as HTMLInputElement;
     checkBox.checked = !checkBox.checked;
     handleClick(checkBox, pose);
@@ -26,7 +26,7 @@ const PoseCard: React.FC<Props> = ({
   return (
     <div
       className="pose-card"
-      onClick={(event) => handleCardClick(event)}
+      onClick={() => handleCardClick()}
       draggable={checked}
       onDrag={() => handleOnDrag(pose)}
       onDrop={() => handleOnDrop(pose)}
