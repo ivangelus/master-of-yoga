@@ -17,5 +17,6 @@ export const routinesSlice = createSlice({
 });
 
 export const { updateRoutines } = routinesSlice.actions;
-export const selectRoutines = (state: RootState) => state.routines;
+export const selectRoutines = (state: RootState): BaseRoutinesDTO =>
+  state.routines;
 export default routinesSlice.reducer;

@@ -16,5 +16,6 @@ export const classifierSlice = createSlice({
 });
 
 export const { loadModel } = classifierSlice.actions;
-export const selectClassifier = (state: RootState) => state.classifier;
+export const selectClassifier = (state: RootState): Classifier =>
+  state.classifier;
 export default classifierSlice.reducer;

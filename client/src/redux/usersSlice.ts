@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 
-import {
-  UserDTO,
-  initialStateUserDTO,
-  PoseCompletionDTO,
-} from '../interfaces/UserDTO';
+import { UserDTO, initialStateUserDTO } from '../interfaces/UserDTO';
 
 export const usersSlice = createSlice({
   name: 'users',
@@ -39,5 +35,5 @@ export const {
   logoutUser,
   updatePoseCompletion,
 } = usersSlice.actions;
-export const selectUsers = (state: RootState) => state.users;
+export const selectUsers = (state: RootState): UserDTO => state.users;
 export default usersSlice.reducer;

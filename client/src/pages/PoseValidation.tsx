@@ -1,13 +1,14 @@
+import './PoseValidation.css';
+import React, { ReactElement, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { changeCurrentPose } from '../redux/currentPoseSlice';
 import { updatePoseCompletion } from '../redux/usersSlice';
-import { useParams, useHistory } from 'react-router-dom';
-import React, { ReactElement, useState } from 'react';
 import { RootState } from '../redux/store';
 
 import GetReadyMarker from '../components/GetReadyMarker';
 import Camera from '../components/Camera';
-import './PoseValidation.css';
 import speak from '../utilities/speech';
 
 const PoseValidation: React.FC = (): ReactElement => {
@@ -83,6 +84,7 @@ const PoseValidation: React.FC = (): ReactElement => {
   };
 
   React.useEffect(() => {
+    // let interval: NodeJS.Timeout;
     let interval: any;
 
     if (timerOn) {
