@@ -1,6 +1,6 @@
 .pose-val-wrapper {
   display: flex;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background: rgb(229,229,229);
   overflow: hidden;
@@ -22,7 +22,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: .25rem;
+  margin-left: .25rem;
   margin-top: 2rem;
 }
 
