@@ -9,6 +9,7 @@
   border-radius: .5rem;
   box-shadow: 0 0 5px #00ccbb;
   cursor: pointer;
+  margin-left: 1rem;
 }
 
 .pose-card:hover {
