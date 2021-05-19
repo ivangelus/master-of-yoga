@@ -30,6 +30,10 @@
   row-gap: 1rem;
 }
 
+.footer-container-posegrid {
+  width: 100vw;
+}
+
 h2 {
   font-family: 'Roboto Slab', serif;
 }
