@@ -19,7 +19,7 @@ export const usersSlice = createSlice({
     ) => {
       return {
         ...state,
-        posesCompletion: state.posesCompletion.map((pose, i) =>
+        posesCompletion: state.posesCompletion.map((pose) =>
           pose.id === action.payload.id &&
           pose.percentage < action.payload.percentage
             ? { ...pose, percentage: action.payload.percentage }
