@@ -76,7 +76,7 @@ export async function detect(
         const metrics = getMetrics(resultArr);
         if (classifierModel !== undefined) {
           const predictionResult = classifierModel.predict(
-            tf.tensor(metrics, [1, 71])
+            tf.tensor(metrics, [1, 32])
           ) as tf.Tensor;
 
           const predictionResultArray: any = await predictionResult.array();

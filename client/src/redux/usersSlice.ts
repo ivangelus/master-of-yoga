@@ -30,7 +30,10 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { updateUser, logoutUser, updatePoseCompletion } =
-  usersSlice.actions;
+export const {
+  updateUser,
+  logoutUser,
+  updatePoseCompletion,
+} = usersSlice.actions;
 export const selectUsers = (state: RootState): UserDTO => state.users;
 export default usersSlice.reducer;

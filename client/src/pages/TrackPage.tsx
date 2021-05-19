@@ -9,10 +9,9 @@ import Footer from '../components/Footer';
 import TrackPose from '../containers/TrackPose';
 
 const TrackPage: React.FC = () => {
-  const { level } =
-    useParams<{
-      level: 'beginner' | 'intermediate' | 'advanced' | 'custom';
-    }>();
+  const { level } = useParams<{
+    level: 'beginner' | 'intermediate' | 'advanced' | 'custom';
+  }>();
   const routines = useAppSelector((state: RootState) => state.routines);
   const title = level[0].toUpperCase() + level.slice(1);
   const history = useHistory();
