@@ -38,18 +38,19 @@ const Camera: React.FC<Props> = ({
       if (poseNetModel === undefined) poseNetModel = await initPoseNet();
       classifierModel = await initClassifier(poseName);
       if (interval) await clearIntervalAsync(interval);
-      interval = setIntervalAsync(
-        async () =>
+
+      interval = setIntervalAsync(async () => {
+        if (webcamRef.current && canvasRef.current) {
           await detect(
             poseNetModel,
             classifierModel,
-            webcamRef,
-            canvasRef,
+            webcamRef.current,
+            canvasRef.current,
             poseName,
             setPoseOK
-          ),
-        300
-      );
+          );
+        }
+      }, 300);
     }
 
     init();

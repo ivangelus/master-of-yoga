@@ -1,7 +1,8 @@
 import { setColor, drawKeypoints, drawSkeleton } from './drawingUtilities';
 import { PoseNetOutputDTO } from '../interfaces/PoseNetOutputDTO';
-import type { MutableRefObject } from 'react';
+import { PoseNet } from '@tensorflow-models/posenet';
 import * as tf from '@tensorflow/tfjs';
+import Webcam from 'react-webcam';
 
 import normalizer from './normalizer';
 import poseEvaluator from './poseEvaluator';
@@ -14,15 +15,16 @@ export function drawCanvas(
   video: { height: number; width: number },
   videoWidth: number,
   videoHeight: number,
-  canvas: MutableRefObject<any>,
+  canvas: HTMLCanvasElement,
   evaluatedPose: { pose: string; confidence: number },
   poseName: string,
-  setPoseOK: any
+  setPoseOK: React.Dispatch<React.SetStateAction<boolean>>
 ): void {
-  if (canvas.current) {
-    const ctx = canvas.current.getContext('2d');
-    canvas.current.width = videoWidth;
-    canvas.current.height = videoHeight;
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    canvas.width = videoWidth;
+    canvas.height = videoHeight;
+
     if (poseName === evaluatedPose.pose) {
       speakFreq++;
       if (speakFreq === 1 || speakFreq % 100 === 0)
@@ -33,32 +35,25 @@ export function drawCanvas(
       setColor('red');
       setPoseOK(false);
     }
-    drawKeypoints(pose['keypoints'], 0.7, ctx);
-    drawSkeleton(pose['keypoints'], 0.7, ctx);
+    if (ctx) drawKeypoints(pose['keypoints'], 0.7, ctx);
+    if (ctx) drawSkeleton(pose['keypoints'], 0.7, ctx);
   }
 }
 
 export async function detect(
-  net: any,
+  net: PoseNet,
   classifierModel: tf.LayersModel | undefined,
-  webcamRef: any,
-  canvasRef: any,
+  webcamRef: Webcam,
+  canvasRef: HTMLCanvasElement,
   poseName: string,
-  setPoseOK: any
+  setPoseOK: React.Dispatch<React.SetStateAction<boolean>>
 ): Promise<void> {
-  if (
-    typeof webcamRef.current !== 'undefined' &&
-    webcamRef.current !== null &&
-    webcamRef.current.video.readyState === 4
-  ) {
-    const video = webcamRef.current.video;
-    const videoWidth = webcamRef.current.video.videoWidth;
-    const videoHeight = webcamRef.current.video.videoHeight;
-    webcamRef.current.video.width = videoWidth;
-    webcamRef.current.video.height = videoHeight;
-
-    webcamRef.current.video.width = videoWidth;
-    webcamRef.current.video.height = videoHeight;
+  if (webcamRef && webcamRef.video && webcamRef.video.readyState === 4) {
+    const video = webcamRef.video;
+    const videoWidth = webcamRef.video.videoWidth;
+    const videoHeight = webcamRef.video.videoHeight;
+    webcamRef.video.width = videoWidth;
+    webcamRef.video.height = videoHeight;
 
     let pose: PoseNetOutputDTO;
     let evaluatedPose: { pose: string; confidence: number } = {
@@ -68,16 +63,19 @@ export async function detect(
 
     if (video !== undefined) {
       pose = await net.estimateSinglePose(video);
+
       if (pose.score >= 0.5) {
         const resultArr: number[] = normalizer(
           pose.keypoints,
           videoWidth,
           videoHeight
         );
+
         if (classifierModel !== undefined) {
           const predictionResult = classifierModel.predict(
             tf.tensor(resultArr, [1, 39])
           ) as tf.Tensor;
+
           const predictionResultArray: any = await predictionResult.array();
           evaluatedPose = poseEvaluator(poseName, predictionResultArray[0]);
         }
