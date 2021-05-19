@@ -10,6 +10,21 @@
 .additional-info-container {
   display: flex;
   flex-direction: row;
+  padding-bottom: 15px;
+}
+
+.additional-info {
+ margin-right: 2rem;
+ font-size: 1.2rem;
+ height: 2rem;
+ font-weight: 600;
+ cursor: pointer
+}
+
+.additional-info:hover {
+  border-bottom: 2px solid white;
+  padding-bottom: 2px;
+  height: auto;
 }
 
 .social-network-container {
@@ -37,23 +52,11 @@
 .footer-right-container {
   text-align: center;
   margin-right: 8rem;
-  /* margin-top: 2rem; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
 }
 
-.additional-info {
- margin-right: 2rem;
- font-size: 1.2rem;
- font-weight: 600;
- cursor: pointer
-}
-
-.additional-info:hover {
-  border-bottom: 2px solid white;
-  padding-bottom: 2px;
-}
 
 .social-network {
   font-size: 2.5rem;

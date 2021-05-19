@@ -19,10 +19,11 @@ const btnAdditionalStyles = {
 };
 
 const PoseValidation: React.FC = (): ReactElement => {
-  const { level, index } = useParams<{
-    level: 'beginner' | 'intermediate' | 'advanced';
-    index: string;
-  }>();
+  const { level, index } =
+    useParams<{
+      level: 'beginner' | 'intermediate' | 'advanced';
+      index: string;
+    }>();
 
   const timeLimit = 60;
   const height = window.innerHeight;
