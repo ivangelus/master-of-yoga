@@ -1,5 +1,4 @@
 .track-page-container {
-  /* padding-top: 1%; */
   background-color: #f5f5f5;
 }
 
@@ -54,28 +53,6 @@
 .btn-start-routine:hover {
   box-shadow: 0 0 10px black;
   background-color: #42cc82;
-}
-
-
-.info__links__container {
-  display: flex;
-  justify-content: flex-start;
-  margin-left: 62rem;
-  margin-bottom: 2rem;
-}
-
-.info__links {
-  margin-left: 2rem;
-  color: #fff;
-  font-weight: 800;
-}
-
-.logos__container {
-  display: flex;
-  justify-content: flex-end;
-  margin-left: 40rem;
-  margin-right: 20rem;
-  align-items: flex-end;
 }
 
 .Footer {
