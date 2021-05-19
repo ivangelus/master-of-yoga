@@ -13,8 +13,6 @@ import './Camera.css';
 interface Props {
   setPoseOK: React.Dispatch<React.SetStateAction<boolean>>;
   poseName: string;
-  source: string;
-  alt: string;
   width: number;
   height: number;
 }
@@ -22,8 +20,6 @@ interface Props {
 const Camera: React.FC<Props> = ({
   poseName,
   setPoseOK,
-  source,
-  alt,
   width,
   height,
 }: Props): React.ReactElement => {
@@ -63,23 +59,20 @@ const Camera: React.FC<Props> = ({
   }, [poseName]);
 
   const videoConstraints = {
-    width: width * 0.95,
-    height: height * 0.7,
+    width: width,
+    height: height,
     facingMode: 'user',
   };
 
   return (
-    <div>
-      <div className="webcam__container">
-        <Webcam
-          audio={false}
-          className="webcam__screen"
-          videoConstraints={videoConstraints}
-          ref={webcamRef}
-        />
-        <canvas ref={canvasRef} className="webcam__screen" />
-        <img src={source} alt={alt} className="img" />
-      </div>
+    <div className="webcam__container">
+      <Webcam
+        audio={false}
+        className="webcam__screen"
+        videoConstraints={videoConstraints}
+        ref={webcamRef}
+      />
+      <canvas ref={canvasRef} className="webcam__screen" />
     </div>
   );
 };
