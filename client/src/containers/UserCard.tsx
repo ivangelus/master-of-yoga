@@ -60,7 +60,9 @@ const UserCard: React.FC = () => {
             <p>{dateTransform()}</p>
             <p>
               {daysLoggedIn && daysLoggedIn > 0
-                ? ` ${daysLoggedIn} days!`
+                ? daysLoggedIn === 1
+                  ? ` ${daysLoggedIn} day!`
+                  : ` ${daysLoggedIn} days!`
                 : ' No consecutive entries'}
             </p>
             <div className="badges__container">

@@ -15,6 +15,7 @@
   height: 14rem;
   width: 14rem;
   border-radius: 8rem;
+  border: 2.5px solid rgb(216, 216, 216);
 }
 
 .usercard__main__container {
