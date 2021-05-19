@@ -26,7 +26,7 @@ const PoseCardGrid: React.FC<Props> = ({
 
   return (
     <div className="card-grid">
-      {customTrack.length ? <h2>Your Custom Track!</h2> : ''}
+      {customTrack.length ? <h2>Your Custom Track</h2> : ''}
       <div className="custom-card-grid">
         {customTrack.map((pose: PoseDTO) => (
           <PoseCard
