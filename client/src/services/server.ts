@@ -6,7 +6,10 @@ import { AuthResponseDTO } from '../interfaces/AuthResponseDTO';
 
 let baseUrl: string;
 const { REACT_APP_SERVER_ADDRESS } = process.env;
-if (REACT_APP_SERVER_ADDRESS) baseUrl = REACT_APP_SERVER_ADDRESS;
+if (REACT_APP_SERVER_ADDRESS) {
+  baseUrl = REACT_APP_SERVER_ADDRESS;
+  console.log(baseUrl);
+}
 
 async function getRoutines(): Promise<BaseRoutinesDTO> {
   try {
