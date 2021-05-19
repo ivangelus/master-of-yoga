@@ -1,16 +1,18 @@
 import { initClassifier, initPoseNet } from '../utilities/initModels';
+import { SetIntervalAsyncTimer } from 'set-interval-async/dynamic';
 import { setIntervalAsync } from 'set-interval-async/dynamic';
 import { clearIntervalAsync } from 'set-interval-async';
+import { PoseNet } from '@tensorflow-models/posenet';
 import React, { useRef, useEffect } from 'react';
 import { detect } from '../utilities/cameraHelpers';
-import type { MutableRefObject } from 'react';
+
 import * as tf from '@tensorflow/tfjs';
 import Webcam from 'react-webcam';
 import './Camera.css';
 
 interface Props {
+  setPoseOK: React.Dispatch<React.SetStateAction<boolean>>;
   poseName: string;
-  setPoseOK: any;
   source: string;
   alt: string;
   width: number;
@@ -25,29 +27,30 @@ const Camera: React.FC<Props> = ({
   width,
   height,
 }: Props): React.ReactElement => {
-  const webcamRef: MutableRefObject<any> = useRef(null);
-  const canvasRef: MutableRefObject<any> = useRef(null);
-  let poseNetModel: any;
-  let classifierModel: tf.LayersModel | undefined;
-  let interval: any;
+  const webcamRef = useRef<Webcam>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  let poseNetModel: PoseNet;
+  let classifierModel: tf.LayersModel;
+  let interval: SetIntervalAsyncTimer;
 
   useEffect(() => {
     async function init() {
       if (poseNetModel === undefined) poseNetModel = await initPoseNet();
       classifierModel = await initClassifier(poseName);
       if (interval) await clearIntervalAsync(interval);
-      interval = setIntervalAsync(
-        async () =>
+
+      interval = setIntervalAsync(async () => {
+        if (webcamRef.current && canvasRef.current) {
           await detect(
             poseNetModel,
             classifierModel,
-            webcamRef,
-            canvasRef,
+            webcamRef.current,
+            canvasRef.current,
             poseName,
             setPoseOK
-          ),
-        300
-      );
+          );
+        }
+      }, 300);
     }
 
     init();

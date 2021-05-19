@@ -27,7 +27,6 @@ const PoseValidation: React.FC = (): ReactElement => {
   const [getReadyHidden, setGetReadyHidden] = useState(true);
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [height, setHeight] = useState<number>(window.innerHeight);
-  const [progressCounterOn, setProgressCounterOn] = useState(false);
 
   const handleBack = (): void => {
     if (index !== '0') {
@@ -40,7 +39,6 @@ const PoseValidation: React.FC = (): ReactElement => {
 
   const handleNext = (): void => {
     if (Number(index) < routines.length - 1) {
-      setProgressCounterOn(false);
       setTimerOn(false);
       setTime(timeLimit);
       setProgress(0);
@@ -52,7 +50,6 @@ const PoseValidation: React.FC = (): ReactElement => {
   const handleStart = (): void => {
     function startLogic() {
       setTimerOn((previous) => !previous);
-      setProgressCounterOn((previous) => !previous);
       setGetReadyHidden(true);
     }
 
@@ -73,11 +70,11 @@ const PoseValidation: React.FC = (): ReactElement => {
   };
 
   React.useEffect(() => {
-    let interval: any;
+    let interval: number | undefined;
 
     if (timerOn) {
       clearInterval(interval);
-      interval = setInterval(() => {
+      interval = window.setInterval(() => {
         setTime((prevTime: number): number => {
           let newTime: number;
           if (prevTime <= 0) {
@@ -100,12 +97,12 @@ const PoseValidation: React.FC = (): ReactElement => {
   }, [timerOn]);
 
   React.useEffect(() => {
-    let progressInterval: any;
+    let progressInterval: number | undefined;
     const scoreIncrement = 100 / (timeLimit - 10);
 
     if (poseOk && progress < 100 && timerOn) {
-      if (progressInterval) clearInterval(progressInterval);
-      progressInterval = setInterval(() => {
+      clearInterval(progressInterval);
+      progressInterval = window.setInterval(() => {
         setProgress((prevProgress: number): number => {
           let newProgress: number;
           if (prevProgress >= 100) newProgress = 100;
@@ -113,10 +110,7 @@ const PoseValidation: React.FC = (): ReactElement => {
           return newProgress;
         });
 
-        if (progress >= 100) {
-          setProgressCounterOn(false);
-          setProgress(100);
-        }
+        if (progress >= 100) setProgress(100);
       }, 1000);
     } else if (!poseOk || progress >= 100) {
       clearInterval(progressInterval);

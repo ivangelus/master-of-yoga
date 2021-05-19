@@ -1,9 +1,7 @@
 import './TrackPose.css';
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { PoseDTO } from '../interfaces/PoseDTO';
-import Instructions from '../components/Instructions';
-import Arrow from '../assets/BlackArrow.svg';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { useAppSelector } from '../redux/hooks';
 

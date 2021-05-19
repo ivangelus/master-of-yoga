@@ -31,5 +31,6 @@ export default function normalizeKeypoints(
       keyPointsList.push(keyPoints[i].score);
     }
   }
+
   return keyPointsList;
 }

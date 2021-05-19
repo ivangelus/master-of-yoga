@@ -10,7 +10,7 @@ import { updateUserInfo } from '../services/server';
 
 type Update = Pick<UserDTO, 'firstName' | 'lastName' | 'password' | 'image'>;
 
-const UpdateUser = () => {
+const UpdateUser: React.FC = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.users);
   const [image, setImage] = useState<File>();

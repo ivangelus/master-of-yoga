@@ -2,7 +2,7 @@ import React from 'react';
 import './Instructions.css';
 import arrow from '../assets/Arrow.svg';
 
-const Instructions = () => {
+const Instructions: React.FC = () => {
   return (
     <div className="main__instructions__container">
       <div className="instructions__container--hard">

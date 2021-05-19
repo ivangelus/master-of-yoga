@@ -10,5 +10,6 @@ export default function poseEvaluator(
   if (result.confidence > 0.5) {
     result.pose = poseName;
   }
+
   return result;
 }

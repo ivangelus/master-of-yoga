@@ -1,7 +1,7 @@
 import * as poseNet from '@tensorflow-models/posenet';
 import * as tf from '@tensorflow/tfjs';
 
-export async function initPoseNet(): Promise<any> {
+export async function initPoseNet(): Promise<poseNet.PoseNet> {
   const poseNetModel = await poseNet.load({
     architecture: 'ResNet50',
     outputStride: 32,
