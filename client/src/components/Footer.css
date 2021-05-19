@@ -59,9 +59,16 @@
 
 
 .social-network {
-  font-size: 2.5rem;
-  font-weight: bold;
+  width: 30px;
+  height: 30px;
   margin-right: 2rem;
+}
+
+.social-network-fb {
+  height: 30px;
+  width: 30px;
+  background-image: url('../assets/facebook-24.png');
+  background-size: cover;
 }
 
 .github {
@@ -94,6 +101,8 @@
   }
 
   .social-network {
-    font-size: 1rem;
+    height: 30px;
+    width: 30px;
+    margin-right: 1rem;
   }
 }
