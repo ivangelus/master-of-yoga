@@ -145,8 +145,6 @@ const PoseValidation: React.FC = (): ReactElement => {
           <Camera
             poseName={routines[Number(index)].id}
             setPoseOK={setPoseOk}
-            source={routines[Number(index)].imageAddress}
-            alt={routines[Number(index)].name}
             width={width}
             height={height}
           />
