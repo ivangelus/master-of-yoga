@@ -173,7 +173,6 @@ const PoseValidation: React.FC = (): ReactElement => {
           />
         </div>
         <div className="pose-val-loader-wrapper">
-          <p>Pose Mastery</p>
           <div
             className="pose-val-loader"
             style={{ width: progress + '%', transition: 'width 2s' }}
