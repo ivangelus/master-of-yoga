@@ -4,6 +4,7 @@ import facebookIcon from '../assets/facebook-24.png';
 import instagramIcon from '../assets/instagram-24.png';
 import twitterIcon from '../assets/twitter-24.png';
 import linkedInIcon from '../assets/linkedin-3-24.png';
+import githubIcon from '../assets/github-8-24.png';
 
 const Footer: React.FC = (): ReactElement => {
   return (
@@ -22,6 +23,13 @@ const Footer: React.FC = (): ReactElement => {
           <img src={instagramIcon} className="social-network" />
           <img src={twitterIcon} className="social-network" />
           <img src={linkedInIcon} className="social-network" />
+          <a
+            href="https://github.com/IvanGelo1/thesis-project"
+            target="_blank"
+            rel="noreferrer noopener"
+          >
+            <img src={githubIcon} className="social-network github" />
+          </a>
         </div>
       </div>
     </div>
