@@ -1,11 +1,7 @@
 .landing-page-container {
   overflow: hidden;
-  /* -ms-overflow-style: none; */
-  /* scrollbar-width: none; */
 }
-/* .landing-page-container::-webkit-scrollbar {
-  display: none;
-} */
+
 
 .landing-page-main {
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../assets/landing_page_image.jpg');
@@ -51,20 +47,4 @@
   margin-top: 0;
   padding-right: 8rem;
   text-shadow: 0 0 10px black;
-}
-
-.landing-page-image-container {
-  display: flex;
-  width: 45%;
-  height: 100%;
-  padding: 1rem;
-  padding-right: 5rem;
-}
-
-.landing-page-image-container img {
-  width: 100%;
-}
-
-.landing-page-learn-more {
-  height: 100vh;
 }
