@@ -8,6 +8,8 @@ import normalizer from './normalizer';
 import poseEvaluator from './poseEvaluator';
 import speak from './speech';
 
+import { getMetrics } from './generateMetrics';
+
 let speakFreq = 0;
 
 export function drawCanvas(
@@ -71,9 +73,10 @@ export async function detect(
           videoHeight
         );
 
+        const metrics = getMetrics(resultArr);
         if (classifierModel !== undefined) {
           const predictionResult = classifierModel.predict(
-            tf.tensor(resultArr, [1, 39])
+            tf.tensor(metrics, [1, 71])
           ) as tf.Tensor;
 
           const predictionResultArray: any = await predictionResult.array();
