@@ -7,15 +7,25 @@ import { RootState } from '../redux/store';
 
 import GetReadyMarker from '../components/GetReadyMarker';
 import Camera from '../components/Camera';
-import './PoseValidationPractice.css';
+import Button from '../components/Button';
+import './PoseValidation.css';
 
-const PoseValidation: React.FC = (): ReactElement => {
+const btnAdditionalStyles = {
+  width: '40%',
+  fontSize: '1.5rem',
+  margin: '.25rem',
+};
+
+const PoseValidationPractice: React.FC = (): ReactElement => {
   const { level, index } = useParams<{
     level: 'beginner' | 'intermediate' | 'advanced';
     index: string;
   }>();
 
   const timeLimit = 60;
+  const height = window.innerHeight;
+  const width = window.innerWidth * 0.7;
+
   const history = useHistory();
   const dispatch = useAppDispatch();
   const routines = useAppSelector((state: RootState) => state.routines[level]);
@@ -25,8 +35,6 @@ const PoseValidation: React.FC = (): ReactElement => {
   const [poseOk, setPoseOk] = useState(false);
   const [timerOn, setTimerOn] = useState(false);
   const [getReadyHidden, setGetReadyHidden] = useState(true);
-  const [width, setWidth] = useState<number>(window.innerWidth);
-  const [height, setHeight] = useState<number>(window.innerHeight);
 
   const handleBack = (): void => {
     if (index !== '0') {
@@ -119,11 +127,6 @@ const PoseValidation: React.FC = (): ReactElement => {
     return () => clearInterval(progressInterval);
   }, [poseOk]);
 
-  React.useEffect(() => {
-    setWidth(window.innerWidth);
-    setHeight(window.innerHeight);
-  }, [width, height]);
-
   function startPauseText() {
     if (timerOn) return 'Stop';
     return 'Start';
@@ -139,55 +142,60 @@ const PoseValidation: React.FC = (): ReactElement => {
   }
 
   return (
-    <div className="wrapper">
-      <div className="container">
-        <div className="container_top">
-          <Camera
-            poseName={routines[Number(index)].id}
-            setPoseOK={setPoseOk}
-            width={width}
-            height={height}
+    <div className="pose-val-wrapper">
+      <div className="pose-val-container-left">
+        <Camera
+          poseName={routines[Number(index)].id}
+          setPoseOK={setPoseOk}
+          width={width}
+          height={height}
+        />
+      </div>
+      <div className="pose-val-container-right">
+        <div className="pose-val-image-container">
+          <img
+            src={routines[Number(index)].imageAddress}
+            alt={routines[Number(index)].name}
           />
         </div>
-        <div className="container_bottom">
-          <div className="container_bottom_left">
-            <div className="webcam__timer">Time left: {time}s</div>
-          </div>
-          <div className="container_bottom_middle">
-            <div className="container_bottom_middle_btns_top">
-              <button onClick={handleStart} className="btn_left">
-                {startPauseText()}
-              </button>
-              <button onClick={handleReset} className="btn_right">
-                Reset
-              </button>
-            </div>
-            <div className="container_bottom_middle_btns_bottom">
-              <button onClick={handleBack} className="btn_left">
-                Back
-              </button>
-              <button onClick={handleNext} className="btn_right">
-                Next
-              </button>
-            </div>
-          </div>
-          <div className="container_bottom_right">
-            <div className="container_bottom_right_top">
-              <div className="loader_wrapper">
-                <div
-                  className="loader"
-                  style={{ width: progress + '%', transition: 'width 2s' }}
-                ></div>
-              </div>
-            </div>
-            <div className="container_bottom_right_bottom">
-              <GetReadyMarker isHidden={getReadyHidden} />
-            </div>
-          </div>
+        <div className="pose-val-loader-wrapper">
+          <p>Pose Mastery</p>
+          <div
+            className="pose-val-loader"
+            style={{ width: progress + '%', transition: 'width 2s' }}
+          ></div>
+        </div>
+        <div className="pose-val-webcam-timer">Time left: {time}s</div>
+        <div className="container-bottom-right-bottom">
+          <GetReadyMarker isHidden={getReadyHidden} />
+        </div>
+        <div className="pose-val-btns-top">
+          <Button
+            label={startPauseText()}
+            onClick={handleStart}
+            styles={btnAdditionalStyles}
+          />
+          <Button
+            label="Reset"
+            onClick={handleReset}
+            styles={btnAdditionalStyles}
+          />
+        </div>
+        <div className="pose-val-btns-bottom">
+          <Button
+            label="Back"
+            onClick={handleBack}
+            styles={btnAdditionalStyles}
+          />
+          <Button
+            label="Next"
+            onClick={handleNext}
+            styles={btnAdditionalStyles}
+          />
         </div>
       </div>
     </div>
   );
 };
 
-export default PoseValidation;
+export default PoseValidationPractice;
