@@ -15,6 +15,7 @@ import UpdateUser from '../components/UpdateUser';
 import UserCard from '../containers/UserCard';
 import Tracks from '../containers/Tracks';
 import Modal from '../containers/Modal';
+import Footer from '../components/Footer';
 
 const Dashboard: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -50,6 +51,7 @@ const Dashboard: React.FC = () => {
       <Modal>
         <UpdateUser />
       </Modal>
+      <Footer />
     </div>
   );
 };

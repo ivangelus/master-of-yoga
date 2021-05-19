@@ -51,6 +51,9 @@ const PoseCardGrid: React.FC<Props> = ({
           />
         ))}
       </div>
+      <div className="footer-container-posegrid">
+        <Footer />
+      </div>
     </div>
   );
 };
