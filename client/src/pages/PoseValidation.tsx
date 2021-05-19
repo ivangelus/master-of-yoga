@@ -84,17 +84,16 @@ const PoseValidation: React.FC = (): ReactElement => {
   };
 
   React.useEffect(() => {
-    // let interval: NodeJS.Timeout;
-    let interval: any;
+    let interval: number | undefined;
 
     if (timerOn) {
       clearInterval(interval);
-      interval = setInterval(() => {
+      interval = window.setInterval(() => {
         setTime((prevTime: number): number => {
           let newTime: number;
           if (prevTime <= 0) {
             newTime = 0;
-            clearInterval(interval);
+            if (interval) clearInterval(interval);
             handleNext();
             setGetReadyHidden(false);
             speak(`Next up: ${routines[Number(index) + 1].name}`);
@@ -116,12 +115,12 @@ const PoseValidation: React.FC = (): ReactElement => {
   }, [timerOn]);
 
   React.useEffect(() => {
-    let progressInterval: any;
+    let progressInterval: number | undefined;
     const scoreIncrement = 100 / (timeLimit - 10);
 
     if (poseOk && progress < 100 && timerOn) {
-      if (progressInterval) clearInterval(progressInterval);
-      progressInterval = setInterval(() => {
+      clearInterval(progressInterval);
+      progressInterval = window.setInterval(() => {
         setProgress((prevProgress: number): number => {
           let newProgress: number;
           if (prevProgress >= 100) newProgress = 100;
