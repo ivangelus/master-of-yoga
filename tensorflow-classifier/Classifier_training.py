@@ -19,8 +19,83 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 warnings.filterwarnings('ignore')
 
 # Load Model
-model = hub.load('./MobileNetV2')
+model = hub.load('./movenet_thunder')
 movenet = model.signatures['serving_default']
+# Movenet normalized keypoints order (cols = y, x, confidence):
+### nose, left eye, right eye, left ear, right ear, left shoulder
+### right shoulder, left elbow, right elbow, left wrist, right wrist,
+### left hip, right hip, left knee, right knee, left ankle, right ankle
+
+def angle_between_points(a, b, c):
+    ba = a[:2] - b[:2]
+    bc = c[:2] - b[:2]
+    return [
+        np.degrees(np.arccos(
+            np.dot(ba, bc) / (np.linalg.norm(ba) * np.linalg.norm(bc))
+        )),
+        np.mean([a[-1], b[-1], c[-1]])
+    ]
+
+def euclidean_distance(a, b):
+    return [
+        np.linalg.norm(a[:2] - b[:2]),
+        np.mean([a[-1], b[-1]])
+    ]
+
+def get_metrics(keypoints):
+    # Separate metrics per body part
+    head = np.mean(keypoints[:5,:], axis = 0)
+    leftShoulder = keypoints[5,]
+    rightShoulder = keypoints[6,]
+    leftElbow = keypoints[7,]
+    rightElbow = keypoints[8,]
+    leftWrist = keypoints[9,]
+    rightWrist = keypoints[10,]
+    leftHip = keypoints[11,]
+    rightHip = keypoints[12,]
+    leftKnee = keypoints[13,]
+    rightKnee = keypoints[14,]
+    leftAnkle = keypoints[15,]
+    rightAnkle = keypoints[16,]
+
+    # Angles between parts
+    angle_left_sew = angle_between_points(leftShoulder, leftElbow, leftWrist)
+    angle_left_hka = angle_between_points(leftHip, leftKnee, leftAnkle)
+    angle_left_hsw = angle_between_points(leftHip, leftShoulder, leftWrist)
+    angle_left_shk = angle_between_points(leftShoulder, leftHip, leftKnee)
+
+    angle_right_sew = angle_between_points(rightShoulder, rightElbow, rightWrist)
+    angle_right_hka = angle_between_points(rightHip, rightKnee, rightAnkle)
+    angle_right_hsw = angle_between_points(rightHip, rightShoulder, rightWrist)
+    angle_right_shk = angle_between_points(rightShoulder, rightHip, rightKnee)
+
+    # Distance between parts
+    distance_ankles = euclidean_distance(rightAnkle, leftAnkle)
+    distance_wrists = euclidean_distance(rightWrist, leftWrist)
+    distance_left_ha = euclidean_distance(leftHip, leftAnkle)
+    distance_right_ha = euclidean_distance(rightHip, rightAnkle)
+    cross_torso_left = euclidean_distance(rightShoulder, leftHip)
+    cross_torso_right = euclidean_distance(leftShoulder, rightHip)
+
+    # Ratio
+    ratio_upper_lower_left = np.array(euclidean_distance(leftShoulder, leftHip)) / \
+                             np.array(euclidean_distance(leftHip, leftAnkle))
+    ratio_upper_lower_right = np.array(euclidean_distance(rightShoulder, rightHip)) / \
+                              np.array(euclidean_distance(rightHip, rightAnkle))
+
+    return [
+        *head,
+        *keypoints[5:,:].flatten(),
+        *angle_left_sew, *angle_right_sew,
+        *angle_left_hka, *angle_right_hka,
+        *angle_left_hsw, *angle_right_hsw,
+        *angle_left_shk, *angle_right_shk,
+        *distance_ankles,
+        *distance_wrists,
+        *distance_left_ha, *distance_right_ha,
+        *cross_torso_left, *cross_torso_right,
+        *ratio_upper_lower_left, *ratio_upper_lower_right
+    ]
 
 # Single image approach
 # file = tf.io.read_file('./images/catPose/catPose.jpg')
@@ -57,7 +132,7 @@ for pose in n_folders:
     class_index = image_generator.class_indices
     class_weights = {0: 1 / (27 * iterations), 1: 1 / iterations}
     dataset = np.zeros(
-        (image_generator.batch_size * iterations, 39 + len(class_index)),
+        (image_generator.batch_size * iterations, 71 + len(class_index)),
         dtype = np.float32
     )
 
@@ -70,8 +145,7 @@ for pose in n_folders:
             outputs = movenet(image)
             keypoints = np.squeeze(outputs['output_0'].numpy())
 
-            data = np.mean(keypoints[:5,:], axis = 0)
-            data = [*data, *keypoints[5:,:].flatten()]
+            data = get_metrics(keypoints)
             dataset[indexer,:] = [*data, *label]
             indexer += 1
 
