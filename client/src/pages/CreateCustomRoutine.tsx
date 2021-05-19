@@ -31,7 +31,6 @@ const CreateCustomRoutine: React.FC = () => {
       setPosesArray([...posesArray, pose]);
     }
   };
-
   const handleOnDrag = (pose: PoseDTO) => {
     setDragPose(pose);
   };
@@ -41,6 +40,7 @@ const CreateCustomRoutine: React.FC = () => {
       const indexOfPose = customTrack.findIndex(
         (pose) => pose.id === dragPose.id
       );
+      console.log(indexOfPose);
       const newPosition = customTrack.findIndex(
         (pose) => pose.id === dropPose.id
       );
@@ -51,6 +51,7 @@ const CreateCustomRoutine: React.FC = () => {
       ];
       newCustomTrack.splice(newPosition, 0, dragPose);
       setCustomTrack(newCustomTrack);
+      // setPosesArray(prevState => prevState.splice(1,indexOfPose))
     }
   };
 
