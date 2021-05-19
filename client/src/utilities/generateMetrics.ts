@@ -29,7 +29,6 @@ const find_angle = (a: number[], b: number[], c: number[]): number[] => {
 };
 
 export const getMetrics = (keypointsArray: number[]): number[] => {
-  const head = keypointsArray.slice(0, 3);
   const leftShoulder = keypointsArray.slice(3, 6);
   const rightShoulder = keypointsArray.slice(6, 9);
   const leftElbow = keypointsArray.slice(9, 12);
@@ -76,7 +75,6 @@ export const getMetrics = (keypointsArray: number[]): number[] => {
   );
 
   return [
-    ...keypointsArray,
     ...angles,
     ...distances,
     ...ratio_upper_lower_left,

@@ -84,8 +84,8 @@ def get_metrics(keypoints):
                               np.array(euclidean_distance(rightHip, rightAnkle))
 
     return [
-        *head,
-        *keypoints[5:,:].flatten(),
+        # *head,
+        # *keypoints[5:,:],
         *angle_left_sew, *angle_right_sew,
         *angle_left_hka, *angle_right_hka,
         *angle_left_hsw, *angle_right_hsw,
@@ -132,7 +132,8 @@ for pose in n_folders:
     class_index = image_generator.class_indices
     class_weights = {0: 1 / (27 * iterations), 1: 1 / iterations}
     dataset = np.zeros(
-        (image_generator.batch_size * iterations, 71 + len(class_index)),
+        # (image_generator.batch_size * iterations, 71 + len(class_index)), # Metrics and KeyPoints
+        (image_generator.batch_size * iterations, 32 + len(class_index)), # Metrics only
         dtype = np.float32
     )
 
@@ -214,7 +215,7 @@ for pose in n_folders:
     print('F1 score of the ' + pose + ': ' + str(test_accuracy))
 
     # Conversion to tensroflow JS for web
-    folder = './tfjs_per_pose/' + pose
+    folder = './tfjs_angles_only/' + pose
     tfjs.converters.save_keras_model(classifier, folder)
 
     del X, y, X_train, X_test, y_train, y_test, class_index, history, folder
