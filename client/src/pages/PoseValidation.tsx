@@ -29,7 +29,6 @@ const PoseValidation: React.FC = (): ReactElement => {
   const [getReadyHidden, setGetReadyHidden] = useState(true);
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [height, setHeight] = useState<number>(window.innerHeight);
-  const [progressCounterOn, setProgressCounterOn] = useState(false);
 
   const handleBack = (): void => {
     if (index !== '0') {
@@ -42,7 +41,6 @@ const PoseValidation: React.FC = (): ReactElement => {
 
   const handleNext = (): void => {
     if (Number(index) < routines.length - 1) {
-      setProgressCounterOn(false);
       setTimerOn(false);
       setTime(timeLimit);
       setProgress(0);
@@ -55,7 +53,6 @@ const PoseValidation: React.FC = (): ReactElement => {
     function startLogic() {
       speak('Position starting');
       setTimerOn((previous) => !previous);
-      setProgressCounterOn((previous) => !previous);
       setGetReadyHidden(true);
     }
 
@@ -80,7 +77,6 @@ const PoseValidation: React.FC = (): ReactElement => {
     speak('Position starting');
     setTimerOn(true);
     setGetReadyHidden(true);
-    setProgressCounterOn(true);
   };
 
   React.useEffect(() => {
@@ -128,10 +124,7 @@ const PoseValidation: React.FC = (): ReactElement => {
           return newProgress;
         });
 
-        if (progress >= 100) {
-          setProgressCounterOn(false);
-          setProgress(100);
-        }
+        if (progress >= 100) setProgress(100);
       }, 1000);
     } else if (!poseOk || progress >= 100) {
       clearInterval(progressInterval);
