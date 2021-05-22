@@ -17,6 +17,11 @@ something fresh, you can build your own custom routines. What matters is to keep
 
 Master all positions and collect medals along the way to becoming a Master of Yoga!  
 
+Want to see what this is all about? We made a demo video: https://www.youtube.com/watch?v=GA051u0XuO4&list=WL&index=2.  
+And if you want to use the application yourself, just go to https://masterofyoga.netlify.app.
+
+Have fun!
+
 *** This application is merely a proof of concept. All the code is available and free to use. ***
 
 <br>
