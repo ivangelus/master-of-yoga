@@ -5,6 +5,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { changeCurrentPose } from '../redux/currentPoseSlice';
 import { updatePoseCompletion } from '../redux/usersSlice';
+import { PoseDTO } from '../interfaces/PoseDTO';
 import { RootState } from '../redux/store';
 
 import GetReadyMarker from '../components/GetReadyMarker';
@@ -20,7 +21,7 @@ const btnAdditionalStyles = {
 
 const PoseValidation: React.FC = (): ReactElement => {
   const { level, index } = useParams<{
-    level: 'beginner' | 'intermediate' | 'advanced';
+    level: 'beginner' | 'intermediate' | 'advanced' | 'custom';
     index: string;
   }>();
 
@@ -28,9 +29,17 @@ const PoseValidation: React.FC = (): ReactElement => {
   const height = window.innerHeight;
   const width = window.innerWidth * 0.7;
 
+  let routines: PoseDTO[] = [];
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const routines = useAppSelector((state: RootState) => state.routines[level]);
+  const user = useAppSelector((state: RootState) => state.users);
+  if (level !== 'custom')
+    routines = useAppSelector((state: RootState) => state.routines[level]);
+  else if (level === 'custom' && user.customTracks)
+    routines = user.customTracks;
+  // Fallback, but should never happen
+  else
+    routines = useAppSelector((state: RootState) => state.routines['beginner']);
 
   const [time, setTime] = useState(timeLimit);
   const [progress, setProgress] = useState(0);
